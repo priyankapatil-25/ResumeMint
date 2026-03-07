@@ -1,0 +1,93 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id              String          @id @default(cuid())
+  name            String
+  email           String          @unique
+  password        String
+  photo           String?
+  phone           String?
+  address         String?
+  linkedin        String?
+  github          String?
+  portfolio       String?
+  objective       String?
+  college         String?
+  branch          String?
+  enrollmentYear  Int?
+  graduationYear  Int?
+  school10th      String?
+  board10th       String?
+  percentage10th  String?
+  year10th        String?
+  school12th      String?
+  board12th       String?
+  percentage12th  String?
+  year12th        String?
+  semesters       Semester[]
+  skills          Skill[]
+  projects        Project[]
+  certifications  Certification[]
+  internships     Internship[]
+  extraActivities String[]
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+}
+
+model Semester {
+  id       String   @id @default(cuid())
+  number   Int
+  sgpa     Float
+  subjects String[]
+  backlog  Int      @default(0)
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId   String
+}
+
+model Skill {
+  id          String @id @default(cuid())
+  name        String
+  category    String
+  proficiency Int
+  user        User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  techStack   String[]
+  github      String?
+  liveDemo    String?
+  image       String?
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String
+}
+
+model Certification {
+  id     String  @id @default(cuid())
+  title  String
+  issuer String?
+  date   String?
+  url    String?
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+}
+
+model Internship {
+  id          String  @id @default(cuid())
+  company     String
+  role        String?
+  duration    String?
+  description String?
+  user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String
+}
