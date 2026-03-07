@@ -360,7 +360,7 @@ export default function PreviewPage() {
         });
       }
 
-      pdf.save(`${profile.name || "resume"}_ResumeMint.pdf`);
+      pdf.save(`${profile.name || "resume"}_GCEK_Resume.pdf`);
       toast.success("PDF downloaded!");
     } catch (err) {
       console.error("PDF error:", err);

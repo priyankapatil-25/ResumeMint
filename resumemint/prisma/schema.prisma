@@ -13,6 +13,7 @@ model User {
   email           String          @unique
   password        String
   photo           String?
+  dob             String?
   phone           String?
   address         String?
   linkedin        String?
@@ -21,9 +22,13 @@ model User {
   objective       String?
   college         String?
   branch          String?
-  enrollmentYear  Int?
-  graduationYear  Int?
-  school10th      String?
+  enrollmentYear    Int?
+  graduationYear    Int?
+  diplomaCollege    String?
+  diplomaBranch     String?
+  diplomaPercentage String?
+  diplomaYear       String?
+  school10th        String?
   board10th       String?
   percentage10th  String?
   year10th        String?
@@ -78,6 +83,7 @@ model Certification {
   issuer String?
   date   String?
   url    String?
+  image  String?
   user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
 }
@@ -90,4 +96,26 @@ model Internship {
   description String?
   user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String
+}
+
+model VerificationCode {
+  id        String   @id @default(cuid())
+  email     String
+  code      String
+  used      Boolean  @default(false)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([email, code])
+}
+
+model PasswordReset {
+  id        String   @id @default(cuid())
+  email     String
+  token     String   @unique
+  used      Boolean  @default(false)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([email])
 }

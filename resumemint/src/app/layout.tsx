@@ -9,7 +9,7 @@ const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space
 const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains" });
 
 export const metadata: Metadata = {
-  title: "ResumeMint — Digital Resume Builder for Engineers",
+  title: "Government College Of Engineering, Karad — Digital Resume Builder",
   description: "Create stunning digital resumes with semester-wise academic tracking, skill visualization, project showcases, and one-click PDF export. Built for engineering students.",
   keywords: "resume builder, engineering student, digital resume, PDF resume, semester CGPA, portfolio",
 };

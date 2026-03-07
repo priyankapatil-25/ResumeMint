@@ -69,7 +69,7 @@ export default function PublicProfilePage({
     if (typeof window !== "undefined" && profile) {
       QRCode.toDataURL(window.location.href, {
         width: 200,
-        color: { dark: "#6366F1", light: "#060B18" },
+        color: { dark: "#6366F1", light: "#FFFFFF" },
       }).then((url: string) => setQrCode(url));
     }
   }, [profile]);
@@ -618,7 +618,7 @@ export default function PublicProfilePage({
           >
             <Link href="/" className="inline-flex items-center gap-2 group">
               <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-indigo-500 to-teal-400 flex items-center justify-center">
-                <span className="text-[8px] font-bold text-white">RM</span>
+                <span className="text-[6px] font-bold text-white leading-none">GCEK</span>
               </div>
               <span className="text-xs text-[var(--text-muted)] group-hover:text-[var(--text-secondary)] transition-colors">
                 Built with{" "}
@@ -626,7 +626,7 @@ export default function PublicProfilePage({
                   className="text-gradient font-semibold"
                   style={{ fontFamily: "var(--font-space)" }}
                 >
-                  ResumeMint
+                  GCE Karad
                 </span>
               </span>
             </Link>

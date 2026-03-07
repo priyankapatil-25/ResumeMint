@@ -16,15 +16,15 @@ export default function Navbar() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
       className="fixed top-0 left-0 right-0 z-50"
-      style={{ background: "rgba(6, 11, 24, 0.8)", backdropFilter: "blur(16px)", borderBottom: "1px solid var(--border)" }}
+      style={{ background: "rgba(238, 242, 255, 0.8)", backdropFilter: "blur(16px)", borderBottom: "1px solid #DDD6FE", boxShadow: "0 2px 12px rgba(99,102,241,0.04)" }}
     >
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-teal-400 flex items-center justify-center font-bold text-white text-sm">
-            RM
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-teal-400 flex items-center justify-center font-bold text-white text-[8px] leading-none">
+            GCEK
           </div>
-          <span className="text-lg font-bold text-gradient" style={{ fontFamily: "var(--font-space)" }}>
-            ResumeMint
+          <span className="text-base font-bold text-gradient" style={{ fontFamily: "var(--font-space)" }}>
+            Government College Of Engineering, Karad
           </span>
         </Link>
 
@@ -40,7 +40,7 @@ export default function Navbar() {
                 </div>
                 <button
                   onClick={() => signOut({ callbackUrl: "/" })}
-                  className="text-sm text-slate-400 hover:text-red-400 transition-colors flex items-center gap-1.5"
+                  className="text-sm text-slate-500 hover:text-red-500 transition-colors flex items-center gap-1.5"
                 >
                   <FiLogOut size={14} />
                 </button>
@@ -54,7 +54,7 @@ export default function Navbar() {
           )}
         </div>
 
-        <button className="md:hidden text-slate-300" onClick={() => setOpen(!open)}>
+        <button className="md:hidden text-slate-600" onClick={() => setOpen(!open)}>
           {open ? <FiX size={22} /> : <FiMenu size={22} />}
         </button>
       </div>

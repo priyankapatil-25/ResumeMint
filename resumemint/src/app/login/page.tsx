@@ -40,52 +40,54 @@ export default function LoginPage() {
 
   return (
     <div
-      style={{ background: "var(--bg)", minHeight: "100vh" }}
+      style={{ background: "linear-gradient(135deg, #EEF2FF 0%, #F0FDFA 40%, #FEF9C3 100%)", minHeight: "100vh" }}
       className="flex items-center justify-center px-4 py-12"
     >
       <div
         style={{
-          background: "var(--surface)",
-          border: "1px solid var(--border)",
-          borderRadius: 16,
-          padding: 32,
+          background: "rgba(255, 255, 255, 0.9)",
+          backdropFilter: "blur(12px)",
+          border: "1px solid #DDD6FE",
+          borderRadius: 20,
+          padding: 36,
           width: "100%",
-          maxWidth: 420,
+          maxWidth: 430,
+          boxShadow: "0 8px 40px rgba(99, 102, 241, 0.08)",
         }}
       >
         {/* Logo */}
         <div className="flex items-center gap-3 mb-8 justify-center">
           <div
-            className="w-10 h-10 rounded-lg flex items-center justify-center font-bold text-white text-lg"
+            className="w-10 h-10 rounded-xl flex items-center justify-center font-bold text-white text-[8px]"
             style={{ background: "linear-gradient(135deg, #6366F1, #14B8A6)", fontFamily: "var(--font-space)" }}
           >
-            RM
+            GCEK
           </div>
-          <span className="text-gradient text-2xl font-bold" style={{ fontFamily: "var(--font-space)" }}>
-            ResumeMint
+          <span className="text-gradient text-lg font-bold" style={{ fontFamily: "var(--font-space)" }}>
+            Government College Of Engineering, Karad
           </span>
         </div>
 
         {/* Heading */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-white mb-2" style={{ fontFamily: "var(--font-space)" }}>
+          <h1 className="text-3xl font-bold mb-2" style={{ fontFamily: "var(--font-space)", color: "#1E1B4B" }}>
             Welcome Back
           </h1>
-          <p className="text-gray-400">Sign in to continue building your resume</p>
+          <p style={{ color: "#7C7C9A" }}>Sign in to continue building your resume</p>
         </div>
 
         {/* Error display */}
         {error && (
           <div
             style={{
-              background: "rgba(239, 68, 68, 0.1)",
-              border: "1px solid rgba(239, 68, 68, 0.3)",
-              borderRadius: 8,
+              background: "rgba(239, 68, 68, 0.06)",
+              border: "1px solid rgba(239, 68, 68, 0.15)",
+              borderRadius: 12,
               padding: 12,
               marginBottom: 20,
             }}
           >
-            <p style={{ color: "#f87171", fontSize: 14, textAlign: "center" }}>{error}</p>
+            <p style={{ color: "#DC2626", fontSize: 14, textAlign: "center" }}>{error}</p>
           </div>
         )}
 
@@ -94,7 +96,7 @@ export default function LoginPage() {
           {/* Email */}
           <div style={{ position: "relative" }}>
             <FiMail
-              style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "#9ca3af" }}
+              style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "#A5B4FC" }}
               size={18}
             />
             <input
@@ -111,7 +113,7 @@ export default function LoginPage() {
           {/* Password */}
           <div style={{ position: "relative" }}>
             <FiLock
-              style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "#9ca3af" }}
+              style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "#A5B4FC" }}
               size={18}
             />
             <input
@@ -133,7 +135,7 @@ export default function LoginPage() {
                 transform: "translateY(-50%)",
                 background: "none",
                 border: "none",
-                color: "#9ca3af",
+                color: "#A5B4FC",
                 cursor: "pointer",
               }}
             >
@@ -146,10 +148,10 @@ export default function LoginPage() {
             type="submit"
             disabled={loading}
             style={{
-              background: "linear-gradient(135deg, #6366F1, #4F46E5)",
+              background: "linear-gradient(135deg, #6366F1, #8B5CF6)",
               color: "white",
               padding: "14px 28px",
-              borderRadius: 12,
+              borderRadius: 14,
               fontWeight: 700,
               fontSize: 16,
               border: "none",
@@ -160,14 +162,22 @@ export default function LoginPage() {
               justifyContent: "center",
               gap: 8,
               width: "100%",
+              boxShadow: "0 4px 16px rgba(99, 102, 241, 0.25)",
             }}
           >
             {loading ? "Signing in..." : "Sign In"}
           </button>
         </form>
 
+        {/* Forgot password */}
+        <p style={{ textAlign: "center", marginTop: 16, fontSize: 14 }}>
+          <Link href="/forgot-password" style={{ color: "#6366F1", fontWeight: 600 }}>
+            Forgot Password?
+          </Link>
+        </p>
+
         {/* Signup link */}
-        <p style={{ textAlign: "center", marginTop: 24, color: "#9ca3af", fontSize: 14 }}>
+        <p style={{ textAlign: "center", marginTop: 12, color: "#7C7C9A", fontSize: 14 }}>
           Don&apos;t have an account?{" "}
           <Link href="/signup" style={{ color: "#6366F1", fontWeight: 600 }}>
             Sign up
