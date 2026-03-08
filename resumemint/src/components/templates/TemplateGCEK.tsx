@@ -2,7 +2,7 @@
 
 import React from "react";
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-explicit-any, @next/next/no-img-element */
 
 interface TemplateProps {
   profile: {

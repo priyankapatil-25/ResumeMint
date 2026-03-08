@@ -1,11 +1,24 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { FiMail, FiLock, FiEye, FiEyeOff, FiArrowRight, FiCheckCircle, FiArrowLeft } from "react-icons/fi";
 
 export default function ForgotPasswordPage() {
+  return (
+    <Suspense fallback={
+      <div style={{ background: "linear-gradient(135deg, #EEF2FF 0%, #F0FDFA 40%, #FEF9C3 100%)", minHeight: "100vh" }}
+        className="flex items-center justify-center px-4 py-12">
+        <div style={{ color: "#7C7C9A", fontSize: 16 }}>Loading...</div>
+      </div>
+    }>
+      <ForgotPasswordContent />
+    </Suspense>
+  );
+}
+
+function ForgotPasswordContent() {
   const searchParams = useSearchParams();
   const tokenFromUrl = searchParams.get("token");
 
