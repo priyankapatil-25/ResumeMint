@@ -17,7 +17,7 @@ export const authOptions: NextAuthOptions = {
         if (!user) return null;
         const isValid = await bcrypt.compare(credentials.password, user.password);
         if (!isValid) return null;
-        return { id: user.id, name: user.name, email: user.email };
+        return { id: user.id, name: user.name, email: user.email, role: user.role };
       },
     }),
   ],
@@ -25,11 +25,26 @@ export const authOptions: NextAuthOptions = {
   pages: { signIn: "/login" },
   callbacks: {
     async jwt({ token, user }) {
-      if (user) token.id = user.id;
+      if (user) {
+        token.id = user.id;
+        token.role = (user as { role?: string }).role;
+      }
+      // Always refresh role from DB to pick up role changes
+      if (token.email) {
+        try {
+          const dbUser = await prisma.user.findUnique({ where: { email: token.email }, select: { role: true } });
+          if (dbUser) token.role = dbUser.role;
+        } catch {
+          // Keep existing token role if DB lookup fails
+        }
+      }
       return token;
     },
     async session({ session, token }) {
-      if (session.user) (session.user as { id?: string }).id = token.id as string;
+      if (session.user) {
+        (session.user as { id?: string; role?: string }).id = token.id as string;
+        (session.user as { id?: string; role?: string }).role = token.role as string;
+      }
       return session;
     },
   },

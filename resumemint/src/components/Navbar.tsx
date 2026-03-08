@@ -4,7 +4,9 @@ import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { FiMenu, FiX, FiLogOut, FiGrid, FiEdit3, FiEye } from "react-icons/fi";
+import { FiMenu, FiX, FiLogOut, FiGrid, FiEdit3, FiEye, FiShield } from "react-icons/fi";
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 export default function Navbar() {
   const { data: session } = useSession();
@@ -34,6 +36,9 @@ export default function Navbar() {
               <NavLink href="/dashboard" icon={<FiGrid size={15} />} label="Dashboard" />
               <NavLink href="/builder" icon={<FiEdit3 size={15} />} label="Builder" />
               <NavLink href="/preview" icon={<FiEye size={15} />} label="Preview" />
+              {(session.user as any)?.role === "ADMIN" && (
+                <NavLink href="/admin" icon={<FiShield size={15} />} label="Admin" />
+              )}
               <div className="ml-3 flex items-center gap-3">
                 <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-teal-400 flex items-center justify-center text-xs font-bold text-white">
                   {session.user?.name?.charAt(0).toUpperCase()}
@@ -66,6 +71,9 @@ export default function Navbar() {
               <Link href="/dashboard" className="pill-tab text-left" onClick={() => setOpen(false)}>Dashboard</Link>
               <Link href="/builder" className="pill-tab text-left" onClick={() => setOpen(false)}>Builder</Link>
               <Link href="/preview" className="pill-tab text-left" onClick={() => setOpen(false)}>Preview</Link>
+              {(session.user as any)?.role === "ADMIN" && (
+                <Link href="/admin" className="pill-tab text-left text-orange-500" onClick={() => setOpen(false)}>Admin Panel</Link>
+              )}
               <button onClick={() => { signOut({ callbackUrl: "/" }); setOpen(false); }} className="pill-tab text-left text-red-400">Logout</button>
             </div>
           ) : (
