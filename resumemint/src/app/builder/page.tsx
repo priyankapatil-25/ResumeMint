@@ -429,11 +429,11 @@ export default function BuilderPage() {
   };
 
   // CGPA calculation
-  const filledSemesters = formData.semesters.filter((s) => s.sgpa > 0);
+  const filledSemesters = formData.semesters.filter((s) => parseFloat(String(s.sgpa)) > 0);
   const cgpa =
     filledSemesters.length > 0
       ? (
-          filledSemesters.reduce((sum, s) => sum + (s.sgpa || 0), 0) /
+          filledSemesters.reduce((sum, s) => sum + (parseFloat(String(s.sgpa)) || 0), 0) /
           filledSemesters.length
         ).toFixed(2)
       : "N/A";
@@ -691,251 +691,202 @@ export default function BuilderPage() {
                   </div>
                 )}
 
-                {/* Step 1 - Education */}
+                {/* Step 1 - Education (matches HTML preview) */}
                 {currentStep === 1 && (
                   <div>
-                    <h2
-                      className="text-xl font-semibold mb-6 flex items-center gap-2"
-                      style={{ fontFamily: "var(--font-space)" }}
-                    >
-                      <FiBook className="text-[#6366F1]" /> Education
-                    </h2>
+                    <h3 style={{ fontSize: 18, fontWeight: 700, marginBottom: 20, fontFamily: "var(--font-space)" }}>
+                      🎓 Education
+                    </h3>
 
-                    {/* 1. Engineering (Latest) */}
-                    <p className="text-sm text-[#6366F1] font-semibold mb-3 flex items-center gap-2">
-                      <span className="w-6 h-6 rounded-full bg-indigo-100 text-[#6366F1] flex items-center justify-center text-xs font-bold">1</span>
-                      Engineering (B.E. / B.Tech)
-                    </p>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
-                      <div>
-                        <label className="text-sm text-slate-500 mb-1.5 block">College</label>
-                        <input
-                          type="text"
-                          className="input-field w-full"
-                          value="Government College of Engineering, Karad"
-                          disabled
-                          style={{ opacity: 0.7, cursor: "not-allowed" }}
-                        />
+                    {/* Engineering (B.E.) */}
+                    <div style={{ border: "1px solid var(--border)", borderRadius: 16, padding: 20, marginBottom: 20, borderLeft: "3px solid #6366F1" }}>
+                      <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 14, display: "flex", alignItems: "center", gap: 8, color: "#6366F1" }}>
+                        🏫 Engineering (B.E.)
                       </div>
-                      <div>
-                        <label className="text-sm text-slate-500 mb-1.5 block">
-                          Branch<span className="text-red-500 ml-0.5">*</span>
-                        </label>
-                        <select
-                          className="input-field w-full"
-                          value={formData.branch}
-                          onChange={(e) => updateField("branch", e.target.value)}
-                        >
-                          <option value="">Select Branch</option>
-                          <option value="Computer Science & Engineering">Computer Science & Engineering</option>
-                          <option value="Information Technology">Information Technology</option>
-                          <option value="Artificial Intelligence & Data Science">Artificial Intelligence & Data Science</option>
-                          <option value="Electronics & Telecommunication">Electronics & Telecommunication</option>
-                          <option value="Electrical Engineering">Electrical Engineering</option>
-                          <option value="Mechanical Engineering">Mechanical Engineering</option>
-                          <option value="Civil Engineering">Civil Engineering</option>
-                          <option value="Chemical Engineering">Chemical Engineering</option>
-                          <option value="Instrumentation Engineering">Instrumentation Engineering</option>
-                          <option value="Production Engineering">Production Engineering</option>
-                          <option value="Automobile Engineering">Automobile Engineering</option>
-                          <option value="Biomedical Engineering">Biomedical Engineering</option>
-                          <option value="Environmental Engineering">Environmental Engineering</option>
-                          <option value="Textile Engineering">Textile Engineering</option>
-                          <option value="Mining Engineering">Mining Engineering</option>
-                          <option value="Aeronautical Engineering">Aeronautical Engineering</option>
-                          <option value="Metallurgy Engineering">Metallurgy Engineering</option>
-                          <option value="Other">Other</option>
-                        </select>
+                      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+                        <div style={{ marginBottom: 16 }}>
+                          <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>College</label>
+                          <input className="input-field" value="Government College of Engineering, Karad" disabled style={{ opacity: 0.7, width: "100%" }} />
+                        </div>
+                        <div style={{ marginBottom: 16 }}>
+                          <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>Branch</label>
+                          <select className="input-field" value={formData.branch} onChange={(e) => updateField("branch", e.target.value)} style={{ width: "100%" }}>
+                            <option value="">Select Branch</option>
+                            <option value="Computer Science & Engineering">Computer Science & Engineering</option>
+                            <option value="Information Technology">Information Technology</option>
+                            <option value="Artificial Intelligence & Data Science">Artificial Intelligence & Data Science</option>
+                            <option value="Electronics & Telecommunication">Electronics & Telecommunication</option>
+                            <option value="Electrical Engineering">Electrical Engineering</option>
+                            <option value="Mechanical Engineering">Mechanical Engineering</option>
+                            <option value="Civil Engineering">Civil Engineering</option>
+                            <option value="Chemical Engineering">Chemical Engineering</option>
+                            <option value="Instrumentation Engineering">Instrumentation Engineering</option>
+                            <option value="Production Engineering">Production Engineering</option>
+                            <option value="Automobile Engineering">Automobile Engineering</option>
+                            <option value="Biomedical Engineering">Biomedical Engineering</option>
+                            <option value="Environmental Engineering">Environmental Engineering</option>
+                            <option value="Textile Engineering">Textile Engineering</option>
+                            <option value="Mining Engineering">Mining Engineering</option>
+                            <option value="Aeronautical Engineering">Aeronautical Engineering</option>
+                            <option value="Metallurgy Engineering">Metallurgy Engineering</option>
+                            <option value="Other">Other</option>
+                          </select>
+                        </div>
+                        <div style={{ marginBottom: 16 }}>
+                          <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>Enrollment Year</label>
+                          <input className="input-field" value={formData.enrollmentYear} onChange={(e) => updateField("enrollmentYear", e.target.value)} placeholder="2021" style={{ width: "100%" }} />
+                        </div>
+                        <div style={{ marginBottom: 16 }}>
+                          <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>Graduation Year</label>
+                          <input className="input-field" value={formData.graduationYear} onChange={(e) => updateField("graduationYear", e.target.value)} placeholder="2025" style={{ width: "100%" }} />
+                        </div>
                       </div>
-                      <InputField
-                        label="Enrollment Year"
-                        value={formData.enrollmentYear}
-                        onChange={(v) => updateField("enrollmentYear", v)}
-                        placeholder="2021"
-                        required
-                      />
-                      <InputField
-                        label="Graduation Year"
-                        value={formData.graduationYear}
-                        onChange={(v) => updateField("graduationYear", v)}
-                        placeholder="2025"
-                        required
-                      />
                     </div>
 
-                    {/* 2. Diploma (Optional) */}
-                    <p className="text-sm text-[#F59E0B] font-semibold mb-3 flex items-center gap-2">
-                      <span className="w-6 h-6 rounded-full bg-amber-100 text-[#F59E0B] flex items-center justify-center text-xs font-bold">2</span>
-                      Diploma (Optional — skip if you did 12th)
-                    </p>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
-                      <InputField
-                        label="Diploma College"
-                        value={formData.diplomaCollege}
-                        onChange={(v) => updateField("diplomaCollege", v)}
-                        placeholder="Polytechnic College Name"
-                      />
-                      <div>
-                        <label className="text-sm text-slate-500 mb-1.5 block">Diploma Branch</label>
-                        <select
-                          className="input-field w-full"
-                          value={formData.diplomaBranch}
-                          onChange={(e) => updateField("diplomaBranch", e.target.value)}
-                        >
-                          <option value="">Select Branch</option>
-                          <option value="Computer Science & Engineering">Computer Science & Engineering</option>
-                          <option value="Information Technology">Information Technology</option>
-                          <option value="Artificial Intelligence & Data Science">Artificial Intelligence & Data Science</option>
-                          <option value="Electronics & Telecommunication">Electronics & Telecommunication</option>
-                          <option value="Electrical Engineering">Electrical Engineering</option>
-                          <option value="Mechanical Engineering">Mechanical Engineering</option>
-                          <option value="Civil Engineering">Civil Engineering</option>
-                          <option value="Chemical Engineering">Chemical Engineering</option>
-                          <option value="Instrumentation Engineering">Instrumentation Engineering</option>
-                          <option value="Production Engineering">Production Engineering</option>
-                          <option value="Automobile Engineering">Automobile Engineering</option>
-                          <option value="Biomedical Engineering">Biomedical Engineering</option>
-                          <option value="Environmental Engineering">Environmental Engineering</option>
-                          <option value="Textile Engineering">Textile Engineering</option>
-                          <option value="Mining Engineering">Mining Engineering</option>
-                          <option value="Aeronautical Engineering">Aeronautical Engineering</option>
-                          <option value="Metallurgy Engineering">Metallurgy Engineering</option>
-                          <option value="Other">Other</option>
-                        </select>
+                    {/* Diploma (Optional) */}
+                    <div style={{ border: "1px solid var(--border)", borderRadius: 16, padding: 20, marginBottom: 20, borderLeft: "3px solid #D97706" }}>
+                      <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 14, display: "flex", alignItems: "center", gap: 8, color: "#D97706" }}>
+                        📚 Diploma (Optional)
                       </div>
-                      <InputField
-                        label="Percentage / CGPA"
-                        value={formData.diplomaPercentage}
-                        onChange={(v) => updateField("diplomaPercentage", v)}
-                        placeholder="85% or 8.5"
-                      />
-                      <InputField
-                        label="Passing Year"
-                        value={formData.diplomaYear}
-                        onChange={(v) => updateField("diplomaYear", v)}
-                        placeholder="2021"
-                      />
+                      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+                        <div style={{ marginBottom: 16 }}>
+                          <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>Institute</label>
+                          <input className="input-field" value={formData.diplomaCollege} onChange={(e) => updateField("diplomaCollege", e.target.value)} placeholder="Diploma institute name" style={{ width: "100%" }} />
+                        </div>
+                        <div style={{ marginBottom: 16 }}>
+                          <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>Branch</label>
+                          <select className="input-field" value={formData.diplomaBranch} onChange={(e) => updateField("diplomaBranch", e.target.value)} style={{ width: "100%" }}>
+                            <option value="">Select Branch</option>
+                            <option value="Computer Science & Engineering">Computer Science & Engineering</option>
+                            <option value="Information Technology">Information Technology</option>
+                            <option value="Artificial Intelligence & Data Science">Artificial Intelligence & Data Science</option>
+                            <option value="Electronics & Telecommunication">Electronics & Telecommunication</option>
+                            <option value="Electrical Engineering">Electrical Engineering</option>
+                            <option value="Mechanical Engineering">Mechanical Engineering</option>
+                            <option value="Civil Engineering">Civil Engineering</option>
+                            <option value="Chemical Engineering">Chemical Engineering</option>
+                            <option value="Instrumentation Engineering">Instrumentation Engineering</option>
+                            <option value="Production Engineering">Production Engineering</option>
+                            <option value="Automobile Engineering">Automobile Engineering</option>
+                            <option value="Biomedical Engineering">Biomedical Engineering</option>
+                            <option value="Environmental Engineering">Environmental Engineering</option>
+                            <option value="Textile Engineering">Textile Engineering</option>
+                            <option value="Mining Engineering">Mining Engineering</option>
+                            <option value="Aeronautical Engineering">Aeronautical Engineering</option>
+                            <option value="Metallurgy Engineering">Metallurgy Engineering</option>
+                            <option value="Other">Other</option>
+                          </select>
+                        </div>
+                        <div style={{ marginBottom: 16 }}>
+                          <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>Percentage / CGPA</label>
+                          <input className="input-field" value={formData.diplomaPercentage} onChange={(e) => updateField("diplomaPercentage", e.target.value)} placeholder="e.g. 85%" style={{ width: "100%" }} />
+                        </div>
+                        <div style={{ marginBottom: 16 }}>
+                          <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>Year of Passing</label>
+                          <input className="input-field" value={formData.diplomaYear} onChange={(e) => updateField("diplomaYear", e.target.value)} placeholder="e.g. 2021" style={{ width: "100%" }} />
+                        </div>
+                      </div>
                     </div>
 
-                    {/* 3. 12th Standard */}
-                    <p className="text-sm text-[#14B8A6] font-semibold mb-3 flex items-center gap-2">
-                      <span className="w-6 h-6 rounded-full bg-teal-100 text-[#14B8A6] flex items-center justify-center text-xs font-bold">3</span>
-                      12th Standard (HSC) — skip if you did Diploma
-                    </p>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
-                      <InputField
-                        label="School / College Name"
-                        value={formData.school12th}
-                        onChange={(v) => updateField("school12th", v)}
-                        placeholder="School / Junior College Name"
-                      />
-                      <InputField
-                        label="Board"
-                        value={formData.board12th}
-                        onChange={(v) => updateField("board12th", v)}
-                        placeholder="CBSE / ICSE / State Board"
-                      />
-                      <InputField
-                        label="Percentage / CGPA"
-                        value={formData.percentage12th}
-                        onChange={(v) => updateField("percentage12th", v)}
-                        placeholder="92% or 9.2"
-                      />
-                      <InputField
-                        label="Passing Year"
-                        value={formData.year12th}
-                        onChange={(v) => updateField("year12th", v)}
-                        placeholder="2021"
-                      />
+                    {/* 12th Standard (HSC) */}
+                    <div style={{ border: "1px solid var(--border)", borderRadius: 16, padding: 20, marginBottom: 20, borderLeft: "3px solid #14B8A6" }}>
+                      <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 14, display: "flex", alignItems: "center", gap: 8, color: "#14B8A6" }}>
+                        📖 12th Standard (HSC)
+                      </div>
+                      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+                        <div style={{ marginBottom: 16 }}>
+                          <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>School</label>
+                          <input className="input-field" value={formData.school12th} onChange={(e) => updateField("school12th", e.target.value)} placeholder="School / Junior College Name" style={{ width: "100%" }} />
+                        </div>
+                        <div style={{ marginBottom: 16 }}>
+                          <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>Board</label>
+                          <input className="input-field" value={formData.board12th} onChange={(e) => updateField("board12th", e.target.value)} placeholder="Maharashtra State Board" style={{ width: "100%" }} />
+                        </div>
+                        <div style={{ marginBottom: 16 }}>
+                          <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>Percentage</label>
+                          <input className="input-field" value={formData.percentage12th} onChange={(e) => updateField("percentage12th", e.target.value)} placeholder="87.50%" style={{ width: "100%" }} />
+                        </div>
+                        <div style={{ marginBottom: 16 }}>
+                          <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>Year of Passing</label>
+                          <input className="input-field" value={formData.year12th} onChange={(e) => updateField("year12th", e.target.value)} placeholder="2021" style={{ width: "100%" }} />
+                        </div>
+                      </div>
                     </div>
 
-                    {/* 4. 10th Standard */}
-                    <p className="text-sm text-[#8B5CF6] font-semibold mb-3 flex items-center gap-2">
-                      <span className="w-6 h-6 rounded-full bg-violet-100 text-[#8B5CF6] flex items-center justify-center text-xs font-bold">4</span>
-                      10th Standard (SSC)
-                    </p>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                      <InputField
-                        label="School Name"
-                        value={formData.school10th}
-                        onChange={(v) => updateField("school10th", v)}
-                        placeholder="School Name"
-                      />
-                      <InputField
-                        label="Board"
-                        value={formData.board10th}
-                        onChange={(v) => updateField("board10th", v)}
-                        placeholder="CBSE / ICSE / State Board"
-                      />
-                      <InputField
-                        label="Percentage / CGPA"
-                        value={formData.percentage10th}
-                        onChange={(v) => updateField("percentage10th", v)}
-                        placeholder="95% or 9.5"
-                      />
-                      <InputField
-                        label="Passing Year"
-                        value={formData.year10th}
-                        onChange={(v) => updateField("year10th", v)}
-                        placeholder="2019"
-                      />
+                    {/* 10th Standard (SSC) */}
+                    <div style={{ border: "1px solid var(--border)", borderRadius: 16, padding: 20, borderLeft: "3px solid #8B5CF6" }}>
+                      <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 14, display: "flex", alignItems: "center", gap: 8, color: "#8B5CF6" }}>
+                        📕 10th Standard (SSC)
+                      </div>
+                      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+                        <div style={{ marginBottom: 16 }}>
+                          <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>School</label>
+                          <input className="input-field" value={formData.school10th} onChange={(e) => updateField("school10th", e.target.value)} placeholder="S.M. High School, Karad" style={{ width: "100%" }} />
+                        </div>
+                        <div style={{ marginBottom: 16 }}>
+                          <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>Board</label>
+                          <input className="input-field" value={formData.board10th} onChange={(e) => updateField("board10th", e.target.value)} placeholder="Maharashtra State Board" style={{ width: "100%" }} />
+                        </div>
+                        <div style={{ marginBottom: 16 }}>
+                          <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>Percentage</label>
+                          <input className="input-field" value={formData.percentage10th} onChange={(e) => updateField("percentage10th", e.target.value)} placeholder="92.40%" style={{ width: "100%" }} />
+                        </div>
+                        <div style={{ marginBottom: 16 }}>
+                          <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>Year of Passing</label>
+                          <input className="input-field" value={formData.year10th} onChange={(e) => updateField("year10th", e.target.value)} placeholder="2019" style={{ width: "100%" }} />
+                        </div>
+                      </div>
                     </div>
                   </div>
                 )}
 
-                {/* Step 2 - Semesters */}
+                {/* Step 2 - Semesters (matches HTML preview) */}
                 {currentStep === 2 && (
                   <div>
-                    <div className="flex items-center justify-between mb-6">
-                      <h2
-                        className="text-xl font-semibold flex items-center gap-2"
-                        style={{ fontFamily: "var(--font-space)" }}
-                      >
-                        <FiLayers className="text-[#6366F1]" /> Semesters (1-8)
-                      </h2>
-                    </div>
+                    <h3 style={{ fontSize: 18, fontWeight: 700, marginBottom: 20, fontFamily: "var(--font-space)" }}>
+                      📊 Semesters (1-8)
+                    </h3>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                      {formData.semesters.map((sem, idx) => (
-                        <div key={idx} className="bento-card !p-5">
-                          <h3
-                            className="text-base font-semibold text-[#14B8A6] mb-4"
-                            style={{ fontFamily: "var(--font-space)" }}
-                          >
-                            Semester {sem.number}
-                          </h3>
-                          <div className="grid grid-cols-2 gap-4">
-                            <InputField
-                              label="SGPA / CGPA / %"
-                              value={sem.sgpa.toString()}
-                              onChange={(v) =>
-                                updateSemester(idx, "sgpa", parseFloat(v) || 0)
-                              }
-                              placeholder="8.5 or 85%"
-                            />
-                            <InputField
-                              label="Backlogs"
-                              value={sem.backlog.toString()}
-                              onChange={(v) =>
-                                updateSemester(idx, "backlog", parseInt(v) || 0)
-                              }
-                              placeholder="0"
-                            />
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+                      {formData.semesters.map((sem, idx) => {
+                        const color = idx % 2 === 0 ? "#6366F1" : "#14B8A6";
+                        return (
+                          <div key={idx} style={{ border: "1px solid var(--border)", borderRadius: 16, padding: 20, borderLeft: `3px solid ${color}` }}>
+                            <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 14, color }}>
+                              Semester {sem.number}
+                            </div>
+                            <div style={{ marginBottom: 16 }}>
+                              <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>
+                                SGPA
+                              </label>
+                              <input
+                                className="input-field"
+                                value={sem.sgpa === 0 ? "" : sem.sgpa.toString()}
+                                onChange={(e) => {
+                                  const val = e.target.value;
+                                  if (val === "" || /^\d*\.?\d*$/.test(val)) {
+                                    updateSemester(idx, "sgpa", val === "" ? 0 : val);
+                                  }
+                                }}
+                                onBlur={(e) => {
+                                  const parsed = parseFloat(e.target.value);
+                                  updateSemester(idx, "sgpa", isNaN(parsed) ? 0 : parsed);
+                                }}
+                                placeholder="Enter SGPA"
+                                style={{ width: "100%" }}
+                              />
+                            </div>
                           </div>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
 
-                    <div className="mt-6 text-center">
-                      <p className="text-slate-500 text-sm">
-                        CGPA / %:{" "}
-                        <span
-                          className="text-gradient font-bold text-lg"
-                          style={{ fontFamily: "var(--font-space)" }}
-                        >
-                          {cgpa}
-                        </span>
-                      </p>
+                    {/* CGPA Summary */}
+                    <div style={{ marginTop: 20, padding: 16, background: "var(--surface-light)", borderRadius: 14, textAlign: "center" }}>
+                      <span style={{ fontSize: 13, color: "var(--text-muted)" }}>Cumulative GPA (CGPA):</span>
+                      <span className="text-gradient" style={{ fontFamily: "var(--font-jetbrains)", fontSize: 24, fontWeight: 700, marginLeft: 8 }}>
+                        {cgpa}
+                      </span>
                     </div>
                   </div>
                 )}
@@ -1333,41 +1284,70 @@ export default function BuilderPage() {
             </AnimatePresence>
           </div>
 
-          {/* Navigation Buttons */}
+          {/* Builder Navigation — matches HTML .builder-nav */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="flex items-center justify-between mt-16"
+            style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 24, paddingTop: 20, borderTop: "1px solid var(--border)" }}
           >
             <button
               onClick={() => goToStep(currentStep - 1)}
               disabled={currentStep === 0}
-              className={`btn-secondary ${
-                currentStep === 0 ? "opacity-40 cursor-not-allowed" : ""
-              }`}
+              style={{
+                display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8,
+                padding: "10px 20px", borderRadius: 14, border: "1px solid var(--border)",
+                background: "var(--surface-light)", color: "var(--text-secondary)",
+                fontWeight: 600, fontSize: 13, cursor: currentStep === 0 ? "not-allowed" : "pointer",
+                fontFamily: "'Inter', sans-serif", transition: "all 0.2s",
+                visibility: currentStep === 0 ? "hidden" as const : "visible" as const,
+              }}
             >
-              <FiChevronLeft size={16} /> Previous
+              ← Previous
             </button>
 
             <button
               onClick={save}
               disabled={saving}
-              className="btn-primary"
+              style={{
+                display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8,
+                padding: "10px 20px", borderRadius: 14, border: "none",
+                background: "linear-gradient(135deg, #6366F1, #8B5CF6)", color: "#fff",
+                fontWeight: 700, fontSize: 13, cursor: saving ? "not-allowed" : "pointer",
+                boxShadow: "0 4px 12px rgba(99,102,241,0.25)", fontFamily: "'Inter', sans-serif",
+                transition: "all 0.2s", opacity: saving ? 0.6 : 1,
+              }}
             >
-              <FiSave size={16} /> {saving ? "Saving..." : "Save Progress"}
+              {saving ? "Saving..." : "Save Progress"}
             </button>
 
             {currentStep < steps.length - 1 ? (
               <button
                 onClick={() => goToStep(currentStep + 1)}
-                className="btn-accent"
+                style={{
+                  display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8,
+                  padding: "12px 24px", borderRadius: 14, border: "none",
+                  background: "linear-gradient(135deg, #6366F1, #8B5CF6)", color: "#fff",
+                  fontWeight: 700, fontSize: 14, cursor: "pointer",
+                  boxShadow: "0 4px 12px rgba(99,102,241,0.25)", fontFamily: "'Inter', sans-serif",
+                  transition: "all 0.2s",
+                }}
               >
-                Next <FiChevronRight size={16} />
+                Next →
               </button>
             ) : (
-              <Link href="/preview" className="btn-accent">
-                Preview Resume <FiChevronRight size={16} />
+              <Link
+                href="/preview"
+                style={{
+                  display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8,
+                  padding: "12px 24px", borderRadius: 14, border: "none",
+                  background: "linear-gradient(135deg, #6366F1, #8B5CF6)", color: "#fff",
+                  fontWeight: 700, fontSize: 14, cursor: "pointer",
+                  boxShadow: "0 4px 12px rgba(99,102,241,0.25)", fontFamily: "'Inter', sans-serif",
+                  transition: "all 0.2s", textDecoration: "none",
+                }}
+              >
+                Preview Resume →
               </Link>
             )}
           </motion.div>
