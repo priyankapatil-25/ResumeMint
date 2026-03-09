@@ -1,7 +1,7 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import { useRouter, useParams } from "next/navigation";
+import { useRouter, useParams, useSearchParams } from "next/navigation";
 import { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
@@ -16,10 +16,12 @@ export default function AdminStudentDetailPage() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const params = useParams();
+  const searchParams = useSearchParams();
   const [profile, setProfile] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [downloading, setDownloading] = useState(false);
   const [showResume, setShowResume] = useState(false);
+  const [autoDownloadDone, setAutoDownloadDone] = useState(false);
   const resumeRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -43,6 +45,14 @@ export default function AdminStudentDetailPage() {
         .catch(() => setLoading(false));
     }
   }, [status, session, params.id, router]);
+
+  // Auto-download PDF when coming from admin list with ?download=true
+  useEffect(() => {
+    if (profile && searchParams.get("download") === "true" && !autoDownloadDone) {
+      setAutoDownloadDone(true);
+      downloadPDF();
+    }
+  }, [profile, searchParams, autoDownloadDone]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const semesters: any[] = (profile?.semesters || []).filter((s: any) => s.sgpa > 0);
   const cgpa =

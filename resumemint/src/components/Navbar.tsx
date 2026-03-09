@@ -20,43 +20,43 @@ export default function Navbar() {
       className="fixed top-0 left-0 right-0 z-50"
       style={{ background: "rgba(238, 242, 255, 0.8)", backdropFilter: "blur(16px)", borderBottom: "1px solid #DDD6FE", boxShadow: "0 2px 12px rgba(99,102,241,0.04)" }}
     >
-      <div className="px-6 py-3 flex items-center justify-between" style={{ maxWidth: 1100, margin: "0 auto" }}>
+      <div className="px-6 py-4 flex items-center justify-between" style={{ maxWidth: 1200, margin: "0 auto" }}>
         {/* Left: GCEK logo + college name attached */}
-        <Link href="/" className="flex items-center gap-2.5" style={{ maxWidth: 420, marginLeft: 60 }}>
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-teal-400 flex items-center justify-center font-bold text-white text-[9px] leading-none shrink-0">
+        <Link href="/" className="flex items-center gap-3" style={{ maxWidth: 480, marginLeft: 60 }}>
+          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-teal-400 flex items-center justify-center font-bold text-white text-[11px] leading-none shrink-0">
             GCEK
           </div>
-          <span className="text-[14px] font-bold text-gradient leading-tight" style={{ fontFamily: "var(--font-space)" }}>
+          <span className="text-[16px] font-bold text-gradient leading-tight" style={{ fontFamily: "var(--font-space)" }}>
             Government College Of Engineering, Karad
           </span>
         </Link>
 
         {/* Right: Nav links */}
-        <div className="hidden md:flex items-center gap-1">
+        <div className="hidden md:flex items-center gap-1.5">
           {session ? (
             <>
-              <NavLink href="/dashboard" icon={<FiGrid size={15} />} label="Dashboard" />
-              <NavLink href="/builder" icon={<FiEdit3 size={15} />} label="Builder" />
-              <NavLink href="/preview" icon={<FiEye size={15} />} label="Preview" />
+              <NavLink href="/dashboard" icon={<FiGrid size={16} />} label="Dashboard" />
+              <NavLink href="/builder" icon={<FiEdit3 size={16} />} label="Builder" />
+              <NavLink href="/preview" icon={<FiEye size={16} />} label="Preview" />
               {(session.user as any)?.role === "ADMIN" && (
-                <NavLink href="/admin" icon={<FiShield size={15} />} label="Admin" />
+                <NavLink href="/admin" icon={<FiShield size={16} />} label="Admin" />
               )}
-              <div className="ml-3 flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-teal-400 flex items-center justify-center text-xs font-bold text-white">
+              <div className="ml-4 flex items-center gap-3">
+                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-indigo-500 to-teal-400 flex items-center justify-center text-sm font-bold text-white">
                   {session.user?.name?.charAt(0).toUpperCase()}
                 </div>
                 <button
                   onClick={() => signOut({ callbackUrl: "/" })}
                   className="text-sm text-slate-500 hover:text-red-500 transition-colors flex items-center gap-1.5"
                 >
-                  <FiLogOut size={14} />
+                  <FiLogOut size={15} />
                 </button>
               </div>
             </>
           ) : (
             <>
               <Link href="/login" className="pill-tab">Login</Link>
-              <Link href="/signup" className="btn-accent !py-2 !px-5 !text-sm ml-2">Get Started</Link>
+              <Link href="/signup" className="btn-accent !py-2.5 !px-6 !text-sm ml-2">Get Started</Link>
             </>
           )}
         </div>
