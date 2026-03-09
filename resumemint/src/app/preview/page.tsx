@@ -195,46 +195,42 @@ export default function PreviewPage() {
       pdf.setTextColor(...NAVY);
       pdf.text((profile.name || "YOUR NAME").toUpperCase(), nameX, y + 7);
 
-      // Contact line
+      // Contact line with icons — matches HTML: ✉ email | 📞 phone | address
       const contacts: string[] = [];
-      if (profile.phone) contacts.push(profile.phone);
-      if (profile.email) contacts.push(profile.email);
-      if (profile.linkedin) contacts.push(profile.linkedin);
-      if (profile.github) contacts.push(profile.github);
+      if (profile.email) contacts.push(`\u2709 ${profile.email}`);
+      if (profile.phone) contacts.push(`${profile.phone}`);
+      if (profile.address) contacts.push(profile.address);
       if (contacts.length > 0) {
         pdf.setFontSize(7.5);
         pdf.setFont("helvetica", "normal");
         pdf.setTextColor(...MED_GRAY);
-        const row1 = contacts.slice(0, 3).join("  |  ");
-        const row2 = contacts.slice(3).join("  |  ");
-        pdf.text(row1, nameX, y + 12);
-        if (row2) pdf.text(row2, nameX, y + 16);
+        pdf.text(contacts.join("  |  "), nameX, y + 12);
+      }
+      // Second row: LinkedIn, GitHub, Portfolio
+      const contacts2: string[] = [];
+      if (profile.linkedin) contacts2.push(profile.linkedin);
+      if (profile.github) contacts2.push(profile.github);
+      if (profile.portfolio) contacts2.push(profile.portfolio);
+      if (contacts2.length > 0) {
+        pdf.setFontSize(7);
+        pdf.setFont("helvetica", "normal");
+        pdf.setTextColor(...MED_GRAY);
+        pdf.text(contacts2.join("  |  "), nameX, y + 16);
       }
 
-      // Student photo (right side of header)
-      const photoSize = 18; // mm
-      let photoEndX = W - margin;
-      if (profile.photo && profile.photo.startsWith("data:image")) {
-        try {
-          const photoX = W - margin - photoSize;
-          const photoY = y + 1;
-          // Gold border around photo
-          pdf.setDrawColor(...GOLD);
-          pdf.setLineWidth(0.4);
-          pdf.rect(photoX - 0.5, photoY - 0.5, photoSize + 1, photoSize + 1, "S");
-          pdf.addImage(profile.photo, "JPEG", photoX, photoY, photoSize, photoSize);
-          photoEndX = photoX - 3;
-        } catch { /* skip photo on error */ }
-      }
-
-      // College tagline (right-aligned, before photo)
-      pdf.setFontSize(5.5);
+      // College tagline (right-aligned) — no student photo in PDF
+      const collegeEndX = W - margin;
+      pdf.setFontSize(6);
       pdf.setFont("helvetica", "normal");
       pdf.setTextColor(...SUBTLE);
-      const collegeName = profile.college || "Government College of Engineering, Karad";
-      pdf.text(collegeName, photoEndX - pdf.getTextWidth(collegeName), y + 5);
-      const subTag = "Autonomous | Shivaji University";
-      pdf.text(subTag, photoEndX - pdf.getTextWidth(subTag), y + 9);
+      const col1 = "Government College of";
+      const col2 = "Engineering, Karad";
+      const col3 = "An Autonomous Institute";
+      pdf.text(col1, collegeEndX - pdf.getTextWidth(col1), y + 4);
+      pdf.text(col2, collegeEndX - pdf.getTextWidth(col2), y + 7.5);
+      pdf.setFontSize(5);
+      pdf.setFont("helvetica", "italic");
+      pdf.text(col3, collegeEndX - pdf.getTextWidth(col3), y + 10.5);
 
       // Bottom separator lines
       y += 20;
@@ -272,62 +268,6 @@ export default function PreviewPage() {
         y += 4;
       };
 
-      const entryHeader = (left: string, right?: string) => {
-        checkPage(6);
-        pdf.setFontSize(9.5);
-        pdf.setFont("helvetica", "bold");
-        pdf.setTextColor(...TEXT_BLK);
-        pdf.text(left, margin, y);
-        if (right) {
-          pdf.setFont("helvetica", "normal");
-          pdf.setFontSize(8.5);
-          pdf.setTextColor(...MED_GRAY);
-          pdf.text(right, W - margin - pdf.getTextWidth(right), y);
-        }
-        y += 4;
-      };
-
-      const subtitle = (text: string) => {
-        pdf.setFontSize(9);
-        pdf.setFont("helvetica", "italic");
-        pdf.setTextColor(...BLUE);
-        pdf.text(text, margin, y);
-        y += 3.5;
-      };
-
-      const bullet = (text: string) => {
-        pdf.setFontSize(9);
-        pdf.setFont("helvetica", "normal");
-        pdf.setTextColor(...TEXT_BLK);
-        const bulletX = margin + 2;
-        const textX = margin + 6;
-        const lines = pdf.splitTextToSize(text, contentW - 6);
-        lines.forEach((line: string, idx: number) => {
-          checkPage(4);
-          if (idx === 0) pdf.text("\u2022", bulletX, y);
-          pdf.text(line, textX, y);
-          y += 3.8;
-        });
-        y += 0.5;
-      };
-
-      const skillsRow = (label: string, value: string) => {
-        checkPage(5);
-        pdf.setFontSize(9);
-        pdf.setFont("helvetica", "bold");
-        pdf.setTextColor(...TEXT_BLK);
-        pdf.text(label, margin, y);
-        const labelW = contentW * 0.28;
-        pdf.setFont("helvetica", "normal");
-        const valueLines = pdf.splitTextToSize(value, contentW - labelW);
-        valueLines.forEach((line: string, idx: number) => {
-          if (idx > 0) { checkPage(4); }
-          pdf.text(line, margin + labelW, y);
-          if (idx < valueLines.length - 1) y += 3.8;
-        });
-        y += 4;
-      };
-
       // ═══════════════════════════════════════════════════════════
       // SECTIONS
       // ═══════════════════════════════════════════════════════════
@@ -347,53 +287,81 @@ export default function PreviewPage() {
         y += 2;
       }
 
-      // ── Education ──
+      // ── Education (table format matching HTML) ──
       sectionTitle("Education");
+      {
+        const colWidths = [contentW * 0.28, contentW * 0.38, contentW * 0.14, contentW * 0.20];
+        const colX = [margin, margin + colWidths[0], margin + colWidths[0] + colWidths[1], margin + colWidths[0] + colWidths[1] + colWidths[2]];
+        const rowH = 5;
 
-      if (profile.college) {
-        entryHeader(
-          `Bachelor of Engineering (${profile.branch || "Engineering"})`,
-          profile.enrollmentYear && profile.graduationYear
-            ? `${profile.enrollmentYear} \u2013 ${profile.graduationYear}` : undefined
-        );
-        subtitle(`${profile.college} \u2014 Shivaji University`);
-        if (cgpa !== "N/A") bullet(`CGPA: ${cgpa}`);
+        // Header row
+        checkPage(8);
+        pdf.setFillColor(248, 250, 252);
+        pdf.rect(margin, y - 3, contentW, rowH, "F");
+        pdf.setFontSize(8);
+        pdf.setFont("helvetica", "bold");
+        pdf.setTextColor(...TEXT_BLK);
+        ["Degree", "Institution", "Year", "Score"].forEach((h, i) => {
+          pdf.text(h, colX[i] + 2, y);
+        });
+        y += rowH;
+
+        pdf.setFont("helvetica", "normal");
+        pdf.setFontSize(7.5);
+        pdf.setTextColor(...TEXT_BLK);
+
+        const eduRows: string[][] = [];
+        if (profile.college) {
+          eduRows.push([
+            `B.E. (${profile.branch || "Engineering"})`,
+            profile.college,
+            profile.enrollmentYear && profile.graduationYear ? `${profile.enrollmentYear}-${profile.graduationYear}` : "",
+            cgpa !== "N/A" ? `CGPA: ${cgpa}` : "",
+          ]);
+        }
+        if (profile.diplomaCollege) {
+          eduRows.push([
+            `Diploma (${profile.diplomaBranch || "Engineering"})`,
+            profile.diplomaCollege,
+            profile.diplomaYear || "",
+            profile.diplomaPercentage || "",
+          ]);
+        }
+        if (profile.school12th) {
+          eduRows.push([
+            "HSC (12th)",
+            profile.school12th,
+            profile.year12th || "",
+            profile.percentage12th ? `${profile.percentage12th}%` : "",
+          ]);
+        }
+        if (profile.school10th) {
+          eduRows.push([
+            "SSC (10th)",
+            profile.school10th,
+            profile.year10th || "",
+            profile.percentage10th ? `${profile.percentage10th}%` : "",
+          ]);
+        }
+
+        eduRows.forEach((row, ri) => {
+          checkPage(6);
+          if (ri % 2 === 1) {
+            pdf.setFillColor(250, 251, 252);
+            pdf.rect(margin, y - 3, contentW, rowH, "F");
+          }
+          pdf.setTextColor(...TEXT_BLK);
+          row.forEach((cell, ci) => {
+            const maxW = colWidths[ci] - 4;
+            const truncated = pdf.getTextWidth(cell) > maxW ? cell.substring(0, Math.floor(cell.length * maxW / pdf.getTextWidth(cell))) + "..." : cell;
+            pdf.text(truncated, colX[ci] + 2, y);
+          });
+          y += rowH;
+        });
+        y += 2;
       }
 
-      // Diploma
-      if (profile.diplomaCollege) {
-        y += 1;
-        entryHeader(
-          `Diploma \u2014 ${profile.diplomaBranch || "Engineering"}`,
-          profile.diplomaYear || undefined
-        );
-        subtitle(profile.diplomaCollege);
-        if (profile.diplomaPercentage) bullet(`Percentage / CGPA: ${profile.diplomaPercentage}`);
-      }
-
-      // 12th
-      if (profile.school12th) {
-        y += 1;
-        entryHeader(
-          `HSC (Science) \u2014 ${profile.board12th || "Maharashtra State Board"}`,
-          profile.year12th || undefined
-        );
-        subtitle(profile.school12th);
-        if (profile.percentage12th) bullet(`Percentage: ${profile.percentage12th}%`);
-      }
-
-      // 10th
-      if (profile.school10th) {
-        y += 1;
-        entryHeader(
-          `SSC \u2014 ${profile.board10th || "Maharashtra State Board"}`,
-          profile.year10th || undefined
-        );
-        subtitle(profile.school10th);
-        if (profile.percentage10th) bullet(`Percentage: ${profile.percentage10th}%`);
-      }
-
-      // ── Technical Skills ──
+      // ── Technical Skills (matching HTML: category bold + names) ──
       const skills = profile.skills || [];
       if (skills.length > 0) {
         sectionTitle("Technical Skills");
@@ -404,72 +372,127 @@ export default function PreviewPage() {
           grouped[cat].push(s.name);
         });
         Object.entries(grouped).forEach(([cat, names]) => {
-          skillsRow(`${cat}:`, names.join(", "));
+          checkPage(5);
+          pdf.setFontSize(8);
+          pdf.setFont("helvetica", "bold");
+          pdf.setTextColor(...TEXT_BLK);
+          const label = `${cat}: `;
+          pdf.text(label, margin, y);
+          const labelW = pdf.getTextWidth(label);
+          pdf.setFont("helvetica", "normal");
+          pdf.text(names.join(", "), margin + labelW, y);
+          y += 4;
         });
+        y += 1;
       }
 
-      // ── Semester Results ──
+      // ── Semester Results (badge style matching HTML) ──
       const sems = (profile.semesters || []).filter((s: any) => s.sgpa > 0);
       if (sems.length > 0) {
         sectionTitle("Semester Results");
-        checkPage(6);
-        const semParts = sems.map((sem: { number: number; sgpa: number }) => `Sem ${sem.number}: ${sem.sgpa.toFixed(2)}`);
-        pdf.setFontSize(9);
-        pdf.setFont("helvetica", "normal");
-        pdf.setTextColor(...TEXT_BLK);
-        const semText = semParts.join("    ");
-        const semLines = pdf.splitTextToSize(semText, contentW);
-        semLines.forEach((line: string) => {
-          checkPage(4);
-          pdf.text(line, margin, y);
-          y += 4;
+        checkPage(12);
+        const badgeW = 20;
+        const badgeH = 10;
+        const badgeGap = 3;
+        const maxPerRow = Math.floor((contentW + badgeGap) / (badgeW + badgeGap));
+        sems.forEach((sem: { number: number; sgpa: number }, idx: number) => {
+          const col = idx % maxPerRow;
+          const row = Math.floor(idx / maxPerRow);
+          if (col === 0 && row > 0) { y += badgeH + badgeGap; checkPage(badgeH + 4); }
+          const bx = margin + col * (badgeW + badgeGap);
+          const by = y;
+          // Badge background
+          pdf.setFillColor(248, 250, 252);
+          pdf.setDrawColor(229, 231, 235);
+          pdf.setLineWidth(0.2);
+          pdf.roundedRect(bx, by, badgeW, badgeH, 1.5, 1.5, "FD");
+          // Sem label
+          pdf.setFontSize(6.5);
+          pdf.setFont("helvetica", "bold");
+          pdf.setTextColor(...TEXT_BLK);
+          pdf.text(`Sem ${sem.number}`, bx + badgeW / 2, by + 4, { align: "center" });
+          // SGPA value
+          pdf.setFontSize(8);
+          pdf.setFont("courier", "bold");
+          pdf.text(typeof sem.sgpa === "number" ? sem.sgpa.toFixed(1) : String(sem.sgpa), bx + badgeW / 2, by + 8, { align: "center" });
         });
-        y += 2;
+        y += badgeH + 4;
       }
 
-      // ── Internship Experience ──
+      // ── Internship Experience (inline format matching HTML) ──
       const interns = profile.internships || [];
       if (interns.length > 0) {
         sectionTitle("Internship Experience");
         interns.forEach((i: { role: string; company: string; duration: string; description: string }) => {
           checkPage(10);
-          entryHeader(`${i.role} \u2014 ${i.company}`, i.duration || undefined);
-          if (i.description) bullet(i.description);
-          y += 1;
+          pdf.setFontSize(9);
+          pdf.setFont("helvetica", "bold");
+          pdf.setTextColor(...TEXT_BLK);
+          pdf.text(`${i.role} - ${i.company}`, margin, y);
+          if (i.duration) {
+            pdf.setFontSize(8);
+            pdf.setFont("helvetica", "normal");
+            pdf.setTextColor(...MED_GRAY);
+            pdf.text(i.duration, W - margin - pdf.getTextWidth(i.duration), y);
+          }
+          y += 4;
+          if (i.description) {
+            pdf.setFontSize(8);
+            pdf.setFont("helvetica", "normal");
+            pdf.setTextColor(...TEXT_BLK);
+            const descLines = pdf.splitTextToSize(i.description, contentW);
+            descLines.forEach((line: string) => { checkPage(4); pdf.text(line, margin, y); y += 3.5; });
+          }
+          y += 2;
         });
       }
 
-      // ── Academic Projects ──
+      // ── Academic Projects (title bold + tech stack in blue with pipe) ──
       const projects = profile.projects || [];
       if (projects.length > 0) {
         sectionTitle("Academic Projects");
         projects.forEach((p: { title: string; description: string; techStack: string[] }) => {
           checkPage(10);
-          entryHeader(p.title);
-          if (p.description) bullet(p.description);
+          pdf.setFontSize(9);
+          pdf.setFont("helvetica", "bold");
+          pdf.setTextColor(...TEXT_BLK);
+          let titleText = p.title;
+          pdf.text(titleText, margin, y);
           if (p.techStack?.length > 0) {
-            pdf.setFontSize(8);
-            pdf.setFont("helvetica", "italic");
-            pdf.setTextColor(...BLUE);
-            const techText = "Tech Stack: " + p.techStack.join(", ");
-            const techLines = pdf.splitTextToSize(techText, contentW - 6);
-            techLines.forEach((line: string) => {
-              checkPage(4);
-              pdf.text(line, margin + 6, y);
-              y += 3.5;
-            });
+            const titleW = pdf.getTextWidth(titleText + " ");
+            pdf.setFontSize(7);
+            pdf.setFont("helvetica", "normal");
+            pdf.setTextColor(99, 102, 241);
+            pdf.text("| " + p.techStack.join(", "), margin + titleW, y);
           }
-          y += 1.5;
+          y += 4;
+          if (p.description) {
+            pdf.setFontSize(8);
+            pdf.setFont("helvetica", "normal");
+            pdf.setTextColor(...TEXT_BLK);
+            const descLines = pdf.splitTextToSize(p.description, contentW);
+            descLines.forEach((line: string) => { checkPage(4); pdf.text(line, margin, y); y += 3.5; });
+          }
+          y += 2;
         });
       }
 
-      // ── Certifications ──
+      // ── Certifications (bullet with date right-aligned matching HTML) ──
       const certs = profile.certifications || [];
       if (certs.length > 0) {
         sectionTitle("Certifications");
         certs.forEach((c: { title: string; issuer: string; date: string }) => {
-          const certText = `${c.title}${c.issuer ? ` \u2014 ${c.issuer}` : ""}${c.date ? `, ${c.date}` : ""}`;
-          bullet(certText);
+          checkPage(5);
+          pdf.setFontSize(8);
+          pdf.setFont("helvetica", "normal");
+          pdf.setTextColor(...TEXT_BLK);
+          const certText = `\u2022  ${c.title}${c.issuer ? ` - ${c.issuer}` : ""}`;
+          pdf.text(certText, margin + 2, y);
+          if (c.date) {
+            pdf.setTextColor(...MED_GRAY);
+            pdf.text(c.date, W - margin - pdf.getTextWidth(c.date), y);
+          }
+          y += 4;
         });
       }
 
@@ -478,26 +501,58 @@ export default function PreviewPage() {
       if (activities.length > 0) {
         sectionTitle("Achievements & Extracurricular Activities");
         activities.forEach((activity: string) => {
-          bullet(activity);
+          checkPage(5);
+          pdf.setFontSize(8);
+          pdf.setFont("helvetica", "normal");
+          pdf.setTextColor(...TEXT_BLK);
+          pdf.text(`\u2022  ${activity}`, margin + 2, y);
+          y += 4;
         });
       }
 
-      // ── Personal Details ──
+      // ── Personal Details (2-col grid matching HTML) ──
       sectionTitle("Personal Details");
-      if (profile.dob) skillsRow("Date of Birth:", profile.dob);
-      if (profile.address) skillsRow("Address:", profile.address);
+      {
+        const pdItems: [string, string][] = [];
+        if (profile.dob) pdItems.push(["Date of Birth:", profile.dob]);
+        pdItems.push(["Languages:", "English, Hindi, Marathi"]);
+        if (profile.address) pdItems.push(["Address:", profile.address]);
+        pdItems.push(["Nationality:", "Indian"]);
+        const halfW = contentW / 2;
+        for (let i = 0; i < pdItems.length; i += 2) {
+          checkPage(5);
+          // Left column
+          pdf.setFontSize(8);
+          pdf.setFont("helvetica", "bold");
+          pdf.setTextColor(...TEXT_BLK);
+          pdf.text(pdItems[i][0], margin, y);
+          pdf.setFont("helvetica", "normal");
+          pdf.text(" " + pdItems[i][1], margin + pdf.getTextWidth(pdItems[i][0]), y);
+          // Right column
+          if (i + 1 < pdItems.length) {
+            pdf.setFont("helvetica", "bold");
+            pdf.text(pdItems[i + 1][0], margin + halfW, y);
+            pdf.setFont("helvetica", "normal");
+            pdf.text(" " + pdItems[i + 1][1], margin + halfW + pdf.getTextWidth(pdItems[i + 1][0]), y);
+          }
+          y += 4;
+        }
+      }
 
-      // ── Declaration ──
-      y += 4;
-      checkPage(10);
-      pdf.setDrawColor(232, 232, 232);
-      pdf.setLineWidth(0.2);
-      pdf.line(margin, y, W - margin, y);
-      y += 4;
-      pdf.setFontSize(8);
+      // ── Declaration (matching HTML) ──
+      sectionTitle("Declaration");
+      pdf.setFontSize(7);
       pdf.setFont("helvetica", "italic");
       pdf.setTextColor(...MED_GRAY);
-      pdf.text("I hereby declare that all the information furnished above is true to the best of my knowledge and belief.", margin, y);
+      pdf.text("I hereby declare that the information furnished above is true to the best of my knowledge and belief.", margin, y);
+      y += 6;
+      pdf.setFontSize(8);
+      pdf.setFont("helvetica", "normal");
+      pdf.setTextColor(...TEXT_BLK);
+      pdf.text(`Place: ${profile.address?.split(",")[0]?.trim() || "Karad"}`, margin, y);
+      const sigName = profile.name || "Student Name";
+      pdf.setFont("helvetica", "bold");
+      pdf.text(sigName, W - margin - pdf.getTextWidth(sigName), y);
 
       // Add footer to last page
       addFooter();
