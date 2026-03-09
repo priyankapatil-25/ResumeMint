@@ -477,8 +477,8 @@ export default function BuilderPage() {
     return (
       <>
         <Navbar />
-        <div className="aurora-bg min-h-screen pt-32 pb-12 px-6">
-          <div className="max-w-full px-2">
+        <div className="aurora-bg min-h-screen pb-24 px-6" style={{ paddingTop: 85 }}>
+          <div style={{ maxWidth: 960, margin: "0 auto" }}>
             <div className="skeleton h-10 w-64 mb-6" />
             <div className="skeleton h-16 w-full mb-6 rounded-2xl" />
             <div className="skeleton h-96 w-full rounded-2xl" />
@@ -491,25 +491,15 @@ export default function BuilderPage() {
   return (
     <>
       <Navbar />
-      <div className="aurora-bg min-h-screen pt-32 pb-12 px-6">
-        <div className="max-w-full px-2 relative z-10">
-          {/* Title */}
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-3xl md:text-4xl font-bold mb-8 text-gradient"
-            style={{ fontFamily: "var(--font-space)" }}
-          >
-            Build Your Resume
-          </motion.h1>
-
+      <div className="aurora-bg min-h-screen pb-24 px-6" style={{ paddingTop: 85 }}>
+        <div style={{ maxWidth: 960, margin: "0 auto" }} className="relative z-10">
           {/* Step Indicator */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="flex items-center justify-between mb-8"
+            className="flex items-center justify-between mb-10"
+            style={{ paddingBottom: 16 }}
           >
             {steps.map((step, idx) => (
               <div key={step.key} className="flex items-center flex-1 last:flex-none">
@@ -560,7 +550,7 @@ export default function BuilderPage() {
           </motion.div>
 
           {/* Step Content */}
-          <div className="bento-card overflow-hidden min-h-[480px] relative">
+          <div className="bento-card overflow-hidden min-h-[480px] relative pb-10">
             <AnimatePresence mode="wait" custom={direction}>
               <motion.div
                 key={currentStep}
@@ -571,90 +561,102 @@ export default function BuilderPage() {
                 exit="exit"
                 transition={{ duration: 0.3, ease: "easeInOut" }}
               >
-                {/* Step 0 - Personal Info */}
+                {/* Step 0 - Personal Info (matches HTML preview) */}
                 {currentStep === 0 && (
                   <div>
-                    <h2
-                      className="text-xl font-semibold mb-6 flex items-center gap-2"
-                      style={{ fontFamily: "var(--font-space)" }}
-                    >
-                      <FiUser className="text-[#6366F1]" /> Personal Information
-                    </h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                      <InputField
-                        label="Full Name"
-                        value={formData.name}
-                        onChange={(v) => updateField("name", v)}
-                        placeholder="John Doe"
-                        required
-                      />
-                      <InputField
-                        label="Email"
-                        value={formData.email}
-                        onChange={(v) => updateField("email", v)}
-                        placeholder="john@example.com"
-                        type="email"
-                        required
-                      />
-                      <div>
-                        <label className="text-sm text-slate-500 mb-1.5 block">
-                          Date of Birth<span className="text-red-500 ml-0.5">*</span>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
+                      <h3 style={{ fontSize: 18, fontWeight: 700, fontFamily: "var(--font-space)" }}>
+                        Personal Information
+                      </h3>
+                      <span style={{ fontSize: 13, fontWeight: 600, background: "linear-gradient(135deg, #6366F1, #14B8A6)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+                        Government College Of Engineering, Karad
+                      </span>
+                    </div>
+
+                    {/* 2-col form grid matching HTML .form-grid */}
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+                      {/* Full Name */}
+                      <div style={{ marginBottom: 16 }}>
+                        <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>
+                          Full Name <span style={{ color: "#EF4444" }}>*</span>
                         </label>
-                        <input
-                          type="date"
-                          className="input-field w-full"
-                          value={formData.dob}
-                          onChange={(e) => updateField("dob", e.target.value)}
-                          max={new Date().toISOString().split("T")[0]}
-                        />
+                        <input className="input-field" value={formData.name} onChange={(e) => updateField("name", e.target.value)} placeholder="Priyanka Patil" />
                       </div>
-                      <InputField
-                        label="Phone"
-                        value={formData.phone}
-                        onChange={(v) => updateField("phone", v)}
-                        placeholder="+91 9876543210"
-                        required
-                      />
-                      <InputField
-                        label="Address"
-                        value={formData.address}
-                        onChange={(v) => updateField("address", v)}
-                        placeholder="City, State"
-                        required
-                      />
-                      <InputField
-                        label="LinkedIn"
-                        value={formData.linkedin}
-                        onChange={(v) => updateField("linkedin", v)}
-                        placeholder="https://linkedin.com/in/..."
-                      />
-                      <InputField
-                        label="GitHub"
-                        value={formData.github}
-                        onChange={(v) => updateField("github", v)}
-                        placeholder="https://github.com/..."
-                      />
-                      <InputField
-                        label="Portfolio"
-                        value={formData.portfolio}
-                        onChange={(v) => updateField("portfolio", v)}
-                        placeholder="https://yourportfolio.com"
-                      />
-                      <div>
-                        <label className="text-sm text-slate-500 mb-1.5 block">
-                          Student Photo<span className="text-red-500 ml-0.5">*</span>
+
+                      {/* Email */}
+                      <div style={{ marginBottom: 16 }}>
+                        <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>
+                          Email <span style={{ color: "#EF4444" }}>*</span>
                         </label>
-                        {formData.photo && (
-                          <img
-                            src={formData.photo}
-                            alt="Preview"
-                            className="w-20 h-20 rounded-xl object-cover border border-[var(--border)] mb-2"
-                          />
-                        )}
+                        <input className="input-field" type="email" value={formData.email} onChange={(e) => updateField("email", e.target.value)} placeholder="priyanka.patil@example.com" />
+                      </div>
+
+                      {/* Date of Birth */}
+                      <div style={{ marginBottom: 16 }}>
+                        <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>
+                          Date of Birth <span style={{ color: "#EF4444" }}>*</span>
+                        </label>
+                        <input className="input-field" type="date" value={formData.dob} onChange={(e) => updateField("dob", e.target.value)} max={new Date().toISOString().split("T")[0]} />
+                      </div>
+
+                      {/* Phone */}
+                      <div style={{ marginBottom: 16 }}>
+                        <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>
+                          Phone <span style={{ color: "#EF4444" }}>*</span>
+                        </label>
+                        <input className="input-field" value={formData.phone} onChange={(e) => updateField("phone", e.target.value)} placeholder="+919561502772" />
+                      </div>
+
+                      {/* Address */}
+                      <div style={{ marginBottom: 16 }}>
+                        <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>
+                          Address <span style={{ color: "#EF4444" }}>*</span>
+                        </label>
+                        <input className="input-field" value={formData.address} onChange={(e) => updateField("address", e.target.value)} placeholder="Karad, Maharashtra" />
+                      </div>
+
+                      {/* LinkedIn */}
+                      <div style={{ marginBottom: 16 }}>
+                        <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>
+                          LinkedIn
+                        </label>
+                        <input className="input-field" value={formData.linkedin} onChange={(e) => updateField("linkedin", e.target.value)} placeholder="LinkedIn URL" />
+                      </div>
+
+                      {/* GitHub */}
+                      <div style={{ marginBottom: 16 }}>
+                        <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>
+                          GitHub
+                        </label>
+                        <input className="input-field" value={formData.github} onChange={(e) => updateField("github", e.target.value)} placeholder="GitHub URL" />
+                      </div>
+
+                      {/* Portfolio */}
+                      <div style={{ marginBottom: 16 }}>
+                        <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>
+                          Portfolio
+                        </label>
+                        <input className="input-field" value={formData.portfolio} onChange={(e) => updateField("portfolio", e.target.value)} placeholder="Portfolio website URL" />
+                      </div>
+                    </div>
+
+                    {/* Student Photo — dashed upload area matching HTML */}
+                    <div style={{ marginTop: 16 }}>
+                      <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>
+                        Student Photo <span style={{ color: "#EF4444" }}>*</span>
+                      </label>
+                      {formData.photo && (
+                        <img
+                          src={formData.photo}
+                          alt="Preview"
+                          style={{ width: 80, height: 80, borderRadius: 12, objectFit: "cover", border: "1px solid var(--border)", marginBottom: 8 }}
+                        />
+                      )}
+                      <label style={{ display: "block", border: "2px dashed var(--border)", borderRadius: 12, padding: 24, textAlign: "center", color: "var(--text-muted)", fontSize: 13, cursor: "pointer" }}>
                         <input
                           type="file"
                           accept="image/*"
-                          className="input-field w-full text-sm file:mr-3 file:py-1 file:px-3 file:rounded-lg file:border-0 file:bg-indigo-600 file:text-white file:text-sm file:cursor-pointer"
+                          style={{ display: "none" }}
                           onChange={(e) => {
                             const file = e.target.files?.[0];
                             if (!file) return;
@@ -663,24 +665,27 @@ export default function BuilderPage() {
                               return;
                             }
                             const reader = new FileReader();
-                            reader.onload = () => {
-                              updateField("photo", reader.result as string);
-                            };
+                            reader.onload = () => updateField("photo", reader.result as string);
                             reader.readAsDataURL(file);
                           }}
                         />
-                        <p className="text-xs text-slate-500 mt-1">Max 2MB. JPG, PNG supported.</p>
-                      </div>
+                        📷 Click to upload or drag and drop<br />
+                        <span style={{ fontSize: 11 }}>PNG, JPG up to 2MB</span>
+                      </label>
                     </div>
-                    <div className="mt-5">
-                      <label className="text-sm text-slate-500 mb-1.5 block">
+
+                    {/* Career Objective */}
+                    <div style={{ marginTop: 16 }}>
+                      <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>
                         Career Objective
                       </label>
                       <textarea
-                        className="input-field w-full min-h-[100px] resize-y"
+                        className="input-field"
+                        rows={3}
                         value={formData.objective}
                         onChange={(e) => updateField("objective", e.target.value)}
-                        placeholder="A brief summary of your career goals and aspirations..."
+                        placeholder="Aspiring software engineer seeking opportunities to apply technical skills in a dynamic environment."
+                        style={{ resize: "vertical", minHeight: 80, width: "100%" }}
                       />
                     </div>
                   </div>
@@ -1333,7 +1338,7 @@ export default function BuilderPage() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="flex items-center justify-between mt-6"
+            className="flex items-center justify-between mt-16"
           >
             <button
               onClick={() => goToStep(currentStep - 1)}

@@ -22,7 +22,7 @@ export default function Navbar() {
     >
       <div className="px-6 py-3 flex items-center justify-between" style={{ maxWidth: 1100, margin: "0 auto" }}>
         {/* Left: GCEK logo + college name attached */}
-        <Link href="/" className="flex items-center gap-2.5" style={{ maxWidth: 320 }}>
+        <Link href="/" className="flex items-center gap-2.5" style={{ maxWidth: 420, marginLeft: 60 }}>
           <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-teal-400 flex items-center justify-center font-bold text-white text-[9px] leading-none shrink-0">
             GCEK
           </div>
