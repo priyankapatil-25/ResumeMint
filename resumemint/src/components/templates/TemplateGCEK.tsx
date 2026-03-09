@@ -153,14 +153,15 @@ export default function TemplateGCEK({ profile, cgpa }: TemplateProps) {
     return acc;
   }, {}) ?? {};
 
-  // Contact line
+  // Contact line — matches HTML: ✉ email | 📞 phone | address | linkedin | github
   const contactParts: string[] = [];
-  if (profile.phone) contactParts.push(profile.phone);
-  if (profile.email) contactParts.push(profile.email);
-  if (profile.linkedin) contactParts.push(profile.linkedin);
-  if (profile.github) contactParts.push(profile.github);
-  if (profile.portfolio) contactParts.push(profile.portfolio);
-  const contactLine = contactParts.join("  |  ");
+  if (profile.email) contactParts.push(`\u2709 ${profile.email}`);
+  if (profile.phone) contactParts.push(`\uD83D\uDCDE ${profile.phone}`);
+  if (profile.address) contactParts.push(profile.address);
+  if (profile.linkedin) contactParts.push(`\uD83D\uDD17 ${profile.linkedin}`);
+  if (profile.github) contactParts.push(`\uD83D\uDCBB ${profile.github}`);
+  if (profile.portfolio) contactParts.push(`\uD83C\uDF10 ${profile.portfolio}`);
+  const contactLine = contactParts.join("  \u00A0|\u00A0  ");
 
   return (
     <div
@@ -205,13 +206,9 @@ export default function TemplateGCEK({ profile, cgpa }: TemplateProps) {
 
           {/* College tagline + Photo (right) */}
           <div style={{ display: "flex", alignItems: "center", gap: 10, flexShrink: 0 }}>
-            <div style={{ textAlign: "right" }}>
-              <p style={{ fontSize: 6, color: COLORS.subtleTag, margin: 0, fontFamily: "sans-serif" }}>
-                {profile.college || "Government College of Engineering, Karad"}
-              </p>
-              <p style={{ fontSize: 5.5, color: COLORS.subtleTag, margin: "2px 0 0 0", fontFamily: "sans-serif" }}>
-                Autonomous | Shivaji University
-              </p>
+            <div style={{ textAlign: "right", fontSize: 7, color: "#4A5568", lineHeight: 1.6 }}>
+              Government College of<br />Engineering, Karad<br />
+              <span style={{ fontStyle: "italic", fontSize: 6 }}>An Autonomous Institute</span>
             </div>
             {/* Student Photo */}
             {profile.photo && (
