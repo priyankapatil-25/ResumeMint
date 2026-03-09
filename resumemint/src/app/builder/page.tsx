@@ -1024,216 +1024,150 @@ export default function BuilderPage() {
                   </div>
                 )}
 
-                {/* Step 5 - Experience & Certs */}
+                {/* Step 5 - Experience & Certs (matches HTML preview) */}
                 {currentStep === 5 && (
                   <div>
-                    <h2
-                      className="text-xl font-semibold mb-6 flex items-center gap-2"
-                      style={{ fontFamily: "var(--font-space)" }}
-                    >
-                      <FiAward className="text-[#6366F1]" /> Experience &
-                      Certifications
-                    </h2>
+                    <h3 style={{ fontSize: 18, fontWeight: 700, marginBottom: 20, fontFamily: "var(--font-space)" }}>
+                      💼 Experience & Certifications
+                    </h3>
 
                     {/* Internships */}
-                    <div className="mb-8">
-                      <div className="flex items-center justify-between mb-4">
-                        <h3
-                          className="text-lg font-semibold text-slate-600"
-                          style={{ fontFamily: "var(--font-space)" }}
-                        >
-                          Internships
-                        </h3>
-                        <button onClick={addInternship} className="btn-accent">
-                          <FiPlus size={16} /> Add Internship
-                        </button>
-                      </div>
-
-                      {formData.internships.length === 0 && (
-                        <p className="text-slate-500 text-sm text-center py-4">
-                          No internships added yet.
-                        </p>
-                      )}
-
-                      <div className="flex flex-col gap-4">
-                        {formData.internships.map((intern, idx) => (
-                          <div
-                            key={idx}
-                            className="bento-card !p-5"
-                          >
-                            <div className="flex items-center justify-between mb-4">
-                              <h4 className="text-sm font-semibold text-[#14B8A6]">
-                                Internship {idx + 1}
-                              </h4>
-                              <button
-                                onClick={() => removeInternship(idx)}
-                                className="text-red-400 hover:text-red-300 transition-colors p-1.5 rounded-lg hover:bg-red-400/10"
-                              >
-                                <FiTrash2 size={16} />
-                              </button>
-                            </div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
-                              <InputField
-                                label="Company"
-                                value={intern.company}
-                                onChange={(v) =>
-                                  updateInternship(idx, "company", v)
-                                }
-                                placeholder="Company Name"
-                              />
-                              <InputField
-                                label="Role"
-                                value={intern.role}
-                                onChange={(v) =>
-                                  updateInternship(idx, "role", v)
-                                }
-                                placeholder="e.g. Engineering Intern"
-                              />
-                              <InputField
-                                label="Duration"
-                                value={intern.duration}
-                                onChange={(v) =>
-                                  updateInternship(idx, "duration", v)
-                                }
-                                placeholder="Jun 2024 - Aug 2024"
-                              />
-                            </div>
-                            <div>
-                              <label className="text-sm text-slate-500 mb-1.5 block">
-                                Description
-                              </label>
-                              <textarea
-                                className="input-field w-full min-h-[60px] resize-y"
-                                value={intern.description}
-                                onChange={(e) =>
-                                  updateInternship(
-                                    idx,
-                                    "description",
-                                    e.target.value
-                                  )
-                                }
-                                placeholder="What did you work on?"
-                              />
-                            </div>
-                          </div>
-                        ))}
-                      </div>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
+                      <h4 style={{ fontSize: 15, fontWeight: 700, color: "var(--text-secondary)" }}>Internships</h4>
+                      <button
+                        onClick={addInternship}
+                        style={{
+                          padding: "6px 14px", fontSize: 12, borderRadius: 14, border: "none",
+                          background: "linear-gradient(135deg, #6366F1, #8B5CF6)", color: "#fff",
+                          fontWeight: 700, cursor: "pointer", boxShadow: "0 4px 12px rgba(99,102,241,0.25)",
+                        }}
+                      >
+                        + Add Internship
+                      </button>
                     </div>
+
+                    {formData.internships.length === 0 && (
+                      <p style={{ color: "var(--text-muted)", fontSize: 14, textAlign: "center", padding: "20px 0" }}>
+                        No internships added yet.
+                      </p>
+                    )}
+
+                    {formData.internships.map((intern, idx) => (
+                      <div key={idx} style={{ border: "1px solid var(--border)", borderRadius: 16, padding: 20, marginBottom: 20, borderLeft: "3px solid #6366F1" }}>
+                        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+                          <div style={{ marginBottom: 16 }}>
+                            <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>Company</label>
+                            <input className="input-field" value={intern.company} onChange={(e) => updateInternship(idx, "company", e.target.value)} placeholder="Inventive Biz Solutions" style={{ width: "100%" }} />
+                          </div>
+                          <div style={{ marginBottom: 16 }}>
+                            <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>Role</label>
+                            <input className="input-field" value={intern.role} onChange={(e) => updateInternship(idx, "role", e.target.value)} placeholder="Web Developer Intern" style={{ width: "100%" }} />
+                          </div>
+                          <div style={{ marginBottom: 16 }}>
+                            <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>Duration</label>
+                            <input className="input-field" value={intern.duration} onChange={(e) => updateInternship(idx, "duration", e.target.value)} placeholder="June 2024 - August 2024" style={{ width: "100%" }} />
+                          </div>
+                          <div style={{ marginBottom: 16 }}>
+                            <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>Description</label>
+                            <input className="input-field" value={intern.description} onChange={(e) => updateInternship(idx, "description", e.target.value)} placeholder="Developed responsive web applications using React and Next.js" style={{ width: "100%" }} />
+                          </div>
+                        </div>
+                        <div style={{ textAlign: "right", marginTop: 8 }}>
+                          <button
+                            onClick={() => removeInternship(idx)}
+                            style={{ background: "#FEE2E2", color: "#DC2626", border: "none", borderRadius: 10, padding: "6px 14px", cursor: "pointer", fontSize: 12, fontWeight: 600 }}
+                          >
+                            🗑 Delete
+                          </button>
+                        </div>
+                      </div>
+                    ))}
 
                     {/* Certifications */}
-                    <div>
-                      <div className="flex items-center justify-between mb-4">
-                        <h3
-                          className="text-lg font-semibold text-slate-600"
-                          style={{ fontFamily: "var(--font-space)" }}
-                        >
-                          Certifications
-                        </h3>
-                        <button onClick={addCertification} className="btn-accent">
-                          <FiPlus size={16} /> Add Certification
-                        </button>
-                      </div>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", margin: "24px 0 14px" }}>
+                      <h4 style={{ fontSize: 15, fontWeight: 700, color: "var(--text-secondary)" }}>Certifications</h4>
+                      <button
+                        onClick={addCertification}
+                        style={{
+                          padding: "6px 14px", fontSize: 12, borderRadius: 14, border: "none",
+                          background: "linear-gradient(135deg, #6366F1, #8B5CF6)", color: "#fff",
+                          fontWeight: 700, cursor: "pointer", boxShadow: "0 4px 12px rgba(99,102,241,0.25)",
+                        }}
+                      >
+                        + Add Certification
+                      </button>
+                    </div>
 
-                      {formData.certifications.length === 0 && (
-                        <p className="text-slate-500 text-sm text-center py-4">
-                          No certifications added yet.
-                        </p>
-                      )}
+                    {formData.certifications.length === 0 && (
+                      <p style={{ color: "var(--text-muted)", fontSize: 14, textAlign: "center", padding: "20px 0" }}>
+                        No certifications added yet.
+                      </p>
+                    )}
 
-                      <div className="flex flex-col gap-4">
-                        {formData.certifications.map((cert, idx) => (
-                          <div
-                            key={idx}
-                            className="bento-card !p-5"
-                          >
-                            <div className="flex items-center justify-between mb-4">
-                              <h4 className="text-sm font-semibold text-[#F59E0B]">
-                                Certification {idx + 1}
-                              </h4>
+                    {formData.certifications.map((cert, idx) => (
+                      <div key={idx} style={{ border: "1px solid var(--border)", borderRadius: 16, padding: 20, marginBottom: 20, borderLeft: "3px solid #14B8A6" }}>
+                        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+                          <div style={{ marginBottom: 16 }}>
+                            <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>Title</label>
+                            <input className="input-field" value={cert.title} onChange={(e) => updateCertification(idx, "title", e.target.value)} placeholder="AWS Cloud Practitioner" style={{ width: "100%" }} />
+                          </div>
+                          <div style={{ marginBottom: 16 }}>
+                            <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>Issuer</label>
+                            <input className="input-field" value={cert.issuer} onChange={(e) => updateCertification(idx, "issuer", e.target.value)} placeholder="Amazon Web Services" style={{ width: "100%" }} />
+                          </div>
+                          <div style={{ marginBottom: 16 }}>
+                            <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>Date</label>
+                            <input className="input-field" type="date" value={cert.date} onChange={(e) => updateCertification(idx, "date", e.target.value)} style={{ width: "100%" }} />
+                          </div>
+                          <div style={{ marginBottom: 16 }}>
+                            <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>Certificate URL</label>
+                            <input className="input-field" value={cert.url} onChange={(e) => updateCertification(idx, "url", e.target.value)} placeholder="Verification URL" style={{ width: "100%" }} />
+                          </div>
+                        </div>
+                        {/* Upload Certificate Image */}
+                        <div style={{ marginTop: 8 }}>
+                          <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>Upload Certificate Image</label>
+                          {cert.image && (
+                            <div style={{ marginBottom: 8, position: "relative", display: "inline-block" }}>
+                              <img src={cert.image} alt="Certificate" style={{ maxHeight: 160, borderRadius: 8, border: "1px solid var(--border)" }} />
                               <button
-                                onClick={() => removeCertification(idx)}
-                                className="text-red-400 hover:text-red-300 transition-colors p-1.5 rounded-lg hover:bg-red-400/10"
+                                onClick={() => updateCertification(idx, "image", "")}
+                                style={{ position: "absolute", top: 4, right: 4, background: "#DC2626", color: "#fff", border: "none", borderRadius: "50%", width: 24, height: 24, fontSize: 12, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}
                               >
-                                <FiTrash2 size={16} />
+                                ✕
                               </button>
                             </div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                              <InputField
-                                label="Title"
-                                value={cert.title}
-                                onChange={(v) =>
-                                  updateCertification(idx, "title", v)
+                          )}
+                          <label style={{ display: "block", border: "2px dashed var(--border)", borderRadius: 12, padding: 16, textAlign: "center", color: "var(--text-muted)", fontSize: 12, cursor: "pointer" }}>
+                            <input
+                              type="file"
+                              accept="image/*"
+                              style={{ display: "none" }}
+                              onChange={(e) => {
+                                const file = e.target.files?.[0];
+                                if (!file) return;
+                                if (file.size > 3 * 1024 * 1024) {
+                                  toast.error("Certificate image must be under 3MB");
+                                  return;
                                 }
-                                placeholder="e.g. NPTEL, Coursera, IITB"
-                              />
-                              <InputField
-                                label="Issuer"
-                                value={cert.issuer}
-                                onChange={(v) =>
-                                  updateCertification(idx, "issuer", v)
-                                }
-                                placeholder="e.g. NPTEL / Coursera / MSBTE"
-                              />
-                              <InputField
-                                label="Date"
-                                value={cert.date}
-                                onChange={(v) =>
-                                  updateCertification(idx, "date", v)
-                                }
-                                placeholder="Jan 2024"
-                              />
-                              <InputField
-                                label="URL"
-                                value={cert.url}
-                                onChange={(v) =>
-                                  updateCertification(idx, "url", v)
-                                }
-                                placeholder="https://credential.url"
-                              />
-                            </div>
-                            <div className="mt-4">
-                              <label className="text-sm text-slate-500 mb-1.5 block">
-                                Upload Certificate (Image)
-                              </label>
-                              {cert.image && (
-                                <div className="mb-2 relative inline-block">
-                                  <img
-                                    src={cert.image}
-                                    alt="Certificate"
-                                    className="max-h-40 rounded-lg border border-slate-700"
-                                  />
-                                  <button
-                                    onClick={() => updateCertification(idx, "image", "")}
-                                    className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-red-600"
-                                  >
-                                    ✕
-                                  </button>
-                                </div>
-                              )}
-                              <input
-                                type="file"
-                                accept="image/*"
-                                className="input-field w-full text-sm file:mr-3 file:py-1 file:px-3 file:rounded-lg file:border-0 file:bg-indigo-600 file:text-white file:text-sm file:cursor-pointer"
-                                onChange={(e) => {
-                                  const file = e.target.files?.[0];
-                                  if (!file) return;
-                                  if (file.size > 3 * 1024 * 1024) {
-                                    toast.error("Certificate image must be under 3MB");
-                                    return;
-                                  }
-                                  const reader = new FileReader();
-                                  reader.onload = () => {
-                                    updateCertification(idx, "image", reader.result as string);
-                                  };
-                                  reader.readAsDataURL(file);
-                                }}
-                              />
-                              <p className="text-xs text-slate-500 mt-1">Max 3MB. JPG, PNG supported.</p>
-                            </div>
-                          </div>
-                        ))}
+                                const reader = new FileReader();
+                                reader.onload = () => updateCertification(idx, "image", reader.result as string);
+                                reader.readAsDataURL(file);
+                              }}
+                            />
+                            📷 Click to upload certificate image
+                          </label>
+                        </div>
+                        <div style={{ textAlign: "right", marginTop: 8 }}>
+                          <button
+                            onClick={() => removeCertification(idx)}
+                            style={{ background: "#FEE2E2", color: "#DC2626", border: "none", borderRadius: 10, padding: "6px 14px", cursor: "pointer", fontSize: 12, fontWeight: 600 }}
+                          >
+                            🗑 Delete
+                          </button>
+                        </div>
                       </div>
-                    </div>
+                    ))}
                   </div>
                 )}
               </motion.div>
