@@ -130,47 +130,39 @@ export default function AdminPage() {
             transition={{ delay: 0.1 }}
             className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6"
           >
-            <div className="bento-card flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-indigo-600 flex items-center justify-center">
-                <FiUsers className="text-white" size={18} />
+            <div className="bento-card text-center">
+              <div className="w-11 h-11 rounded-xl mx-auto mb-2.5 flex items-center justify-center" style={{ background: "linear-gradient(135deg, #E0E7FF, #C7D2FE)" }}>
+                <FiUsers style={{ color: "#6366F1" }} size={20} />
               </div>
-              <div>
-                <p className="text-2xl font-bold" style={{ color: "var(--text-primary)" }}>{total}</p>
-                <p className="text-xs" style={{ color: "var(--text-muted)" }}>Total Students</p>
-              </div>
+              <p className="text-3xl font-bold" style={{ fontFamily: "var(--font-jetbrains)", color: "var(--text-primary)" }}>{total}</p>
+              <p className="text-xs mt-1" style={{ color: "var(--text-muted)" }}>Total Students</p>
             </div>
-            <div className="bento-card flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center">
-                <FiCode className="text-white" size={18} />
+            <div className="bento-card text-center">
+              <div className="w-11 h-11 rounded-xl mx-auto mb-2.5 flex items-center justify-center" style={{ background: "linear-gradient(135deg, #D1FAE5, #A7F3D0)" }}>
+                <FiCode style={{ color: "#14B8A6" }} size={20} />
               </div>
-              <div>
-                <p className="text-2xl font-bold" style={{ color: "var(--text-primary)" }}>
-                  {students.reduce((sum, s) => sum + (s._count?.skills || 0), 0)}
-                </p>
-                <p className="text-xs" style={{ color: "var(--text-muted)" }}>Total Skills</p>
-              </div>
+              <p className="text-3xl font-bold" style={{ fontFamily: "var(--font-jetbrains)", color: "var(--text-primary)" }}>
+                {students.reduce((sum, s) => sum + (s._count?.skills || 0), 0)}
+              </p>
+              <p className="text-xs mt-1" style={{ color: "var(--text-muted)" }}>Total Skills</p>
             </div>
-            <div className="bento-card flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center">
-                <FiBookOpen className="text-white" size={18} />
+            <div className="bento-card text-center">
+              <div className="w-11 h-11 rounded-xl mx-auto mb-2.5 flex items-center justify-center" style={{ background: "linear-gradient(135deg, #F3E8FF, #DDD6FE)" }}>
+                <FiBookOpen style={{ color: "#8B5CF6" }} size={20} />
               </div>
-              <div>
-                <p className="text-2xl font-bold" style={{ color: "var(--text-primary)" }}>
-                  {students.reduce((sum, s) => sum + (s._count?.projects || 0), 0)}
-                </p>
-                <p className="text-xs" style={{ color: "var(--text-muted)" }}>Total Projects</p>
-              </div>
+              <p className="text-3xl font-bold" style={{ fontFamily: "var(--font-jetbrains)", color: "var(--text-primary)" }}>
+                {students.reduce((sum, s) => sum + (s._count?.projects || 0), 0)}
+              </p>
+              <p className="text-xs mt-1" style={{ color: "var(--text-muted)" }}>Total Projects</p>
             </div>
-            <div className="bento-card flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center">
-                <FiBriefcase className="text-white" size={18} />
+            <div className="bento-card text-center">
+              <div className="w-11 h-11 rounded-xl mx-auto mb-2.5 flex items-center justify-center" style={{ background: "linear-gradient(135deg, #FEF3C7, #FDE68A)" }}>
+                <FiBriefcase style={{ color: "#D97706" }} size={20} />
               </div>
-              <div>
-                <p className="text-2xl font-bold" style={{ color: "var(--text-primary)" }}>
-                  {students.reduce((sum, s) => sum + (s._count?.internships || 0), 0)}
-                </p>
-                <p className="text-xs" style={{ color: "var(--text-muted)" }}>Total Internships</p>
-              </div>
+              <p className="text-3xl font-bold" style={{ fontFamily: "var(--font-jetbrains)", color: "var(--text-primary)" }}>
+                {students.reduce((sum, s) => sum + (s._count?.internships || 0), 0)}
+              </p>
+              <p className="text-xs mt-1" style={{ color: "var(--text-muted)" }}>Total Internships</p>
             </div>
           </motion.div>
 

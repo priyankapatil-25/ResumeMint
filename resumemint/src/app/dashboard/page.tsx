@@ -48,8 +48,8 @@ export default function DashboardPage() {
     return (
       <>
         <Navbar />
-        <div className="aurora-bg min-h-screen pt-28 pb-12 px-6">
-          <div className="w-full mx-auto">
+        <div className="aurora-bg min-h-screen pb-12 px-6" style={{ paddingTop: "100px" }}>
+          <div style={{ maxWidth: 1100, margin: "0 auto" }}>
             {/* Skeleton welcome */}
             <div className="mb-8">
               <div className="skeleton h-10 w-80 mb-3" />
@@ -120,8 +120,8 @@ export default function DashboardPage() {
   return (
     <>
       <Navbar />
-      <div className="aurora-bg min-h-screen pt-28 pb-12 px-6">
-        <div className="w-full mx-auto relative z-10">
+      <div className="aurora-bg min-h-screen pb-12 px-6" style={{ paddingTop: "100px" }}>
+        <div style={{ maxWidth: 1100, margin: "0 auto" }} className="relative z-10">
           {/* Welcome Banner */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -138,9 +138,6 @@ export default function DashboardPage() {
                 {session?.user?.name || "User"}
               </span>
             </h1>
-            <p className="text-[var(--text-secondary)] text-lg">
-              Here&apos;s your resume overview
-            </p>
           </motion.div>
 
           {/* Bento Grid */}
@@ -266,40 +263,31 @@ export default function DashboardPage() {
                 Quick Stats
               </h3>
               <div className="flex items-center gap-3">
-                <FiCode className="text-[#6366F1]" size={20} />
-                <span className="text-[var(--text-secondary)] text-sm flex-1">
-                  Skills
-                </span>
-                <span
-                  className="text-[var(--text-primary)] font-bold"
-                  style={{ fontFamily: "var(--font-jetbrains)" }}
-                >
-                  {skillsCount}
-                </span>
+                <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0" style={{ background: "#E0E7FF" }}>
+                  <FiCode className="text-[#6366F1]" size={16} />
+                </div>
+                <div className="flex-1">
+                  <div className="font-bold text-lg" style={{ fontFamily: "var(--font-jetbrains)", color: "var(--text-primary)" }}>{skillsCount}</div>
+                  <div className="text-xs" style={{ color: "var(--text-muted)" }}>Skills</div>
+                </div>
               </div>
               <div className="flex items-center gap-3">
-                <FiFolder className="text-[#14B8A6]" size={20} />
-                <span className="text-[var(--text-secondary)] text-sm flex-1">
-                  Projects
-                </span>
-                <span
-                  className="text-[var(--text-primary)] font-bold"
-                  style={{ fontFamily: "var(--font-jetbrains)" }}
-                >
-                  {projectsCount}
-                </span>
+                <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0" style={{ background: "#D1FAE5" }}>
+                  <FiFolder className="text-[#14B8A6]" size={16} />
+                </div>
+                <div className="flex-1">
+                  <div className="font-bold text-lg" style={{ fontFamily: "var(--font-jetbrains)", color: "var(--text-primary)" }}>{projectsCount}</div>
+                  <div className="text-xs" style={{ color: "var(--text-muted)" }}>Projects</div>
+                </div>
               </div>
               <div className="flex items-center gap-3">
-                <FiAward className="text-[#F59E0B]" size={20} />
-                <span className="text-[var(--text-secondary)] text-sm flex-1">
-                  Certifications
-                </span>
-                <span
-                  className="text-[var(--text-primary)] font-bold"
-                  style={{ fontFamily: "var(--font-jetbrains)" }}
-                >
-                  {certsCount}
-                </span>
+                <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0" style={{ background: "#FEF3C7" }}>
+                  <FiAward className="text-[#D97706]" size={16} />
+                </div>
+                <div className="flex-1">
+                  <div className="font-bold text-lg" style={{ fontFamily: "var(--font-jetbrains)", color: "var(--text-primary)" }}>{certsCount}</div>
+                  <div className="text-xs" style={{ color: "var(--text-muted)" }}>Certifications</div>
+                </div>
               </div>
             </motion.div>
 
@@ -323,7 +311,7 @@ export default function DashboardPage() {
                   ({completedCount}/{sections.length})
                 </span>
               </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {sections.map((sec) => (
                   <div
                     key={sec.label}

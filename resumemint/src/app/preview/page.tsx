@@ -528,7 +528,7 @@ export default function PreviewPage() {
     return (
       <>
         <Navbar />
-        <div className="aurora-bg min-h-screen pt-28 pb-12 px-6">
+        <div className="aurora-bg min-h-screen pt-32 pb-12 px-6">
           <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-6">
             <div className="lg:w-72 shrink-0">
               <div className="skeleton h-80 rounded-2xl" />
@@ -547,7 +547,7 @@ export default function PreviewPage() {
   return (
     <>
       <Navbar />
-      <div className="aurora-bg min-h-screen pt-28 pb-12 px-6">
+      <div className="aurora-bg min-h-screen pt-32 pb-12 px-6">
         <div className="max-w-7xl mx-auto relative z-10 flex flex-col lg:flex-row gap-6">
           {/* Left Sidebar */}
           <motion.div

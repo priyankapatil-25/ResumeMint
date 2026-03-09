@@ -477,7 +477,7 @@ export default function BuilderPage() {
     return (
       <>
         <Navbar />
-        <div className="aurora-bg min-h-screen pt-28 pb-12 px-6">
+        <div className="aurora-bg min-h-screen pt-32 pb-12 px-6">
           <div className="max-w-full px-2">
             <div className="skeleton h-10 w-64 mb-6" />
             <div className="skeleton h-16 w-full mb-6 rounded-2xl" />
@@ -491,7 +491,7 @@ export default function BuilderPage() {
   return (
     <>
       <Navbar />
-      <div className="aurora-bg min-h-screen pt-28 pb-12 px-6">
+      <div className="aurora-bg min-h-screen pt-32 pb-12 px-6">
         <div className="max-w-full px-2 relative z-10">
           {/* Title */}
           <motion.h1
