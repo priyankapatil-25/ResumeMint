@@ -961,92 +961,66 @@ export default function BuilderPage() {
                   </div>
                 )}
 
-                {/* Step 4 - Projects */}
+                {/* Step 4 - Projects (matches HTML preview) */}
                 {currentStep === 4 && (
                   <div>
-                    <div className="flex items-center justify-between mb-6">
-                      <h2
-                        className="text-xl font-semibold flex items-center gap-2"
-                        style={{ fontFamily: "var(--font-space)" }}
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
+                      <h3 style={{ fontSize: 18, fontWeight: 700, fontFamily: "var(--font-space)" }}>
+                        <FiBriefcase className="text-[#6366F1]" style={{ display: "inline", marginRight: 8, verticalAlign: "middle" }} />
+                        Projects
+                      </h3>
+                      <button
+                        onClick={addProject}
+                        style={{
+                          padding: "8px 18px", fontSize: 13, borderRadius: 14, border: "none",
+                          background: "linear-gradient(135deg, #6366F1, #8B5CF6)", color: "#fff",
+                          fontWeight: 700, cursor: "pointer", boxShadow: "0 4px 12px rgba(99,102,241,0.25)",
+                        }}
                       >
-                        <FiBriefcase className="text-[#6366F1]" /> Projects
-                      </h2>
-                      <button onClick={addProject} className="btn-accent">
-                        <FiPlus size={16} /> Add Project
+                        + Add Project
                       </button>
                     </div>
 
                     {formData.projects.length === 0 && (
-                      <p className="text-slate-500 text-sm text-center py-8">
-                        No projects added yet. Click &quot;Add Project&quot; to begin.
+                      <p style={{ color: "var(--text-muted)", fontSize: 14, textAlign: "center", padding: "32px 0" }}>
+                        No projects added yet. Click &quot;+ Add Project&quot; to begin.
                       </p>
                     )}
 
-                    <div className="flex flex-col gap-5">
-                      {formData.projects.map((proj, idx) => (
-                        <div key={idx} className="bento-card !p-5">
-                          <div className="flex items-center justify-between mb-4">
-                            <h3
-                              className="text-base font-semibold text-[#14B8A6]"
-                              style={{ fontFamily: "var(--font-space)" }}
-                            >
-                              Project {idx + 1}
-                            </h3>
-                            <button
-                              onClick={() => removeProject(idx)}
-                              className="text-red-400 hover:text-red-300 transition-colors p-1.5 rounded-lg hover:bg-red-400/10"
-                            >
-                              <FiTrash2 size={16} />
-                            </button>
+                    {formData.projects.map((proj, idx) => (
+                      <div key={idx} style={{ border: "1px solid var(--border)", borderRadius: 16, padding: 20, marginBottom: 20, borderLeft: "3px solid #6366F1" }}>
+                        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+                          <div style={{ marginBottom: 16 }}>
+                            <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>Project Title</label>
+                            <input className="input-field" value={proj.title} onChange={(e) => updateProject(idx, "title", e.target.value)} placeholder="ResumeMint" style={{ width: "100%" }} />
                           </div>
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                            <InputField
-                              label="Title"
-                              value={proj.title}
-                              onChange={(v) => updateProject(idx, "title", v)}
-                              placeholder="Project Name"
-                            />
-                            <InputField
-                              label="Tech Stack (comma-separated)"
-                              value={proj.techStack.join(", ")}
-                              onChange={(v) =>
-                                updateProject(
-                                  idx,
-                                  "techStack",
-                                  v.split(",").map((s: string) => s.trim()).filter(Boolean)
-                                )
-                              }
-                              placeholder="e.g. MATLAB, SolidWorks, Arduino"
-                            />
-                            <InputField
-                              label="GitHub URL"
-                              value={proj.github}
-                              onChange={(v) => updateProject(idx, "github", v)}
-                              placeholder="https://github.com/..."
-                            />
-                            <InputField
-                              label="Live Demo URL"
-                              value={proj.liveDemo}
-                              onChange={(v) => updateProject(idx, "liveDemo", v)}
-                              placeholder="https://demo.example.com"
-                            />
+                          <div style={{ marginBottom: 16 }}>
+                            <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>Tech Stack</label>
+                            <input className="input-field" value={proj.techStack.join(", ")} onChange={(e) => updateProject(idx, "techStack", e.target.value.split(",").map((s: string) => s.trim()).filter(Boolean))} placeholder="Next.js, React, Prisma, PostgreSQL" style={{ width: "100%" }} />
                           </div>
-                          <div>
-                            <label className="text-sm text-slate-500 mb-1.5 block">
-                              Description
-                            </label>
-                            <textarea
-                              className="input-field w-full min-h-[80px] resize-y"
-                              value={proj.description}
-                              onChange={(e) =>
-                                updateProject(idx, "description", e.target.value)
-                              }
-                              placeholder="Describe what this project does..."
-                            />
+                          <div style={{ marginBottom: 16 }}>
+                            <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>GitHub URL</label>
+                            <input className="input-field" value={proj.github} onChange={(e) => updateProject(idx, "github", e.target.value)} placeholder="GitHub repo link" style={{ width: "100%" }} />
+                          </div>
+                          <div style={{ marginBottom: 16 }}>
+                            <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>Live Demo URL</label>
+                            <input className="input-field" value={proj.liveDemo} onChange={(e) => updateProject(idx, "liveDemo", e.target.value)} placeholder="Live demo link" style={{ width: "100%" }} />
                           </div>
                         </div>
-                      ))}
-                    </div>
+                        <div style={{ marginBottom: 16 }}>
+                          <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>Description</label>
+                          <textarea className="input-field" rows={3} value={proj.description} onChange={(e) => updateProject(idx, "description", e.target.value)} placeholder="A full-stack resume builder application..." style={{ width: "100%", resize: "vertical", minHeight: 80 }} />
+                        </div>
+                        <div style={{ textAlign: "right" }}>
+                          <button
+                            onClick={() => removeProject(idx)}
+                            style={{ background: "#FEE2E2", color: "#DC2626", border: "none", borderRadius: 10, padding: "8px 16px", cursor: "pointer", fontSize: 12, fontWeight: 600 }}
+                          >
+                            🗑 Delete Project
+                          </button>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 )}
 
