@@ -9,7 +9,6 @@ import jsPDF from "jspdf";
 import Link from "next/link";
 import {
   FiDownload,
-  FiShare2,
   FiSmartphone,
   FiMonitor,
 } from "react-icons/fi";
@@ -20,7 +19,7 @@ import TemplateGCEK from "@/components/templates/TemplateGCEK";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 export default function PreviewPage() {
-  const { data: session, status } = useSession();
+  const { status } = useSession();
   const router = useRouter();
   const [profile, setProfile] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -528,13 +527,13 @@ export default function PreviewPage() {
     return (
       <>
         <Navbar />
-        <div className="aurora-bg min-h-screen pt-32 pb-12 px-6">
-          <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-6">
-            <div className="lg:w-72 shrink-0">
-              <div className="skeleton h-80 rounded-2xl" />
+        <div className="aurora-bg min-h-screen" style={{ paddingTop: 110 }}>
+          <div style={{ display: "flex", gap: 24, maxWidth: 1400, margin: "0 auto", padding: "0 24px 48px" }}>
+            <div style={{ width: 288, flexShrink: 0 }}>
+              <div className="skeleton" style={{ height: 200, borderRadius: 16 }} />
             </div>
-            <div className="flex-1">
-              <div className="skeleton h-[800px] rounded-2xl" />
+            <div style={{ flex: 1, display: "flex", justifyContent: "center" }}>
+              <div className="skeleton" style={{ width: "210mm", height: 800, borderRadius: 0 }} />
             </div>
           </div>
         </div>
@@ -547,79 +546,102 @@ export default function PreviewPage() {
   return (
     <>
       <Navbar />
-      <div className="aurora-bg min-h-screen pt-32 pb-12 px-6">
-        <div className="max-w-7xl mx-auto relative z-10 flex flex-col lg:flex-row gap-6">
-          {/* Left Sidebar */}
+      <div className="aurora-bg min-h-screen" style={{ paddingTop: 110 }}>
+        {/* Preview Layout — matches HTML .preview-layout */}
+        <div style={{ display: "flex", gap: 24, maxWidth: 1400, margin: "0 auto", padding: "0 24px 48px" }}>
+
+          {/* Sidebar — matches HTML .preview-sidebar */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            className="lg:w-72 shrink-0"
+            style={{ width: 288, flexShrink: 0, position: "sticky", top: 120, alignSelf: "flex-start" }}
           >
-            <div className="lg:sticky lg:top-28">
-              <div className="bento-card">
-
-                {/* View Toggle */}
-                <div className="flex items-center gap-2 mb-4">
-                  <button
-                    onClick={() => setMobileView(false)}
-                    className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-sm transition-all ${
-                      !mobileView
-                        ? "bg-[rgba(99,102,241,0.15)] text-[#818CF8]"
-                        : "text-[var(--text-muted)] hover:text-[var(--text-secondary)]"
-                    }`}
-                  >
-                    <FiMonitor size={14} />
-                    Desktop
-                  </button>
-                  <button
-                    onClick={() => setMobileView(true)}
-                    className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-sm transition-all ${
-                      mobileView
-                        ? "bg-[rgba(99,102,241,0.15)] text-[#818CF8]"
-                        : "text-[var(--text-muted)] hover:text-[var(--text-secondary)]"
-                    }`}
-                  >
-                    <FiSmartphone size={14} />
-                    Mobile
-                  </button>
-                </div>
-
-                {/* Download PDF */}
+            <div className="bento-card" style={{ marginBottom: 16 }}>
+              {/* Toggle Group — matches HTML .toggle-group */}
+              <div style={{ display: "flex", border: "1px solid var(--border)", borderRadius: 12, overflow: "hidden", marginBottom: 16 }}>
                 <button
-                  onClick={downloadPDF}
-                  disabled={downloading}
-                  className="btn-accent w-full justify-center mb-3"
+                  onClick={() => setMobileView(false)}
+                  style={{
+                    flex: 1, padding: 8, fontSize: 12, fontWeight: 600, border: "none", cursor: "pointer",
+                    background: !mobileView ? "var(--primary, #6366F1)" : "#fff",
+                    color: !mobileView ? "#fff" : "var(--text-muted)",
+                    fontFamily: "'Inter', sans-serif",
+                  }}
                 >
-                  <FiDownload size={16} />
-                  {downloading ? "Generating..." : "Download PDF"}
+                  <FiMonitor size={14} style={{ display: "inline", verticalAlign: "middle", marginRight: 4 }} />
+                  Desktop
                 </button>
-
-                {/* Share Profile */}
-                <Link
-                  href={`/profile/${profile.id}`}
-                  className="btn-secondary w-full justify-center"
+                <button
+                  onClick={() => setMobileView(true)}
+                  style={{
+                    flex: 1, padding: 8, fontSize: 12, fontWeight: 600, border: "none", cursor: "pointer",
+                    background: mobileView ? "var(--primary, #6366F1)" : "#fff",
+                    color: mobileView ? "#fff" : "var(--text-muted)",
+                    fontFamily: "'Inter', sans-serif",
+                  }}
                 >
-                  <FiShare2 size={16} />
-                  Share Profile
-                </Link>
+                  <FiSmartphone size={14} style={{ display: "inline", verticalAlign: "middle", marginRight: 4 }} />
+                  Mobile
+                </button>
               </div>
+
+              {/* Download PDF — matches HTML btn-accent */}
+              <button
+                onClick={downloadPDF}
+                disabled={downloading}
+                style={{
+                  display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8,
+                  width: "100%", padding: "12px 24px", borderRadius: 14, border: "none",
+                  background: "linear-gradient(135deg, #6366F1, #8B5CF6)", color: "#fff",
+                  fontWeight: 700, fontSize: 14, cursor: downloading ? "not-allowed" : "pointer",
+                  boxShadow: "0 4px 12px rgba(99,102,241,0.25)", marginBottom: 10,
+                  opacity: downloading ? 0.6 : 1,
+                }}
+              >
+                <FiDownload size={16} />
+                {downloading ? "Generating..." : "📄 Download PDF"}
+              </button>
+
+              {/* Share Profile — matches HTML btn-secondary */}
+              <Link
+                href={`/profile/${profile.id}`}
+                style={{
+                  display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8,
+                  width: "100%", padding: "10px 20px", borderRadius: 14,
+                  border: "1px solid var(--border)", background: "var(--surface-light)",
+                  color: "var(--text-secondary)", fontWeight: 600, fontSize: 13,
+                  textDecoration: "none",
+                }}
+              >
+                🔗 Share Profile
+              </Link>
             </div>
           </motion.div>
 
-          {/* Main Preview Area */}
+          {/* Resume Container — matches HTML .resume-container */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="flex-1 flex justify-center"
+            style={{ flex: 1, display: "flex", justifyContent: "center" }}
           >
             <div
-              className={`transition-all duration-300 ${
-                mobileView ? "max-w-[400px]" : "max-w-[210mm]"
-              }`}
+              style={{
+                width: mobileView ? 400 : "210mm",
+                maxWidth: mobileView ? 400 : "210mm",
+                transition: "all 0.3s",
+              }}
             >
-              <div ref={resumeRef} className="shadow-2xl rounded-lg overflow-hidden border border-slate-200/20">
+              <div
+                ref={resumeRef}
+                style={{
+                  background: "#fff",
+                  boxShadow: "0 4px 24px rgba(0,0,0,0.1)",
+                  position: "relative",
+                  overflow: "hidden",
+                }}
+              >
                 <ActiveTemplate profile={profile} cgpa={cgpa} />
               </div>
             </div>

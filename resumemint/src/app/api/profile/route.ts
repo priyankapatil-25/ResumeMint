@@ -36,6 +36,8 @@ export async function PUT(req: Request) {
     const existing = await prisma.user.findUnique({ where: { email: session.user.email } });
     if (!existing) return NextResponse.json({ error: "User not found" }, { status: 404 });
 
+    const uid = existing.id;
+
     await prisma.user.update({
       where: { email: session.user.email },
       data: {
@@ -53,7 +55,6 @@ export async function PUT(req: Request) {
     });
 
     // Rebuild relations
-    const uid = existing.id;
     if (data.semesters !== undefined) {
       await prisma.semester.deleteMany({ where: { userId: uid } });
       if (data.semesters.length > 0)

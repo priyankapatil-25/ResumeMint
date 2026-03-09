@@ -6,7 +6,7 @@ const globalForPrisma = globalThis as unknown as { prisma: InstanceType<typeof P
 
 function createPrismaClient() {
   const connectionString = process.env.DATABASE_URL_TCP || "postgres://postgres:postgres@localhost:51214/template1?sslmode=disable";
-  const pool = new Pool({ connectionString, max: 1, idleTimeoutMillis: 1, connectionTimeoutMillis: 30000 });
+  const pool = new Pool({ connectionString, max: 20, idleTimeoutMillis: 30000, connectionTimeoutMillis: 30000 });
   const adapter = new PrismaPg(pool);
   return new PrismaClient({ adapter });
 }

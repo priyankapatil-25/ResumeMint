@@ -139,74 +139,6 @@ function SectionHeader({ children }: { children: React.ReactNode }) {
   );
 }
 
-// ─── Entry Header (left title, right date) ──────────────────────
-function EntryHeader({ left, right }: { left: string; right?: string }) {
-  return (
-    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 1 }}>
-      <span style={{
-        fontSize: 10, fontWeight: 700, color: COLORS.textBlack, fontFamily: "'Georgia', 'Cambria', serif",
-      }}>
-        {left}
-      </span>
-      {right && (
-        <span style={{
-          fontSize: 9, color: COLORS.mediumGray, fontFamily: "'Georgia', 'Cambria', serif",
-          whiteSpace: "nowrap", marginLeft: 8,
-        }}>
-          {right}
-        </span>
-      )}
-    </div>
-  );
-}
-
-// ─── Subtitle (blue italic) ─────────────────────────────────────
-function Subtitle({ children }: { children: React.ReactNode }) {
-  return (
-    <p style={{
-      fontSize: 9.5, fontStyle: "italic", color: COLORS.accentBlue, marginBottom: 2,
-      fontFamily: "'Georgia', 'Cambria', serif",
-    }}>
-      {children}
-    </p>
-  );
-}
-
-// ─── Bullet point ───────────────────────────────────────────────
-function Bullet({ children }: { children: React.ReactNode }) {
-  return (
-    <div style={{ display: "flex", alignItems: "flex-start", gap: 6, marginBottom: 2 }}>
-      <span style={{ fontSize: 9.5, color: COLORS.textBlack, lineHeight: 1, marginTop: 2 }}>{"\u2022"}</span>
-      <span style={{
-        fontSize: 9.5, color: COLORS.textBlack, lineHeight: 1.4, textAlign: "justify", flex: 1,
-        fontFamily: "'Georgia', 'Cambria', serif",
-      }}>
-        {children}
-      </span>
-    </div>
-  );
-}
-
-// ─── Skills Row (label: value) ──────────────────────────────────
-function SkillsRow({ label, value }: { label: string; value: string }) {
-  return (
-    <div style={{ display: "flex", alignItems: "flex-start", marginBottom: 3 }}>
-      <span style={{
-        fontSize: 9.5, fontWeight: 700, color: COLORS.textBlack, width: "28%", flexShrink: 0,
-        fontFamily: "'Georgia', 'Cambria', serif",
-      }}>
-        {label}
-      </span>
-      <span style={{
-        fontSize: 9.5, color: COLORS.textBlack, flex: 1,
-        fontFamily: "'Georgia', 'Cambria', serif",
-      }}>
-        {value}
-      </span>
-    </div>
-  );
-}
-
 // ═══════════════════════════════════════════════════════════════════
 // MAIN TEMPLATE COMPONENT
 // ═══════════════════════════════════════════════════════════════════
@@ -317,134 +249,133 @@ export default function TemplateGCEK({ profile, cgpa }: TemplateProps) {
           </>
         )}
 
-        {/* ── EDUCATION ── */}
+        {/* ── EDUCATION (table format matching HTML) ── */}
         <SectionHeader>Education</SectionHeader>
+        <table style={{ width: "100%", fontSize: 8, borderCollapse: "collapse", fontFamily: "'Georgia', 'Cambria', serif" }}>
+          <thead>
+            <tr style={{ background: "#F8FAFC" }}>
+              <th style={{ textAlign: "left", padding: "3px 6px", fontWeight: 600 }}>Degree</th>
+              <th style={{ textAlign: "left", padding: "3px 6px" }}>Institution</th>
+              <th style={{ textAlign: "left", padding: "3px 6px" }}>Year</th>
+              <th style={{ textAlign: "left", padding: "3px 6px" }}>Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            {profile.college && (
+              <tr>
+                <td style={{ padding: "3px 6px" }}>B.E. ({profile.branch || "Engineering"})</td>
+                <td style={{ padding: "3px 6px" }}>{profile.college}</td>
+                <td style={{ padding: "3px 6px" }}>{profile.enrollmentYear && profile.graduationYear ? `${profile.enrollmentYear}-${profile.graduationYear}` : ""}</td>
+                <td style={{ padding: "3px 6px" }}>{cgpa !== "N/A" ? `CGPA: ${cgpa}` : ""}</td>
+              </tr>
+            )}
+            {profile.diplomaCollege && (
+              <tr style={{ background: "#FAFBFC" }}>
+                <td style={{ padding: "3px 6px" }}>Diploma ({profile.diplomaBranch || "Engineering"})</td>
+                <td style={{ padding: "3px 6px" }}>{profile.diplomaCollege}</td>
+                <td style={{ padding: "3px 6px" }}>{profile.diplomaYear || ""}</td>
+                <td style={{ padding: "3px 6px" }}>{profile.diplomaPercentage || ""}</td>
+              </tr>
+            )}
+            {profile.school12th && (
+              <tr style={profile.diplomaCollege ? {} : { background: "#FAFBFC" }}>
+                <td style={{ padding: "3px 6px" }}>HSC (12th)</td>
+                <td style={{ padding: "3px 6px" }}>{profile.school12th}</td>
+                <td style={{ padding: "3px 6px" }}>{profile.year12th || ""}</td>
+                <td style={{ padding: "3px 6px" }}>{profile.percentage12th ? `${profile.percentage12th}%` : ""}</td>
+              </tr>
+            )}
+            {profile.school10th && (
+              <tr>
+                <td style={{ padding: "3px 6px" }}>SSC (10th)</td>
+                <td style={{ padding: "3px 6px" }}>{profile.school10th}</td>
+                <td style={{ padding: "3px 6px" }}>{profile.year10th || ""}</td>
+                <td style={{ padding: "3px 6px" }}>{profile.percentage10th ? `${profile.percentage10th}%` : ""}</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
 
-        {/* Engineering */}
-        {profile.college && (
-          <>
-            <EntryHeader
-              left={`Bachelor of Engineering (${profile.branch || "Engineering"})`}
-              right={profile.enrollmentYear && profile.graduationYear ? `${profile.enrollmentYear} \u2013 ${profile.graduationYear}` : undefined}
-            />
-            <Subtitle>{profile.college} — Shivaji University</Subtitle>
-            {cgpa !== "N/A" && <Bullet>CGPA: <strong>{cgpa}</strong></Bullet>}
-          </>
-        )}
-
-        {/* Diploma */}
-        {profile.diplomaCollege && (
-          <div style={{ marginTop: 4 }}>
-            <EntryHeader
-              left={`Diploma — ${profile.diplomaBranch || "Engineering"}`}
-              right={profile.diplomaYear || undefined}
-            />
-            <Subtitle>{profile.diplomaCollege}</Subtitle>
-            {profile.diplomaPercentage && <Bullet>Percentage / CGPA: <strong>{profile.diplomaPercentage}</strong></Bullet>}
-          </div>
-        )}
-
-        {/* 12th */}
-        {profile.school12th && (
-          <div style={{ marginTop: 4 }}>
-            <EntryHeader
-              left={`HSC (Science) — ${profile.board12th || "Maharashtra State Board"}`}
-              right={profile.year12th || undefined}
-            />
-            <Subtitle>{profile.school12th}</Subtitle>
-            {profile.percentage12th && <Bullet>Percentage: <strong>{profile.percentage12th}%</strong></Bullet>}
-          </div>
-        )}
-
-        {/* 10th */}
-        {profile.school10th && (
-          <div style={{ marginTop: 4 }}>
-            <EntryHeader
-              left={`SSC — ${profile.board10th || "Maharashtra State Board"}`}
-              right={profile.year10th || undefined}
-            />
-            <Subtitle>{profile.school10th}</Subtitle>
-            {profile.percentage10th && <Bullet>Percentage: <strong>{profile.percentage10th}%</strong></Bullet>}
-          </div>
-        )}
-
-        {/* ── TECHNICAL SKILLS ── */}
+        {/* ── TECHNICAL SKILLS (matching HTML) ── */}
         {profile.skills?.length > 0 && (
           <>
             <SectionHeader>Technical Skills</SectionHeader>
-            {Object.entries(skillsByCategory).map(([category, skills]) => (
-              <SkillsRow
-                key={category}
-                label={`${category}:`}
-                value={(skills as any[]).map((s: any) => s.name).join(", ")}
-              />
-            ))}
-          </>
-        )}
-
-        {/* ── SEMESTER RESULTS ── */}
-        {filledSemesters.length > 0 && (
-          <>
-            <SectionHeader>Semester Results</SectionHeader>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "2px 16px", marginBottom: 4 }}>
-              {filledSemesters.map((sem) => (
-                <span key={sem.number} style={{
-                  fontSize: 9.5, color: COLORS.textBlack, fontFamily: "'Georgia', 'Cambria', serif",
-                }}>
-                  <strong>Sem {sem.number}:</strong> {sem.sgpa.toFixed(2)}
-                </span>
+            <div style={{ fontSize: 8, color: "#333" }}>
+              {Object.entries(skillsByCategory).map(([category, skills]) => (
+                <div key={category} style={{ marginBottom: 3 }}>
+                  <strong>{category}:</strong> {(skills as any[]).map((s: any) => s.name).join(", ")}
+                </div>
               ))}
             </div>
           </>
         )}
 
-        {/* ── INTERNSHIP EXPERIENCE ── */}
+        {/* ── SEMESTER RESULTS (badge cards matching HTML) ── */}
+        {filledSemesters.length > 0 && (
+          <>
+            <SectionHeader>Semester Results</SectionHeader>
+            <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+              {filledSemesters.map((sem) => (
+                <div key={sem.number} style={{
+                  background: "#F8FAFC", padding: "4px 10px", borderRadius: 4, fontSize: 8,
+                  textAlign: "center", border: "1px solid #E5E7EB",
+                }}>
+                  <div style={{ fontWeight: 600 }}>Sem {sem.number}</div>
+                  <div style={{ fontFamily: "var(--font-jetbrains, 'JetBrains Mono', monospace)", fontWeight: 700 }}>
+                    {typeof sem.sgpa === "number" ? sem.sgpa.toFixed(1) : sem.sgpa}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+
+        {/* ── INTERNSHIP EXPERIENCE (matching HTML) ── */}
         {profile.internships?.length > 0 && (
           <>
             <SectionHeader>Internship Experience</SectionHeader>
             {profile.internships.map((intern, i) => (
-              <div key={i} style={{ marginBottom: 6 }}>
-                <EntryHeader
-                  left={`${intern.role} — ${intern.company}`}
-                  right={intern.duration || undefined}
-                />
-                {intern.description && <Bullet>{intern.description}</Bullet>}
+              <div key={i} style={{ fontSize: 9, color: "#333", marginBottom: 6 }}>
+                <div style={{ display: "flex", justifyContent: "space-between" }}>
+                  <strong>{intern.role} - {intern.company}</strong>
+                  <span style={{ fontSize: 8, color: "#666" }}>{intern.duration}</span>
+                </div>
+                {intern.description && <p style={{ fontSize: 8, marginTop: 2 }}>{intern.description}</p>}
               </div>
             ))}
           </>
         )}
 
-        {/* ── ACADEMIC PROJECTS ── */}
+        {/* ── ACADEMIC PROJECTS (matching HTML) ── */}
         {profile.projects?.length > 0 && (
           <>
             <SectionHeader>Academic Projects</SectionHeader>
             {profile.projects.map((project, i) => (
-              <div key={i} style={{ marginBottom: 6 }}>
-                <EntryHeader left={project.title} />
-                {project.description && <Bullet>{project.description}</Bullet>}
-                {project.techStack?.length > 0 && (
-                  <Bullet>
-                    <em style={{ color: COLORS.accentBlue }}>
-                      Tech Stack: {project.techStack.join(", ")}
-                    </em>
-                  </Bullet>
-                )}
+              <div key={i} style={{ fontSize: 9, color: "#333", marginBottom: 6 }}>
+                <div>
+                  <strong>{project.title}</strong>
+                  {project.techStack?.length > 0 && (
+                    <span style={{ fontSize: 7, color: "#6366F1" }}> | {project.techStack.join(", ")}</span>
+                  )}
+                </div>
+                {project.description && <p style={{ fontSize: 8, marginTop: 2 }}>{project.description}</p>}
               </div>
             ))}
           </>
         )}
 
-        {/* ── CERTIFICATIONS ── */}
+        {/* ── CERTIFICATIONS (matching HTML) ── */}
         {profile.certifications?.length > 0 && (
           <>
             <SectionHeader>Certifications</SectionHeader>
-            {profile.certifications.map((cert, i) => (
-              <Bullet key={i}>
-                {cert.title}
-                {cert.issuer ? ` — ${cert.issuer}` : ""}
-                {cert.date ? `, ${cert.date}` : ""}
-              </Bullet>
-            ))}
+            <div style={{ fontSize: 8, color: "#333" }}>
+              {profile.certifications.map((cert, i) => (
+                <div key={i} style={{ display: "flex", justifyContent: "space-between", marginBottom: 2 }}>
+                  <span>• {cert.title}{cert.issuer ? ` - ${cert.issuer}` : ""}</span>
+                  {cert.date && <span style={{ color: "#666" }}>{cert.date}</span>}
+                </div>
+              ))}
+            </div>
           </>
         )}
 
@@ -452,26 +383,31 @@ export default function TemplateGCEK({ profile, cgpa }: TemplateProps) {
         {profile.extraActivities && profile.extraActivities.length > 0 && (
           <>
             <SectionHeader>Achievements & Extracurricular Activities</SectionHeader>
-            {profile.extraActivities.map((activity, i) => (
-              <Bullet key={i}>{activity}</Bullet>
-            ))}
+            <div style={{ fontSize: 8, color: "#333" }}>
+              {profile.extraActivities.map((activity, i) => (
+                <div key={i} style={{ marginBottom: 2 }}>• {activity}</div>
+              ))}
+            </div>
           </>
         )}
 
-        {/* ── PERSONAL DETAILS ── */}
+        {/* ── PERSONAL DETAILS (2-col grid matching HTML) ── */}
         <SectionHeader>Personal Details</SectionHeader>
-        {profile.dob && <SkillsRow label="Date of Birth:" value={profile.dob} />}
-        {profile.address && <SkillsRow label="Address:" value={profile.address} />}
+        <div style={{ fontSize: 8, color: "#333", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 2 }}>
+          {profile.dob && <div><strong>Date of Birth:</strong> {profile.dob}</div>}
+          <div><strong>Languages:</strong> English, Hindi, Marathi</div>
+          {profile.address && <div><strong>Address:</strong> {profile.address}</div>}
+          <div><strong>Nationality:</strong> Indian</div>
+        </div>
 
-        {/* ── DECLARATION ── */}
-        <div style={{ marginTop: 14 }}>
-          <div style={{ width: "100%", height: 0.5, backgroundColor: COLORS.lightGray, marginBottom: 6 }} />
-          <p style={{
-            fontSize: 8.5, fontStyle: "italic", color: COLORS.mediumGray, lineHeight: 1.3,
-            fontFamily: "'Georgia', 'Cambria', serif",
-          }}>
-            I hereby declare that all the information furnished above is true to the best of my knowledge and belief.
-          </p>
+        {/* ── DECLARATION (matching HTML) ── */}
+        <SectionHeader>Declaration</SectionHeader>
+        <p style={{ fontSize: 7, color: "#555", fontStyle: "italic" }}>
+          I hereby declare that the information furnished above is true to the best of my knowledge and belief.
+        </p>
+        <div style={{ display: "flex", justifyContent: "space-between", marginTop: 6, fontSize: 8 }}>
+          <span>Place: {profile.address?.split(",")[0]?.trim() || "Karad"}</span>
+          <span style={{ fontWeight: 600 }}>{profile.name || "Student Name"}</span>
         </div>
       </div>
 
