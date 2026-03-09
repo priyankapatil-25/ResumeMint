@@ -8,24 +8,6 @@ import Navbar from "@/components/Navbar";
 import TemplateGCEK from "@/components/templates/TemplateGCEK";
 import jsPDF from "jspdf";
 import Link from "next/link";
-import {
-  FiArrowLeft,
-  FiDownload,
-  FiUser,
-  FiMail,
-  FiPhone,
-  FiMapPin,
-  FiCalendar,
-  FiGithub,
-  FiLinkedin,
-  FiGlobe,
-  FiCode,
-  FiBookOpen,
-  FiAward,
-  FiBriefcase,
-  FiTarget,
-  FiStar,
-} from "react-icons/fi";
 import toast from "react-hot-toast";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -354,242 +336,206 @@ export default function AdminStudentDetailPage() {
     );
   }
 
-  const InfoItem = ({ icon, label, value }: { icon: React.ReactNode; label: string; value: string | null | undefined }) => (
-    value ? (
-      <div className="flex items-start gap-2.5 py-1.5">
-        <span style={{ color: "var(--text-muted)" }}>{icon}</span>
-        <div>
-          <p className="text-xs" style={{ color: "var(--text-muted)" }}>{label}</p>
-          <p className="text-sm font-medium" style={{ color: "var(--text-primary)" }}>{value}</p>
-        </div>
-      </div>
-    ) : null
-  );
-
   return (
     <>
       <Navbar />
-      <div className="aurora-bg min-h-screen pt-32 pb-12 px-6">
-        <div className="max-w-7xl mx-auto relative z-10">
-          {/* Back Button & Header */}
-          <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="mb-6">
-            <Link href="/admin" className="inline-flex items-center gap-2 text-sm mb-4 hover:text-indigo-500 transition-colors" style={{ color: "var(--text-muted)" }}>
-              <FiArrowLeft size={16} /> Back to Admin Panel
-            </Link>
-            <div className="flex items-center justify-between flex-wrap gap-4">
-              <div className="flex items-center gap-4">
-                {profile.photo ? (
-                  <img src={profile.photo} alt={profile.name} className="w-16 h-16 rounded-2xl object-cover border-2 border-indigo-200" />
-                ) : (
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-teal-400 flex items-center justify-center text-2xl font-bold text-white">
-                    {profile.name?.charAt(0)?.toUpperCase()}
-                  </div>
-                )}
-                <div>
-                  <h1 className="text-2xl font-bold" style={{ fontFamily: "var(--font-space)", color: "var(--text-primary)" }}>
-                    {profile.name}
-                  </h1>
-                  <p className="text-sm" style={{ color: "var(--text-muted)" }}>
-                    {profile.branch || "Engineering"} {profile.enrollmentYear && `| ${profile.enrollmentYear}–${profile.graduationYear}`}
-                  </p>
-                </div>
+      <div className="aurora-bg min-h-screen" style={{ paddingTop: 110, paddingLeft: 24, paddingRight: 24, paddingBottom: 48 }}>
+        <div style={{ maxWidth: 1100, margin: "0 auto", position: "relative", zIndex: 1 }}>
+
+          {/* Back link */}
+          <Link href="/admin" style={{ display: "inline-flex", alignItems: "center", gap: 6, marginBottom: 20, fontSize: 14, color: "var(--text-muted)", textDecoration: "none" }}>
+            &#8592; Back to Admin Panel
+          </Link>
+
+          {/* Header Card — matches HTML .detail-header */}
+          <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="bento-card" style={{ marginBottom: 24 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap" as const }}>
+              {/* Avatar — 72px circle matching HTML .detail-avatar */}
+              <div style={{ width: 72, height: 72, borderRadius: "50%", background: "linear-gradient(135deg,#6366F1,#14B8A6)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 28, fontWeight: 700, color: "#fff", flexShrink: 0 }}>
+                {profile.name?.charAt(0)?.toUpperCase()}
               </div>
-              <div className="flex gap-3">
+              <div style={{ flex: 1 }}>
+                <h2 style={{ fontSize: 22, fontWeight: 700, fontFamily: "var(--font-space)", color: "var(--text-primary)", margin: 0 }}>{profile.name}</h2>
+                <p style={{ fontSize: 14, color: "var(--text-muted)", margin: "4px 0 0" }}>
+                  {profile.branch || "Engineering"} | {profile.enrollmentYear || ""}–{profile.graduationYear || ""}
+                </p>
+              </div>
+              <div style={{ display: "flex", gap: 10, flexWrap: "wrap" as const }}>
                 <button onClick={() => setShowResume(!showResume)} className="btn-secondary">
-                  <FiTarget size={16} /> {showResume ? "Hide Resume" : "View Resume"}
+                  {showResume ? "Hide Resume" : "View Resume"}
                 </button>
                 <button onClick={downloadPDF} disabled={downloading} className="btn-accent">
-                  <FiDownload size={16} /> {downloading ? "Generating..." : "Download PDF"}
+                  &#128196; {downloading ? "Generating..." : "Download PDF"}
                 </button>
               </div>
             </div>
+
+            {/* Resume toggle area */}
+            {showResume && (
+              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} style={{ padding: 20, background: "var(--surface-light)", borderRadius: 14, marginTop: 16 }}>
+                <div style={{ maxWidth: "210mm", margin: "0 auto" }}>
+                  <div ref={resumeRef}>
+                    <TemplateGCEK profile={profile} cgpa={cgpa} />
+                  </div>
+                </div>
+              </motion.div>
+            )}
           </motion.div>
 
-          {/* Resume Preview */}
-          {showResume && (
-            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
-              <div className="max-w-[210mm] mx-auto shadow-2xl rounded-lg overflow-hidden border border-slate-200/20">
-                <div ref={resumeRef}>
-                  <TemplateGCEK profile={profile} cgpa={cgpa} />
-                </div>
-              </div>
-            </motion.div>
-          )}
+          {/* Detail Grid — 3 columns matching HTML .detail-grid */}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }}>
 
-          {/* Student Details Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Personal Info */}
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="bento-card">
-              <h3 className="text-sm font-semibold mb-4 flex items-center gap-2" style={{ color: "var(--text-primary)" }}>
-                <FiUser size={15} className="text-indigo-500" /> Personal Information
-              </h3>
-              <div className="space-y-1">
-                <InfoItem icon={<FiMail size={14} />} label="Email" value={profile.email} />
-                <InfoItem icon={<FiPhone size={14} />} label="Phone" value={profile.phone} />
-                <InfoItem icon={<FiMapPin size={14} />} label="Address" value={profile.address} />
-                <InfoItem icon={<FiCalendar size={14} />} label="Date of Birth" value={profile.dob} />
-                <InfoItem icon={<FiLinkedin size={14} />} label="LinkedIn" value={profile.linkedin} />
-                <InfoItem icon={<FiGithub size={14} />} label="GitHub" value={profile.github} />
-                <InfoItem icon={<FiGlobe size={14} />} label="Portfolio" value={profile.portfolio} />
+              <h4 style={{ fontSize: 15, fontWeight: 700, marginBottom: 14, color: "var(--text-primary)" }}>&#128100; Personal Information</h4>
+              <div style={{ display: "flex", flexDirection: "column", gap: 10, fontSize: 13 }}>
+                {profile.email && <div><span style={{ color: "var(--text-muted)" }}>Email:</span><br /><strong>{profile.email}</strong></div>}
+                {profile.phone && <div><span style={{ color: "var(--text-muted)" }}>Phone:</span><br /><strong>{profile.phone}</strong></div>}
+                {profile.address && <div><span style={{ color: "var(--text-muted)" }}>Address:</span><br /><strong>{profile.address}</strong></div>}
+                {profile.dob && <div><span style={{ color: "var(--text-muted)" }}>Date of Birth:</span><br /><strong>{profile.dob}</strong></div>}
+                {profile.linkedin && <div><span style={{ color: "var(--text-muted)" }}>LinkedIn:</span><br /><strong style={{ color: "#6366F1" }}>{profile.linkedin}</strong></div>}
+                {profile.github && <div><span style={{ color: "var(--text-muted)" }}>GitHub:</span><br /><strong style={{ color: "#6366F1" }}>{profile.github}</strong></div>}
+                {profile.portfolio && <div><span style={{ color: "var(--text-muted)" }}>Portfolio:</span><br /><strong style={{ color: "#6366F1" }}>{profile.portfolio}</strong></div>}
               </div>
             </motion.div>
 
             {/* Education */}
-            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="bento-card">
-              <h3 className="text-sm font-semibold mb-4 flex items-center gap-2" style={{ color: "var(--text-primary)" }}>
-                <FiBookOpen size={15} className="text-teal-500" /> Education
-              </h3>
-              <div className="space-y-3">
+            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="bento-card">
+              <h4 style={{ fontSize: 15, fontWeight: 700, marginBottom: 14, color: "var(--text-primary)" }}>&#127891; Education</h4>
+              <div style={{ display: "flex", flexDirection: "column", gap: 12, fontSize: 13 }}>
                 {profile.college && (
-                  <div className="p-3 rounded-xl" style={{ background: "rgba(99,102,241,0.05)" }}>
-                    <p className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>B.E. — {profile.branch}</p>
-                    <p className="text-xs" style={{ color: "var(--text-muted)" }}>{profile.college}</p>
-                    {cgpa !== "N/A" && <p className="text-xs mt-1 font-medium text-indigo-500">CGPA: {cgpa}</p>}
+                  <div style={{ padding: 10, background: "var(--surface-light)", borderRadius: 10 }}>
+                    <div style={{ fontWeight: 700 }}>B.E. {profile.branch || "Engineering"}</div>
+                    <div style={{ color: "var(--text-muted)", fontSize: 12 }}>{profile.college}</div>
+                    {cgpa !== "N/A" && (
+                      <div style={{ marginTop: 4 }}>
+                        <span style={{ display: "inline-flex", alignItems: "center", padding: "3px 10px", borderRadius: 99, fontSize: 11, fontWeight: 600, background: "#E0E7FF", color: "#4338CA" }}>CGPA: {cgpa}</span>
+                      </div>
+                    )}
                   </div>
                 )}
                 {profile.diplomaCollege && (
-                  <div className="p-3 rounded-xl" style={{ background: "rgba(20,184,166,0.05)" }}>
-                    <p className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>Diploma — {profile.diplomaBranch}</p>
-                    <p className="text-xs" style={{ color: "var(--text-muted)" }}>{profile.diplomaCollege}</p>
-                    {profile.diplomaPercentage && <p className="text-xs mt-1 font-medium text-teal-500">{profile.diplomaPercentage}%</p>}
+                  <div style={{ padding: 10, background: "var(--surface-light)", borderRadius: 10 }}>
+                    <div style={{ fontWeight: 700 }}>Diploma — {profile.diplomaBranch || "Engineering"}</div>
+                    <div style={{ color: "var(--text-muted)", fontSize: 12 }}>{profile.diplomaCollege}</div>
+                    {profile.diplomaPercentage && <div style={{ marginTop: 4, fontSize: 12, fontWeight: 600, color: "#14B8A6" }}>{profile.diplomaPercentage}%</div>}
                   </div>
                 )}
                 {profile.school12th && (
-                  <div className="p-3 rounded-xl" style={{ background: "rgba(99,102,241,0.05)" }}>
-                    <p className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>HSC — {profile.board12th}</p>
-                    <p className="text-xs" style={{ color: "var(--text-muted)" }}>{profile.school12th}</p>
-                    {profile.percentage12th && <p className="text-xs mt-1 font-medium text-indigo-500">{profile.percentage12th}%</p>}
+                  <div style={{ padding: 10, background: "var(--surface-light)", borderRadius: 10 }}>
+                    <div style={{ fontWeight: 700 }}>HSC (12th) {profile.percentage12th ? `- ${profile.percentage12th}%` : ""}</div>
+                    <div style={{ color: "var(--text-muted)", fontSize: 12 }}>{profile.school12th}{profile.year12th ? ` | ${profile.year12th}` : ""}</div>
                   </div>
                 )}
                 {profile.school10th && (
-                  <div className="p-3 rounded-xl" style={{ background: "rgba(20,184,166,0.05)" }}>
-                    <p className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>SSC — {profile.board10th}</p>
-                    <p className="text-xs" style={{ color: "var(--text-muted)" }}>{profile.school10th}</p>
-                    {profile.percentage10th && <p className="text-xs mt-1 font-medium text-teal-500">{profile.percentage10th}%</p>}
+                  <div style={{ padding: 10, background: "var(--surface-light)", borderRadius: 10 }}>
+                    <div style={{ fontWeight: 700 }}>SSC (10th) {profile.percentage10th ? `- ${profile.percentage10th}%` : ""}</div>
+                    <div style={{ color: "var(--text-muted)", fontSize: 12 }}>{profile.school10th}{profile.year10th ? ` | ${profile.year10th}` : ""}</div>
                   </div>
                 )}
               </div>
             </motion.div>
 
             {/* Career Objective */}
-            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="bento-card">
-              <h3 className="text-sm font-semibold mb-4 flex items-center gap-2" style={{ color: "var(--text-primary)" }}>
-                <FiTarget size={15} className="text-purple-500" /> Career Objective
-              </h3>
-              <p className="text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
+            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="bento-card">
+              <h4 style={{ fontSize: 15, fontWeight: 700, marginBottom: 14, color: "var(--text-primary)" }}>&#127919; Career Objective</h4>
+              <p style={{ fontSize: 13, color: "#555", lineHeight: 1.6 }}>
                 {profile.objective || "Not provided"}
               </p>
             </motion.div>
 
-            {/* Skills */}
-            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="bento-card">
-              <h3 className="text-sm font-semibold mb-4 flex items-center gap-2" style={{ color: "var(--text-primary)" }}>
-                <FiCode size={15} className="text-amber-500" /> Skills ({profile.skills?.length || 0})
-              </h3>
-              <div className="flex flex-wrap gap-2">
+            {/* Skills — tag badges */}
+            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }} className="bento-card">
+              <h4 style={{ fontSize: 15, fontWeight: 700, marginBottom: 14, color: "var(--text-primary)" }}>&#9881; Skills</h4>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
                 {(profile.skills || []).map((s: any, i: number) => (
-                  <span key={i} className="px-2.5 py-1 rounded-lg text-xs font-medium" style={{ background: "rgba(99,102,241,0.1)", color: "#6366F1" }}>
+                  <span key={i} style={{ display: "inline-block", padding: "4px 12px", borderRadius: 99, fontSize: 11, fontWeight: 600, background: "#EEF2FF", color: "#6366F1" }}>
                     {s.name}
                   </span>
                 ))}
                 {(!profile.skills || profile.skills.length === 0) && (
-                  <p className="text-xs" style={{ color: "var(--text-muted)" }}>No skills added</p>
+                  <p style={{ fontSize: 12, color: "var(--text-muted)" }}>No skills added</p>
                 )}
               </div>
             </motion.div>
 
             {/* Projects */}
-            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }} className="bento-card">
-              <h3 className="text-sm font-semibold mb-4 flex items-center gap-2" style={{ color: "var(--text-primary)" }}>
-                <FiBookOpen size={15} className="text-emerald-500" /> Projects ({profile.projects?.length || 0})
-              </h3>
-              <div className="space-y-3">
-                {(profile.projects || []).map((p: any, i: number) => (
-                  <div key={i} className="p-3 rounded-xl" style={{ background: "rgba(16,185,129,0.05)" }}>
-                    <p className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>{p.title}</p>
-                    {p.description && <p className="text-xs mt-1" style={{ color: "var(--text-muted)" }}>{p.description}</p>}
-                    {p.techStack?.length > 0 && (
-                      <div className="flex flex-wrap gap-1 mt-2">
-                        {p.techStack.map((t: string, j: number) => (
-                          <span key={j} className="px-1.5 py-0.5 rounded text-[10px]" style={{ background: "rgba(16,185,129,0.1)", color: "#10B981" }}>{t}</span>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                ))}
-                {(!profile.projects || profile.projects.length === 0) && (
-                  <p className="text-xs" style={{ color: "var(--text-muted)" }}>No projects added</p>
-                )}
-              </div>
-            </motion.div>
-
-            {/* Certifications & Internships */}
-            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} className="bento-card">
-              <h3 className="text-sm font-semibold mb-4 flex items-center gap-2" style={{ color: "var(--text-primary)" }}>
-                <FiAward size={15} className="text-red-500" /> Certifications ({profile.certifications?.length || 0})
-              </h3>
-              <div className="space-y-2 mb-6">
-                {(profile.certifications || []).map((c: any, i: number) => (
-                  <div key={i} className="p-2.5 rounded-xl" style={{ background: "rgba(239,68,68,0.05)" }}>
-                    <p className="text-sm font-medium" style={{ color: "var(--text-primary)" }}>{c.title}</p>
-                    <p className="text-xs" style={{ color: "var(--text-muted)" }}>{c.issuer} {c.date && `| ${c.date}`}</p>
-                  </div>
-                ))}
-                {(!profile.certifications || profile.certifications.length === 0) && (
-                  <p className="text-xs" style={{ color: "var(--text-muted)" }}>No certifications added</p>
-                )}
-              </div>
-
-              <h3 className="text-sm font-semibold mb-4 flex items-center gap-2" style={{ color: "var(--text-primary)" }}>
-                <FiBriefcase size={15} className="text-blue-500" /> Internships ({profile.internships?.length || 0})
-              </h3>
-              <div className="space-y-2">
-                {(profile.internships || []).map((i: any, idx: number) => (
-                  <div key={idx} className="p-2.5 rounded-xl" style={{ background: "rgba(59,130,246,0.05)" }}>
-                    <p className="text-sm font-medium" style={{ color: "var(--text-primary)" }}>{i.role} — {i.company}</p>
-                    <p className="text-xs" style={{ color: "var(--text-muted)" }}>{i.duration}</p>
-                  </div>
-                ))}
-                {(!profile.internships || profile.internships.length === 0) && (
-                  <p className="text-xs" style={{ color: "var(--text-muted)" }}>No internships added</p>
-                )}
-              </div>
-            </motion.div>
-
-            {/* Semesters */}
-            {semesters.length > 0 && (
-              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }} className="bento-card lg:col-span-2">
-                <h3 className="text-sm font-semibold mb-4 flex items-center gap-2" style={{ color: "var(--text-primary)" }}>
-                  <FiStar size={15} className="text-yellow-500" /> Semester Results (CGPA: {cgpa})
-                </h3>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                  {semesters.map((s: any) => (
-                    <div key={s.id} className="p-3 rounded-xl text-center" style={{ background: "rgba(99,102,241,0.05)" }}>
-                      <p className="text-xs" style={{ color: "var(--text-muted)" }}>Sem {s.number}</p>
-                      <p className="text-lg font-bold text-indigo-500">{s.sgpa.toFixed(2)}</p>
-                      {s.backlog > 0 && <p className="text-[10px] text-red-400">{s.backlog} backlog(s)</p>}
+            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="bento-card">
+              <h4 style={{ fontSize: 15, fontWeight: 700, marginBottom: 14, color: "var(--text-primary)" }}>&#9733; Projects</h4>
+              {(profile.projects || []).map((p: any, i: number) => (
+                <div key={i} style={{ padding: 12, background: "var(--surface-light)", borderRadius: 12, marginBottom: 10 }}>
+                  <div style={{ fontWeight: 700, fontSize: 14 }}>{p.title}</div>
+                  {p.techStack?.length > 0 && (
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: 4, margin: "6px 0" }}>
+                      {p.techStack.map((t: string, j: number) => (
+                        <span key={j} style={{ display: "inline-block", padding: "2px 8px", borderRadius: 99, fontSize: 10, fontWeight: 600, background: "#EEF2FF", color: "#6366F1" }}>{t}</span>
+                      ))}
                     </div>
-                  ))}
+                  )}
+                  {p.description && <p style={{ fontSize: 12, color: "#666", margin: 0 }}>{p.description}</p>}
+                </div>
+              ))}
+              {(!profile.projects || profile.projects.length === 0) && (
+                <p style={{ fontSize: 12, color: "var(--text-muted)" }}>No projects added</p>
+              )}
+            </motion.div>
+
+            {/* Certs & Internships — combined card matching HTML */}
+            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }} className="bento-card">
+              <h4 style={{ fontSize: 15, fontWeight: 700, marginBottom: 14, color: "var(--text-primary)" }}>&#128188; Certifications & Internships</h4>
+              <div style={{ fontSize: 13 }}>
+                {(profile.internships || []).map((intern: any, idx: number) => (
+                  <div key={`i-${idx}`} style={{ padding: 10, background: "var(--surface-light)", borderRadius: 10, marginBottom: 8 }}>
+                    <div style={{ fontWeight: 600 }}>&#128188; {intern.company}</div>
+                    <div style={{ fontSize: 12, color: "var(--text-muted)" }}>{intern.role}{intern.duration ? ` | ${intern.duration}` : ""}</div>
+                  </div>
+                ))}
+                {(profile.certifications || []).map((c: any, idx: number) => (
+                  <div key={`c-${idx}`} style={{ padding: 10, background: "var(--surface-light)", borderRadius: 10, marginBottom: 8 }}>
+                    <div style={{ fontWeight: 600 }}>&#128196; {c.title}</div>
+                    <div style={{ fontSize: 12, color: "var(--text-muted)" }}>{c.issuer}{c.date ? ` | ${c.date}` : ""}</div>
+                  </div>
+                ))}
+                {(!profile.internships || profile.internships.length === 0) && (!profile.certifications || profile.certifications.length === 0) && (
+                  <p style={{ fontSize: 12, color: "var(--text-muted)" }}>No certifications or internships added</p>
+                )}
+              </div>
+            </motion.div>
+
+            {/* Semester Results — span-2 matching HTML */}
+            {semesters.length > 0 && (
+              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="bento-card" style={{ gridColumn: "span 2" }}>
+                <h4 style={{ fontSize: 15, fontWeight: 700, marginBottom: 14, color: "var(--text-primary)" }}>&#128202; Semester Results</h4>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 10 }}>
+                  {[1, 2, 3, 4, 5, 6, 7, 8].map((num) => {
+                    const sem = semesters.find((s: any) => s.number === num);
+                    return (
+                      <div key={num} style={{ padding: 12, background: "var(--surface-light)", borderRadius: 12, textAlign: "center", opacity: sem ? 1 : 0.4 }}>
+                        <div style={{ fontSize: 11, color: "var(--text-muted)", marginBottom: 4 }}>Sem {num}</div>
+                        <div style={{ fontSize: 22, fontWeight: 700, background: sem ? "linear-gradient(135deg,#6366F1,#14B8A6)" : "none", WebkitBackgroundClip: sem ? "text" : undefined, WebkitTextFillColor: sem ? "transparent" : "var(--text-muted)", color: sem ? undefined : "var(--text-muted)" }}>
+                          {sem ? sem.sgpa.toFixed(1) : "--"}
+                        </div>
+                        {sem && sem.backlog > 0 && <div style={{ fontSize: 10, color: "#EF4444", marginTop: 2 }}>{sem.backlog} backlog(s)</div>}
+                      </div>
+                    );
+                  })}
                 </div>
               </motion.div>
             )}
 
             {/* Extra Activities */}
             {profile.extraActivities?.length > 0 && (
-              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 }} className="bento-card">
-                <h3 className="text-sm font-semibold mb-4 flex items-center gap-2" style={{ color: "var(--text-primary)" }}>
-                  <FiStar size={15} className="text-orange-500" /> Extra Activities
-                </h3>
-                <ul className="space-y-1.5">
+              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45 }} className="bento-card">
+                <h4 style={{ fontSize: 15, fontWeight: 700, marginBottom: 14, color: "var(--text-primary)" }}>&#11088; Extra Activities</h4>
+                <div style={{ fontSize: 13 }}>
                   {profile.extraActivities.map((a: string, i: number) => (
-                    <li key={i} className="text-sm flex items-start gap-2" style={{ color: "var(--text-secondary)" }}>
-                      <span className="text-orange-400 mt-1">•</span> {a}
-                    </li>
+                    <div key={i} style={{ padding: "4px 0", color: "var(--text-secondary)" }}>• {a}</div>
                   ))}
-                </ul>
+                </div>
               </motion.div>
             )}
           </div>
+
         </div>
       </div>
     </>
