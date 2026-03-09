@@ -891,91 +891,73 @@ export default function BuilderPage() {
                   </div>
                 )}
 
-                {/* Step 3 - Skills */}
+                {/* Step 3 - Skills (matches HTML preview) */}
                 {currentStep === 3 && (
                   <div>
-                    <div className="flex items-center justify-between mb-6">
-                      <h2
-                        className="text-xl font-semibold flex items-center gap-2"
-                        style={{ fontFamily: "var(--font-space)" }}
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
+                      <h3 style={{ fontSize: 18, fontWeight: 700, fontFamily: "var(--font-space)" }}>⚙ Skills</h3>
+                      <button
+                        onClick={addSkill}
+                        style={{
+                          padding: "8px 18px", fontSize: 13, borderRadius: 14, border: "none",
+                          background: "linear-gradient(135deg, #6366F1, #8B5CF6)", color: "#fff",
+                          fontWeight: 700, cursor: "pointer", boxShadow: "0 4px 12px rgba(99,102,241,0.25)",
+                        }}
                       >
-                        <FiCode className="text-[#6366F1]" /> Skills
-                      </h2>
-                      <button onClick={addSkill} className="btn-accent">
-                        <FiPlus size={16} /> Add Skill
+                        + Add Skill
                       </button>
                     </div>
 
                     {formData.skills.length === 0 && (
-                      <p className="text-slate-500 text-sm text-center py-8">
-                        No skills added yet. Click &quot;Add Skill&quot; to begin.
+                      <p style={{ color: "var(--text-muted)", fontSize: 14, textAlign: "center", padding: "32px 0" }}>
+                        No skills added yet. Click &quot;+ Add Skill&quot; to begin.
                       </p>
                     )}
 
-                    <div className="flex flex-col gap-4">
-                      {formData.skills.map((skill, idx) => (
-                        <div
-                          key={idx}
-                          className="flex flex-col md:flex-row items-start md:items-end gap-4 p-4 rounded-xl"
-                          style={{ background: "var(--surface-light)" }}
-                        >
-                          <div className="flex-1 w-full md:w-auto">
-                            <InputField
-                              label="Skill Name"
-                              value={skill.name}
-                              onChange={(v) => updateSkill(idx, "name", v)}
-                              placeholder="e.g. AutoCAD, MATLAB, Surveying, C++..."
-                            />
-                          </div>
-                          <div className="w-full md:w-44">
-                            <label className="text-sm text-slate-500 mb-1.5 block">
-                              Category
-                            </label>
-                            <select
-                              className="input-field w-full"
-                              value={skill.category}
-                              onChange={(e) =>
-                                updateSkill(idx, "category", e.target.value)
-                              }
+                    {formData.skills.map((skill, idx) => {
+                      const colors = ["#6366F1", "#14B8A6", "#8B5CF6", "#D97706", "#EC4899"];
+                      const color = colors[idx % colors.length];
+                      return (
+                        <div key={idx} style={{ border: "1px solid var(--border)", borderRadius: 16, padding: 20, marginBottom: 20, borderLeft: `3px solid ${color}` }}>
+                          {/* Row: Skill Name, Category, Delete */}
+                          <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr auto", gap: 12, alignItems: "end" }}>
+                            <div style={{ marginBottom: 0 }}>
+                              <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>Skill Name</label>
+                              <input className="input-field" value={skill.name} onChange={(e) => updateSkill(idx, "name", e.target.value)} placeholder="e.g. JavaScript, AutoCAD, Python" style={{ width: "100%" }} />
+                            </div>
+                            <div style={{ marginBottom: 0 }}>
+                              <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>Category</label>
+                              <select className="input-field" value={skill.category} onChange={(e) => updateSkill(idx, "category", e.target.value)} style={{ width: "100%" }}>
+                                <option value="Programming">Programming</option>
+                                <option value="Technical">Technical</option>
+                                <option value="Tools">Tools</option>
+                                <option value="Soft Skills">Soft Skills</option>
+                              </select>
+                            </div>
+                            <button
+                              onClick={() => removeSkill(idx)}
+                              style={{ background: "#FEE2E2", color: "#DC2626", border: "none", borderRadius: 10, padding: "10px 14px", cursor: "pointer", fontSize: 14 }}
                             >
-                              <option value="Technical">Technical</option>
-                              <option value="Programming">Programming</option>
-                              <option value="Tools & Software">Tools & Software</option>
-                              <option value="Domain Knowledge">Domain Knowledge</option>
-                              <option value="Laboratory">Laboratory</option>
-                              <option value="Design & Analysis">Design & Analysis</option>
-                              <option value="Soft Skills">Soft Skills</option>
-                              <option value="Other">Other</option>
-                            </select>
+                              🗑
+                            </button>
                           </div>
-                          <div className="w-full md:w-48">
-                            <label className="text-sm text-slate-500 mb-1.5 block">
+                          {/* Proficiency slider */}
+                          <div style={{ marginTop: 10, marginBottom: 0 }}>
+                            <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>
                               Proficiency: {skill.proficiency}%
                             </label>
                             <input
                               type="range"
-                              min="10"
+                              min="0"
                               max="100"
                               value={skill.proficiency}
-                              onChange={(e) =>
-                                updateSkill(
-                                  idx,
-                                  "proficiency",
-                                  parseInt(e.target.value)
-                                )
-                              }
-                              className="w-full accent-[#6366F1] h-2 bg-indigo-100 rounded-full appearance-none cursor-pointer"
+                              onChange={(e) => updateSkill(idx, "proficiency", parseInt(e.target.value))}
+                              style={{ width: "100%", accentColor: color }}
                             />
                           </div>
-                          <button
-                            onClick={() => removeSkill(idx)}
-                            className="text-red-400 hover:text-red-300 transition-colors p-2 rounded-lg hover:bg-red-400/10 shrink-0"
-                          >
-                            <FiTrash2 size={16} />
-                          </button>
                         </div>
-                      ))}
-                    </div>
+                      );
+                    })}
                   </div>
                 )}
 
