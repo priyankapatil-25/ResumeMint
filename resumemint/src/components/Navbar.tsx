@@ -8,7 +8,7 @@ import { FiMenu, FiX, FiLogOut, FiGrid, FiEdit3, FiEye, FiShield } from "react-i
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-export default function Navbar() {
+export default function Navbar({ size = "default" }: { size?: "default" | "large" }) {
   const { data: session } = useSession();
   const [open, setOpen] = useState(false);
 
@@ -20,10 +20,10 @@ export default function Navbar() {
       className="fixed top-0 left-0 right-0 z-50"
       style={{ background: "rgba(238, 242, 255, 0.8)", backdropFilter: "blur(16px)", borderBottom: "1px solid #DDD6FE", boxShadow: "0 2px 12px rgba(99,102,241,0.04)" }}
     >
-      <div className="px-6 py-4 flex items-center justify-between" style={{ maxWidth: 1200, margin: "0 auto" }}>
+      <div className="flex items-center justify-between" style={{ maxWidth: size === "large" ? "none" : 1200, margin: "0 auto", padding: size === "large" ? "20px 40px" : "16px 24px" }}>
         {/* Left: GCEK logo + college name attached */}
-        <Link href="/" className="flex items-center gap-3" style={{ maxWidth: 480, marginLeft: 60 }}>
-          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-teal-400 flex items-center justify-center font-bold text-white text-[11px] leading-none shrink-0">
+        <Link href="/" className="flex items-center gap-3" style={{ maxWidth: 480, marginLeft: size === "large" ? 0 : 60 }}>
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-teal-400 flex items-center justify-center font-bold text-white text-[8px] leading-none shrink-0">
             GCEK
           </div>
           <span className="text-[16px] font-bold text-gradient leading-tight" style={{ fontFamily: "var(--font-space)" }}>

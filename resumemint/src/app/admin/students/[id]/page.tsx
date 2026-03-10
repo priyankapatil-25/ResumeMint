@@ -321,7 +321,7 @@ export default function AdminStudentDetailPage() {
   if (status === "loading" || loading) {
     return (
       <>
-        <Navbar />
+        <Navbar size="large" />
         <div className="aurora-bg min-h-screen pt-32 pb-12 px-6">
           <div className="max-w-7xl mx-auto">
             <div className="skeleton h-12 rounded-xl mb-6" />
@@ -335,7 +335,7 @@ export default function AdminStudentDetailPage() {
   if (!profile) {
     return (
       <>
-        <Navbar />
+        <Navbar size="large" />
         <div className="aurora-bg min-h-screen pt-32 pb-12 px-6">
           <div className="max-w-7xl mx-auto text-center py-20">
             <p style={{ color: "var(--text-muted)" }}>Student not found.</p>
@@ -348,7 +348,7 @@ export default function AdminStudentDetailPage() {
 
   return (
     <>
-      <Navbar />
+      <Navbar size="large" />
       <div className="aurora-bg min-h-screen" style={{ paddingTop: 110, paddingLeft: 24, paddingRight: 24, paddingBottom: 48 }}>
         <div style={{ maxWidth: 1100, margin: "0 auto", position: "relative", zIndex: 1 }}>
 

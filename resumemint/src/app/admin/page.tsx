@@ -67,7 +67,7 @@ export default function AdminPage() {
   if (status === "loading" || loading) {
     return (
       <>
-        <Navbar />
+        <Navbar size="large" />
         <div className="aurora-bg min-h-screen" style={{ paddingTop: 110, paddingLeft: 24, paddingRight: 24, paddingBottom: 48 }}>
           <div className="skeleton h-14 rounded-xl mb-6" />
           <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 16, marginBottom: 24 }}>
@@ -85,7 +85,7 @@ export default function AdminPage() {
 
   return (
     <>
-      <Navbar />
+      <Navbar size="large" />
       <div className="aurora-bg min-h-screen" style={{ paddingTop: 110, paddingLeft: 24, paddingRight: 24, paddingBottom: 48 }}>
         <div style={{ position: "relative", zIndex: 1 }}>
 
