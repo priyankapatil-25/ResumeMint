@@ -1,0 +1,91 @@
+services:
+  app:
+    image: ghcr.io/priyankapatil-25/resumemint:latest
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      update_config:
+        parallelism: 1
+        delay: 10s
+        order: start-first
+      labels:
+        - traefik.enable=true
+        - traefik.docker.network=traefik-public
+        - traefik.constraint-label=traefik-public
+        # HTTP → HTTPS redirect
+        - traefik.http.routers.resumemint-http.rule=Host(`gcektpo.anvayro.com`)
+        - traefik.http.routers.resumemint-http.entrypoints=http
+        - traefik.http.routers.resumemint-http.middlewares=resumemint-redirect
+        - traefik.http.middlewares.resumemint-redirect.redirectscheme.scheme=https
+        # HTTPS
+        - traefik.http.routers.resumemint-https.rule=Host(`gcektpo.anvayro.com`)
+        - traefik.http.routers.resumemint-https.entrypoints=https
+        - traefik.http.routers.resumemint-https.tls=true
+        - traefik.http.routers.resumemint-https.tls.certresolver=le
+        # Service port
+        - traefik.http.services.resumemint.loadbalancer.server.port=3000
+    environment:
+      DATABASE_URL: postgres://postgres:${POSTGRES_PASSWORD}@db:5432/resumemint?sslmode=disable
+      DATABASE_URL_TCP: postgres://postgres:${POSTGRES_PASSWORD}@db:5432/resumemint?sslmode=disable
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
+      NEXTAUTH_URL: https://gcektpo.anvayro.com
+      SMTP_HOST: ${SMTP_HOST}
+      SMTP_PORT: ${SMTP_PORT}
+      SMTP_USER: ${SMTP_USER}
+      SMTP_PASS: ${SMTP_PASS}
+    networks:
+      - resumemint-internal
+      - traefik-public
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  migration:
+    image: ghcr.io/priyankapatil-25/resumemint:latest
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        max_attempts: 10
+    command: ["sh", "-c", "npx prisma migrate deploy"]
+    environment:
+      DATABASE_URL: postgres://postgres:${POSTGRES_PASSWORD}@db:5432/resumemint?sslmode=disable
+    networks:
+      - resumemint-internal
+
+  db:
+    image: postgres:17-alpine
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints:
+          - node.role == manager
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: resumemint
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - resumemint-internal
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  pgdata:
+
+networks:
+  resumemint-internal:
+    driver: overlay
+  traefik-public:
+    external: true
