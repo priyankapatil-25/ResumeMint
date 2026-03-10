@@ -53,3 +53,18 @@ jobs:
           curl -X POST "${{ secrets.PORTAINER_WEBHOOK_URL }}" \
             --fail --silent --show-error \
             --max-time 30
+
+      - name: Verify deployment is live
+        run: |
+          echo "Waiting for deployment to come up..."
+          for i in $(seq 1 30); do
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://gcektpo.anvayro.com || true)
+            if [ "$STATUS" = "200" ] || [ "$STATUS" = "308" ] || [ "$STATUS" = "307" ] || [ "$STATUS" = "302" ]; then
+              echo "Deployment verified! HTTP status: $STATUS"
+              exit 0
+            fi
+            echo "Attempt $i/30 — HTTP status: $STATUS. Retrying in 10s..."
+            sleep 10
+          done
+          echo "Deployment verification failed after 5 minutes."
+          exit 1
