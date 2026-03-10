@@ -9,9 +9,9 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Email is required" }, { status: 400 });
     }
 
-    // Check if email already registered
+    // Check if email already registered (only block if fully verified)
     const existing = await prisma.user.findUnique({ where: { email } });
-    if (existing) {
+    if (existing && existing.emailVerified) {
       return NextResponse.json({ error: "Email already registered" }, { status: 400 });
     }
 

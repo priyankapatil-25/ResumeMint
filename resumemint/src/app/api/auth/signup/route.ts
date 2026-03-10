@@ -27,12 +27,22 @@ export async function POST(req: Request) {
     }
 
     const existing = await prisma.user.findUnique({ where: { email } });
-    if (existing) {
+    if (existing && existing.emailVerified) {
       return NextResponse.json({ error: "Email already registered" }, { status: 400 });
     }
 
     const hashed = await bcrypt.hash(password, 12);
-    const user = await prisma.user.create({ data: { name, email, password: hashed, emailVerified: true } });
+
+    let user;
+    if (existing && !existing.emailVerified) {
+      // User exists but never completed verification — update their record
+      user = await prisma.user.update({
+        where: { email },
+        data: { name, password: hashed, emailVerified: true },
+      });
+    } else {
+      user = await prisma.user.create({ data: { name, email, password: hashed, emailVerified: true } });
+    }
 
     // Cleanup verification codes for this email
     await prisma.verificationCode.deleteMany({ where: { email } });
