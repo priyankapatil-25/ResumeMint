@@ -686,6 +686,7 @@ export default function PreviewPage() {
                 width: mobileView ? 400 : "210mm",
                 maxWidth: mobileView ? 400 : "210mm",
                 transition: "all 0.3s",
+                overflow: "hidden",
               }}
             >
               <div
@@ -695,6 +696,13 @@ export default function PreviewPage() {
                   boxShadow: "0 4px 24px rgba(0,0,0,0.1)",
                   position: "relative",
                   overflow: "hidden",
+                  ...(mobileView
+                    ? {
+                        width: "210mm",
+                        transform: `scale(${400 / 794})`,
+                        transformOrigin: "top left",
+                      }
+                    : {}),
                 }}
               >
                 <ActiveTemplate profile={profile} cgpa={cgpa} />
