@@ -40,8 +40,7 @@ export default function LoginPage() {
 
   return (
     <div
-      style={{ background: "linear-gradient(135deg, #EEF2FF 0%, #F0FDFA 40%, #FEF9C3 100%)", minHeight: "100vh" }}
-      className="flex items-center justify-center px-4 py-12"
+      className="aurora-bg flex items-center justify-center px-4 py-12"
     >
       <div style={{ width: "100%", maxWidth: 430 }}>
         {/* Auth Logo — vertical, above card */}

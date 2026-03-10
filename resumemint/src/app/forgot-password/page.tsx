@@ -8,8 +8,7 @@ import { FiMail, FiLock, FiEye, FiEyeOff, FiArrowRight, FiCheckCircle, FiArrowLe
 export default function ForgotPasswordPage() {
   return (
     <Suspense fallback={
-      <div style={{ background: "linear-gradient(135deg, #EEF2FF 0%, #F0FDFA 40%, #FEF9C3 100%)", minHeight: "100vh" }}
-        className="flex items-center justify-center px-4 py-12">
+      <div className="aurora-bg flex items-center justify-center px-4 py-12">
         <div style={{ color: "#7C7C9A", fontSize: 16 }}>Loading...</div>
       </div>
     }>
@@ -93,8 +92,7 @@ function ForgotPasswordContent() {
 
   return (
     <div
-      style={{ background: "linear-gradient(135deg, #EEF2FF 0%, #F0FDFA 40%, #FEF9C3 100%)", minHeight: "100vh" }}
-      className="flex items-center justify-center px-4 py-12"
+      className="aurora-bg flex items-center justify-center px-4 py-12"
     >
       <div style={cardStyle}>
         {/* Logo */}

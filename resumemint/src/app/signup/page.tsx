@@ -165,28 +165,28 @@ export default function SignupPage() {
     borderRadius: 20,
     padding: 36,
     width: "100%",
-    maxWidth: 430,
     boxShadow: "0 8px 40px rgba(99, 102, 241, 0.08)",
   };
 
   return (
     <div
-      style={{ background: "linear-gradient(135deg, #EEF2FF 0%, #F0FDFA 40%, #FEF9C3 100%)", minHeight: "100vh" }}
-      className="flex items-center justify-center px-4 py-12"
+      className="aurora-bg flex items-center justify-center px-4 py-12"
     >
-      <div style={cardStyle}>
-        {/* Logo */}
-        <div className="flex items-center gap-3 mb-8 justify-center">
+      <div style={{ width: "100%", maxWidth: 430 }}>
+        {/* Auth Logo — vertical, above card */}
+        <div className="flex flex-col items-center gap-2 mb-7">
           <div
-            className="w-10 h-10 rounded-xl flex items-center justify-center font-bold text-white text-[8px]"
+            className="w-14 h-14 rounded-2xl flex items-center justify-center font-bold text-white text-[11px]"
             style={{ background: "linear-gradient(135deg, #6366F1, #14B8A6)", fontFamily: "var(--font-space)" }}
           >
             GCEK
           </div>
-          <span className="text-gradient text-lg font-bold" style={{ fontFamily: "var(--font-space)" }}>
+          <span className="text-sm font-semibold text-gradient" style={{ fontFamily: "var(--font-space)" }}>
             Government College Of Engineering, Karad
           </span>
         </div>
+
+      <div style={cardStyle}>
 
         {step === "form" ? (
           <>
@@ -371,6 +371,7 @@ export default function SignupPage() {
             </Link>
           </p>
         )}
+      </div>
       </div>
     </div>
   );
