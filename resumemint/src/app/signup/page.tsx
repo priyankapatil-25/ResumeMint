@@ -3,7 +3,7 @@
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { FiUser, FiMail, FiLock, FiEye, FiEyeOff, FiArrowRight, FiShield, FiArrowLeft } from "react-icons/fi";
+import { FiUser, FiMail, FiLock, FiEye, FiEyeOff, FiArrowRight, FiArrowLeft } from "react-icons/fi";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -13,6 +13,7 @@ export default function SignupPage() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -222,7 +223,10 @@ export default function SignupPage() {
 
               <div style={{ position: "relative" }}>
                 <FiLock style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "#7FA3C2" }} size={18} />
-                <input type={showPassword ? "text" : "password"} placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required className="input-field" style={{ width: "100%", paddingLeft: 42 }} />
+                <input type={showConfirmPassword ? "text" : "password"} placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required className="input-field" style={{ width: "100%", paddingLeft: 42, paddingRight: 42 }} />
+                <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)} style={{ position: "absolute", right: 14, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", color: "#7FA3C2", cursor: "pointer" }}>
+                  {showConfirmPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
+                </button>
               </div>
 
               <button
@@ -252,15 +256,20 @@ export default function SignupPage() {
           </>
         ) : (
           <>
+            {/* College Logo & Name */}
+            <div className="flex flex-col items-center gap-2" style={{ marginBottom: 24 }}>
+              <img src="/GCEK Logo.jpg" alt="GCEK" className="w-14 h-14 rounded-full object-cover" />
+              <span className="text-sm font-semibold" style={{ fontFamily: "var(--font-space)", color: "#0A1628" }}>
+                Government College Of Engineering, Karad
+              </span>
+            </div>
+
             {/* OTP Step */}
             <div className="text-center mb-8">
-              <div style={{ width: 56, height: 56, borderRadius: 16, background: "#1A3A5C", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 16px" }}>
-                <FiShield size={28} color="white" />
-              </div>
-              <h1 className="text-2xl font-bold mb-2" style={{ fontFamily: "var(--font-space)", color: "#0F2133" }}>
+              <h1 className="text-2xl font-bold" style={{ fontFamily: "var(--font-space)", color: "#0F2133", marginBottom: 16 }}>
                 Verify Your Email
               </h1>
-              <p style={{ color: "#6B7E91", fontSize: 14 }}>
+              <p style={{ color: "#6B7E91", fontSize: 14, marginBottom: 24 }}>
                 We sent a 6-digit code to<br />
                 <span style={{ color: "#1A3A5C", fontWeight: 600 }}>{email}</span>
               </p>

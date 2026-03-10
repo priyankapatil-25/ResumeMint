@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer";
+import path from "path";
 
 function getTransporter() {
   return nodemailer.createTransport({
@@ -12,6 +13,9 @@ function getTransporter() {
   });
 }
 
+const logoPath = path.join(process.cwd(), "public", "GCEK Logo.jpg");
+const logoCid = "gcek-logo@resumemint";
+
 export async function sendVerificationEmail(email: string, code: string) {
   const transporter = getTransporter();
   console.log("[EMAIL] Sending OTP to:", email);
@@ -22,7 +26,8 @@ export async function sendVerificationEmail(email: string, code: string) {
     html: `
       <div style="font-family: 'Segoe UI', sans-serif; max-width: 480px; margin: 0 auto; padding: 32px; background: #E8EEF5; border-radius: 16px;">
         <div style="text-align: center; margin-bottom: 24px;">
-          <div style="display: inline-block; width: 48px; height: 48px; border-radius: 12px; background: #1A3A5C; color: white; font-weight: bold; font-size: 10px; line-height: 48px;">GCEK</div>
+          <img src="cid:${logoCid}" alt="GCEK" style="width: 56px; height: 56px; border-radius: 50%; object-fit: cover;" />
+          <h3 style="color: #0A1628; margin-top: 8px; font-size: 14px;">Government College Of Engineering, Karad</h3>
           <h2 style="color: #0F2133; margin-top: 12px;">Email Verification</h2>
         </div>
         <div style="background: white; border-radius: 12px; padding: 24px; text-align: center; border: 1px solid #C8D8E8;">
@@ -35,6 +40,13 @@ export async function sendVerificationEmail(email: string, code: string) {
         <p style="text-align: center; color: #7FA3C2; font-size: 12px; margin-top: 20px;">Government College Of Engineering, Karad</p>
       </div>
     `,
+    attachments: [
+      {
+        filename: "GCEK Logo.jpg",
+        path: logoPath,
+        cid: logoCid,
+      },
+    ],
   });
   console.log("[EMAIL] OTP sent to:", email);
 }
@@ -50,7 +62,8 @@ export async function sendPasswordResetEmail(email: string, token: string) {
     html: `
       <div style="font-family: 'Segoe UI', sans-serif; max-width: 480px; margin: 0 auto; padding: 32px; background: #E8EEF5; border-radius: 16px;">
         <div style="text-align: center; margin-bottom: 24px;">
-          <div style="display: inline-block; width: 48px; height: 48px; border-radius: 12px; background: #1A3A5C; color: white; font-weight: bold; font-size: 10px; line-height: 48px;">GCEK</div>
+          <img src="cid:${logoCid}" alt="GCEK" style="width: 56px; height: 56px; border-radius: 50%; object-fit: cover;" />
+          <h3 style="color: #0A1628; margin-top: 8px; font-size: 14px;">Government College Of Engineering, Karad</h3>
           <h2 style="color: #0F2133; margin-top: 12px;">Password Reset</h2>
         </div>
         <div style="background: white; border-radius: 12px; padding: 24px; text-align: center; border: 1px solid #C8D8E8;">
@@ -62,6 +75,13 @@ export async function sendPasswordResetEmail(email: string, token: string) {
         <p style="text-align: center; color: #7FA3C2; font-size: 12px; margin-top: 20px;">Government College Of Engineering, Karad</p>
       </div>
     `,
+    attachments: [
+      {
+        filename: "GCEK Logo.jpg",
+        path: logoPath,
+        cid: logoCid,
+      },
+    ],
   });
   console.log("[EMAIL] Reset link sent to:", email);
 }

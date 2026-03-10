@@ -79,6 +79,9 @@ body {
   background: #FFFFFF;
 }
 .input-field::placeholder { color: var(--text-muted); }
+input.input-field::-ms-reveal,
+input.input-field::-ms-clear { display: none; }
+input.input-field::-webkit-credentials-auto-fill-button { display: none; }
 select.input-field { cursor: pointer; }
 select.input-field option { background: #FFFFFF; color: var(--text-primary); }
 textarea.input-field { resize: vertical; min-height: 80px; }
