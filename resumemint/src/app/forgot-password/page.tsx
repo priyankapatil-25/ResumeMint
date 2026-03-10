@@ -106,10 +106,10 @@ function ForgotPasswordContent() {
         {step === "email" && !emailSent && (
           <>
             <div className="text-center mb-8">
-              <h1 className="text-2xl font-bold mb-2" style={{ fontFamily: "var(--font-space)", color: "#0F2133" }}>
+              <h1 className="text-2xl font-bold" style={{ fontFamily: "var(--font-space)", color: "#0F2133", marginBottom: 20 }}>
                 Forgot Password?
               </h1>
-              <p style={{ color: "#6B7E91", fontSize: 14 }}>
+              <p style={{ color: "#6B7E91", fontSize: 14, marginBottom: 30 }}>
                 Enter your email and we&apos;ll send you a reset link
               </p>
             </div>
