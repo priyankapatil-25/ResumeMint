@@ -353,8 +353,15 @@ export default function BuilderPage() {
     updateField("semesters", updated);
   };
 
+  // Limits
+  const MAX_SKILLS = 10;
+  const MAX_PROJECTS = 4;
+  const MAX_INTERNSHIPS = 3;
+  const MAX_CERTIFICATIONS = 10;
+
   // Skill helpers
   const addSkill = () => {
+    if (formData.skills.length >= MAX_SKILLS) return;
     updateField("skills", [
       ...formData.skills,
       { name: "", category: "Programming", proficiency: 50 },
@@ -374,6 +381,7 @@ export default function BuilderPage() {
 
   // Project helpers
   const addProject = () => {
+    if (formData.projects.length >= MAX_PROJECTS) return;
     updateField("projects", [
       ...formData.projects,
       { title: "", description: "", techStack: [], github: "", liveDemo: "" },
@@ -393,6 +401,7 @@ export default function BuilderPage() {
 
   // Internship helpers
   const addInternship = () => {
+    if (formData.internships.length >= MAX_INTERNSHIPS) return;
     updateField("internships", [
       ...formData.internships,
       { company: "", role: "", duration: "", description: "" },
@@ -412,6 +421,7 @@ export default function BuilderPage() {
 
   // Certification helpers
   const addCertification = () => {
+    if (formData.certifications.length >= MAX_CERTIFICATIONS) return;
     updateField("certifications", [
       ...formData.certifications,
       { title: "", issuer: "", date: "", url: "", image: "" },
@@ -881,16 +891,20 @@ export default function BuilderPage() {
                   <div>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
                       <h3 style={{ fontSize: 18, fontWeight: 700, fontFamily: "var(--font-space)" }}>⚙ Skills</h3>
-                      <button
-                        onClick={addSkill}
-                        style={{
-                          padding: "8px 18px", fontSize: 13, borderRadius: 14, border: "none",
-                          background: "#1A3A5C", color: "#fff",
-                          fontWeight: 700, cursor: "pointer", boxShadow: "0 4px 12px rgba(26,58,92,0.25)",
-                        }}
-                      >
-                        + Add Skill
-                      </button>
+                      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                        <span style={{ fontSize: 12, color: "var(--text-muted)" }}>{formData.skills.length}/{MAX_SKILLS}</span>
+                        <button
+                          onClick={addSkill}
+                          disabled={formData.skills.length >= MAX_SKILLS}
+                          style={{
+                            padding: "8px 18px", fontSize: 13, borderRadius: 14, border: "none",
+                            background: formData.skills.length >= MAX_SKILLS ? "#9CB5CC" : "#1A3A5C", color: "#fff",
+                            fontWeight: 700, cursor: formData.skills.length >= MAX_SKILLS ? "not-allowed" : "pointer", boxShadow: "0 4px 12px rgba(26,58,92,0.25)",
+                          }}
+                        >
+                          + Add Skill
+                        </button>
+                      </div>
                     </div>
 
                     {formData.skills.length === 0 && (
@@ -954,16 +968,20 @@ export default function BuilderPage() {
                         <FiBriefcase className="text-[#1A3A5C]" style={{ display: "inline", marginRight: 8, verticalAlign: "middle" }} />
                         Projects
                       </h3>
-                      <button
-                        onClick={addProject}
-                        style={{
-                          padding: "8px 18px", fontSize: 13, borderRadius: 14, border: "none",
-                          background: "#1A3A5C", color: "#fff",
-                          fontWeight: 700, cursor: "pointer", boxShadow: "0 4px 12px rgba(26,58,92,0.25)",
-                        }}
-                      >
-                        + Add Project
-                      </button>
+                      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                        <span style={{ fontSize: 12, color: "var(--text-muted)" }}>{formData.projects.length}/{MAX_PROJECTS}</span>
+                        <button
+                          onClick={addProject}
+                          disabled={formData.projects.length >= MAX_PROJECTS}
+                          style={{
+                            padding: "8px 18px", fontSize: 13, borderRadius: 14, border: "none",
+                            background: formData.projects.length >= MAX_PROJECTS ? "#9CB5CC" : "#1A3A5C", color: "#fff",
+                            fontWeight: 700, cursor: formData.projects.length >= MAX_PROJECTS ? "not-allowed" : "pointer", boxShadow: "0 4px 12px rgba(26,58,92,0.25)",
+                          }}
+                        >
+                          + Add Project
+                        </button>
+                      </div>
                     </div>
 
                     {formData.projects.length === 0 && (
@@ -1019,16 +1037,20 @@ export default function BuilderPage() {
                     {/* Internships */}
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
                       <h4 style={{ fontSize: 15, fontWeight: 700, color: "var(--text-secondary)" }}>Internships</h4>
-                      <button
-                        onClick={addInternship}
-                        style={{
-                          padding: "6px 14px", fontSize: 12, borderRadius: 14, border: "none",
-                          background: "#1A3A5C", color: "#fff",
-                          fontWeight: 700, cursor: "pointer", boxShadow: "0 4px 12px rgba(26,58,92,0.25)",
-                        }}
-                      >
-                        + Add Internship
-                      </button>
+                      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                        <span style={{ fontSize: 12, color: "var(--text-muted)" }}>{formData.internships.length}/{MAX_INTERNSHIPS}</span>
+                        <button
+                          onClick={addInternship}
+                          disabled={formData.internships.length >= MAX_INTERNSHIPS}
+                          style={{
+                            padding: "6px 14px", fontSize: 12, borderRadius: 14, border: "none",
+                            background: formData.internships.length >= MAX_INTERNSHIPS ? "#9CB5CC" : "#1A3A5C", color: "#fff",
+                            fontWeight: 700, cursor: formData.internships.length >= MAX_INTERNSHIPS ? "not-allowed" : "pointer", boxShadow: "0 4px 12px rgba(26,58,92,0.25)",
+                          }}
+                        >
+                          + Add Internship
+                        </button>
+                      </div>
                     </div>
 
                     {formData.internships.length === 0 && (
@@ -1071,16 +1093,20 @@ export default function BuilderPage() {
                     {/* Certifications */}
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", margin: "24px 0 14px" }}>
                       <h4 style={{ fontSize: 15, fontWeight: 700, color: "var(--text-secondary)" }}>Certifications</h4>
-                      <button
-                        onClick={addCertification}
-                        style={{
-                          padding: "6px 14px", fontSize: 12, borderRadius: 14, border: "none",
-                          background: "#1A3A5C", color: "#fff",
-                          fontWeight: 700, cursor: "pointer", boxShadow: "0 4px 12px rgba(26,58,92,0.25)",
-                        }}
-                      >
-                        + Add Certification
-                      </button>
+                      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                        <span style={{ fontSize: 12, color: "var(--text-muted)" }}>{formData.certifications.length}/{MAX_CERTIFICATIONS}</span>
+                        <button
+                          onClick={addCertification}
+                          disabled={formData.certifications.length >= MAX_CERTIFICATIONS}
+                          style={{
+                            padding: "6px 14px", fontSize: 12, borderRadius: 14, border: "none",
+                            background: formData.certifications.length >= MAX_CERTIFICATIONS ? "#9CB5CC" : "#1A3A5C", color: "#fff",
+                            fontWeight: 700, cursor: formData.certifications.length >= MAX_CERTIFICATIONS ? "not-allowed" : "pointer", boxShadow: "0 4px 12px rgba(26,58,92,0.25)",
+                          }}
+                        >
+                          + Add Certification
+                        </button>
+                      </div>
                     </div>
 
                     {formData.certifications.length === 0 && (
