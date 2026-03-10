@@ -45,7 +45,7 @@ export default function PreviewPage() {
     }
   }, [status]);
 
-  const downloadPDF = () => {
+  const downloadPDF = async () => {
     if (!profile) return;
     setDownloading(true);
     try {
@@ -104,87 +104,28 @@ export default function PreviewPage() {
 
       y = 4;
 
-      // ─── Draw GCEK Emblem ───
+      // ─── Add GCEK Logo ───
       const emblemSize = 16; // mm
-      const ecx = margin + emblemSize / 2;
-      const ecy = y + emblemSize / 2 + 1;
-
-      // Outer ring (white fill, navy stroke)
-      pdf.setDrawColor(...NAVY);
-      pdf.setLineWidth(0.6);
-      pdf.setFillColor(255, 255, 255);
-      pdf.circle(ecx, ecy, emblemSize / 2, "FD");
-
-      // Gold ring
-      pdf.setDrawColor(...GOLD);
-      pdf.setLineWidth(0.35);
-      pdf.circle(ecx, ecy, emblemSize / 2 - 1.2, "S");
-
-      // Inner dark circle
-      pdf.setFillColor(...NAVY);
-      pdf.setDrawColor(...NAVY);
-      pdf.circle(ecx, ecy, emblemSize / 2 - 1.8, "F");
-
-      // Gear teeth (gold lines around inner circle)
-      const innerR = emblemSize / 2 - 1.8;
-      const toothLen = 1.2;
-      pdf.setDrawColor(...GOLD);
-      pdf.setLineWidth(0.4);
-      for (let i = 0; i < 16; i++) {
-        const angle = (2 * Math.PI * i) / 16;
-        const x1 = ecx + (innerR - 0.3) * Math.cos(angle);
-        const y1 = ecy + (innerR - 0.3) * Math.sin(angle);
-        const x2 = ecx + (innerR + toothLen) * Math.cos(angle);
-        const y2 = ecy + (innerR + toothLen) * Math.sin(angle);
-        pdf.line(x1, y1, x2, y2);
+      try {
+        const logoImg = await new Promise<HTMLImageElement>((resolve, reject) => {
+          const img = new Image();
+          img.crossOrigin = "anonymous";
+          img.onload = () => resolve(img);
+          img.onerror = reject;
+          img.src = "/GCEK Logo.jpg";
+        });
+        const canvas = document.createElement("canvas");
+        canvas.width = logoImg.width;
+        canvas.height = logoImg.height;
+        const ctx = canvas.getContext("2d")!;
+        ctx.drawImage(logoImg, 0, 0);
+        const logoDataUrl = canvas.toDataURL("image/jpeg");
+        pdf.addImage(logoDataUrl, "JPEG", margin, y + 1, emblemSize, emblemSize);
+      } catch {
+        // Fallback: draw a simple circle placeholder if image fails
+        pdf.setFillColor(...NAVY);
+        pdf.circle(margin + emblemSize / 2, y + 1 + emblemSize / 2, emblemSize / 2, "F");
       }
-
-      // Spokes (gold lines from center)
-      const spokeR = emblemSize / 2 - 4.2;
-      pdf.setLineWidth(0.15);
-      for (let i = 0; i < 12; i++) {
-        const angle = (2 * Math.PI * i) / 12;
-        const x2 = ecx + spokeR * Math.cos(angle);
-        const y2 = ecy + spokeR * Math.sin(angle);
-        pdf.line(ecx, ecy, x2, y2);
-      }
-
-      // Center dot (gold)
-      pdf.setFillColor(...GOLD);
-      pdf.circle(ecx, ecy, 0.9, "F");
-
-      // Spoke tip dots
-      for (let i = 0; i < 12; i++) {
-        const angle = (2 * Math.PI * i) / 12;
-        const dx = ecx + spokeR * Math.cos(angle);
-        const dy = ecy + spokeR * Math.sin(angle);
-        pdf.circle(dx, dy, 0.35, "F");
-      }
-
-      // "GCEK" text along top arc
-      pdf.setFontSize(4);
-      pdf.setFont("helvetica", "bold");
-      pdf.setTextColor(255, 255, 255);
-      const textR = emblemSize / 2 - 2.5;
-      const gcekLetters = ["G", "C", "E", "K"];
-      const gcekStartAngle = Math.PI / 2 + 0.28;
-      gcekLetters.forEach((ch, i) => {
-        const angle = gcekStartAngle - i * 0.19;
-        const tx = ecx + textR * Math.cos(angle);
-        const ty = ecy - textR * Math.sin(angle);
-        pdf.text(ch, tx, ty, { align: "center" });
-      });
-
-      // "1960" text along bottom arc
-      pdf.setFontSize(3.5);
-      const yearLetters = ["1", "9", "6", "0"];
-      const yearStartAngle = -Math.PI / 2 + 0.25;
-      yearLetters.forEach((ch, i) => {
-        const angle = yearStartAngle - i * 0.17;
-        const tx = ecx + textR * Math.cos(angle);
-        const ty = ecy - textR * Math.sin(angle);
-        pdf.text(ch, tx, ty, { align: "center" });
-      });
 
       // ─── Name & Contact (offset for emblem) ───
       const nameX = margin + emblemSize + 4;

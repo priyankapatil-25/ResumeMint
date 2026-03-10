@@ -23,9 +23,7 @@ export default function Navbar({ size = "default" }: { size?: "default" | "large
       <div className="flex items-center justify-between" style={{ maxWidth: size === "large" ? "none" : 1200, margin: "0 auto", padding: size === "large" ? "20px 40px" : "16px 24px" }}>
         {/* Left: GCEK logo + college name attached */}
         <Link href="/" className="flex items-center gap-3" style={{ maxWidth: 480, marginLeft: size === "large" ? 0 : 60 }}>
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-teal-400 flex items-center justify-center font-bold text-white text-[8px] leading-none shrink-0">
-            GCEK
-          </div>
+          <img src="/GCEK Logo.jpg" alt="GCEK" className="w-10 h-10 rounded-full object-cover shrink-0" />
           <span className="text-[16px] font-bold text-gradient leading-tight" style={{ fontFamily: "var(--font-space)" }}>
             Government College Of Engineering, Karad
           </span>

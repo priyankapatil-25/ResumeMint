@@ -617,9 +617,7 @@ export default function PublicProfilePage({
             className="text-center py-8"
           >
             <Link href="/" className="inline-flex items-center gap-2 group">
-              <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-indigo-500 to-teal-400 flex items-center justify-center">
-                <span className="text-[6px] font-bold text-white leading-none">GCEK</span>
-              </div>
+              <img src="/GCEK Logo.jpg" alt="GCEK" className="w-6 h-6 rounded-full object-cover" />
               <span className="text-xs text-[var(--text-muted)] group-hover:text-[var(--text-secondary)] transition-colors">
                 Built with{" "}
                 <span

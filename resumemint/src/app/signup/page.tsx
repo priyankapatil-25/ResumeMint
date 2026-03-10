@@ -175,12 +175,7 @@ export default function SignupPage() {
       <div style={{ width: "100%", maxWidth: 430 }}>
         {/* Auth Logo — vertical, above card */}
         <div className="flex flex-col items-center gap-2 mb-7">
-          <div
-            className="w-14 h-14 rounded-2xl flex items-center justify-center font-bold text-white text-[11px]"
-            style={{ background: "linear-gradient(135deg, #6366F1, #14B8A6)", fontFamily: "var(--font-space)" }}
-          >
-            GCEK
-          </div>
+          <img src="/GCEK Logo.jpg" alt="GCEK" className="w-14 h-14 rounded-full object-cover" />
           <span className="text-sm font-semibold text-gradient" style={{ fontFamily: "var(--font-space)" }}>
             Government College Of Engineering, Karad
           </span>

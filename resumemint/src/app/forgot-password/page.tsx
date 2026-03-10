@@ -97,12 +97,7 @@ function ForgotPasswordContent() {
       <div style={cardStyle}>
         {/* Logo */}
         <div className="flex items-center gap-3 mb-8 justify-center">
-          <div
-            className="w-10 h-10 rounded-xl flex items-center justify-center font-bold text-white text-[8px]"
-            style={{ background: "linear-gradient(135deg, #6366F1, #14B8A6)", fontFamily: "var(--font-space)" }}
-          >
-            GCEK
-          </div>
+          <img src="/GCEK Logo.jpg" alt="GCEK" className="w-10 h-10 rounded-full object-cover" />
           <span className="text-gradient text-lg font-bold" style={{ fontFamily: "var(--font-space)" }}>
             Government College Of Engineering, Karad
           </span>

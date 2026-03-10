@@ -60,7 +60,7 @@ export default function AdminStudentDetailPage() {
       ? (semesters.reduce((sum: number, s: any) => sum + (s.sgpa || 0), 0) / semesters.length).toFixed(2)
       : "N/A";
 
-  const downloadPDF = () => {
+  const downloadPDF = async () => {
     if (!profile) return;
     setDownloading(true);
     try {
@@ -103,45 +103,27 @@ export default function AdminStudentDetailPage() {
       pdf.rect(0, 2, W, 0.5, "F");
       y = 4;
 
-      // Emblem
+      // Emblem (real college logo)
       const emblemSize = 16;
-      const ecx = margin + emblemSize / 2;
-      const ecy = y + emblemSize / 2 + 1;
-      pdf.setDrawColor(...NAVY); pdf.setLineWidth(0.6); pdf.setFillColor(255, 255, 255);
-      pdf.circle(ecx, ecy, emblemSize / 2, "FD");
-      pdf.setDrawColor(...GOLD); pdf.setLineWidth(0.35);
-      pdf.circle(ecx, ecy, emblemSize / 2 - 1.2, "S");
-      pdf.setFillColor(...NAVY); pdf.setDrawColor(...NAVY);
-      pdf.circle(ecx, ecy, emblemSize / 2 - 1.8, "F");
-      const innerR = emblemSize / 2 - 1.8;
-      const toothLen = 1.2;
-      pdf.setDrawColor(...GOLD); pdf.setLineWidth(0.4);
-      for (let i = 0; i < 16; i++) {
-        const angle = (2 * Math.PI * i) / 16;
-        pdf.line(ecx + (innerR - 0.3) * Math.cos(angle), ecy + (innerR - 0.3) * Math.sin(angle), ecx + (innerR + toothLen) * Math.cos(angle), ecy + (innerR + toothLen) * Math.sin(angle));
+      try {
+        const logoImg = await new Promise<HTMLImageElement>((resolve, reject) => {
+          const img = new Image();
+          img.crossOrigin = "anonymous";
+          img.onload = () => resolve(img);
+          img.onerror = reject;
+          img.src = "/GCEK Logo.jpg";
+        });
+        const canvas = document.createElement("canvas");
+        canvas.width = logoImg.width;
+        canvas.height = logoImg.height;
+        const ctx = canvas.getContext("2d")!;
+        ctx.drawImage(logoImg, 0, 0);
+        const logoDataUrl = canvas.toDataURL("image/jpeg");
+        pdf.addImage(logoDataUrl, "JPEG", margin, y + 1, emblemSize, emblemSize);
+      } catch {
+        pdf.setFillColor(...NAVY);
+        pdf.circle(margin + emblemSize / 2, y + 1 + emblemSize / 2, emblemSize / 2, "F");
       }
-      const spokeR = emblemSize / 2 - 4.2;
-      pdf.setLineWidth(0.15);
-      for (let i = 0; i < 12; i++) {
-        const angle = (2 * Math.PI * i) / 12;
-        pdf.line(ecx, ecy, ecx + spokeR * Math.cos(angle), ecy + spokeR * Math.sin(angle));
-      }
-      pdf.setFillColor(...GOLD); pdf.circle(ecx, ecy, 0.9, "F");
-      for (let i = 0; i < 12; i++) {
-        const angle = (2 * Math.PI * i) / 12;
-        pdf.circle(ecx + spokeR * Math.cos(angle), ecy + spokeR * Math.sin(angle), 0.35, "F");
-      }
-      pdf.setFontSize(4); pdf.setFont("helvetica", "bold"); pdf.setTextColor(255, 255, 255);
-      const textR = emblemSize / 2 - 2.5;
-      ["G", "C", "E", "K"].forEach((ch, i) => {
-        const angle = Math.PI / 2 + 0.28 - i * 0.19;
-        pdf.text(ch, ecx + textR * Math.cos(angle), ecy - textR * Math.sin(angle), { align: "center" });
-      });
-      pdf.setFontSize(3.5);
-      ["1", "9", "6", "0"].forEach((ch, i) => {
-        const angle = -Math.PI / 2 + 0.25 - i * 0.17;
-        pdf.text(ch, ecx + textR * Math.cos(angle), ecy - textR * Math.sin(angle), { align: "center" });
-      });
 
       // Name & Contact
       const nameX = margin + emblemSize + 4;

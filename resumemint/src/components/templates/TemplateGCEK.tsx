@@ -34,94 +34,6 @@ const COLORS = {
   subtleTag: "#8899AA",
 };
 
-// ─── GCEK Emblem SVG Component ──────────────────────────────────
-function GCEKEmblem({ size = 50 }: { size?: number }) {
-  const cx = size / 2;
-  const cy = size / 2;
-  const innerR = size / 2 - 6;
-  const spokeR = size / 2 - 14;
-  const textR = size / 2 - 8;
-  const numTeeth = 16;
-
-  // Generate gear teeth lines
-  const teeth = Array.from({ length: numTeeth }, (_, i) => {
-    const angle = (2 * Math.PI * i) / numTeeth;
-    const x1 = cx + (innerR - 1) * Math.cos(angle);
-    const y1 = cy + (innerR - 1) * Math.sin(angle);
-    const x2 = cx + (innerR + 3.5) * Math.cos(angle);
-    const y2 = cy + (innerR + 3.5) * Math.sin(angle);
-    return <line key={`tooth-${i}`} x1={x1} y1={y1} x2={x2} y2={y2} stroke={COLORS.gcekGold} strokeWidth={1.5} />;
-  });
-
-  // Generate spokes
-  const spokes = Array.from({ length: 12 }, (_, i) => {
-    const angle = (2 * Math.PI * i) / 12;
-    const x2 = cx + spokeR * Math.cos(angle);
-    const y2 = cy + spokeR * Math.sin(angle);
-    return <line key={`spoke-${i}`} x1={cx} y1={cy} x2={x2} y2={y2} stroke={COLORS.gcekGold} strokeWidth={0.5} />;
-  });
-
-  // Spoke tip dots
-  const spokeDots = Array.from({ length: 12 }, (_, i) => {
-    const angle = (2 * Math.PI * i) / 12;
-    const x = cx + spokeR * Math.cos(angle);
-    const y = cy + spokeR * Math.sin(angle);
-    return <circle key={`dot-${i}`} cx={x} cy={y} r={1.2} fill={COLORS.gcekGold} />;
-  });
-
-  // GCEK text along top arc
-  const gcekLetters = "GCEK".split("").map((ch, i) => {
-    const angle = Math.PI / 2 + 0.22 - i * 0.15;
-    const tx = cx + textR * Math.cos(angle);
-    const ty = cy - textR * Math.sin(angle); // SVG y is inverted
-    const rotation = -(angle * 180 / Math.PI - 90);
-    return (
-      <text key={`gcek-${i}`} x={tx} y={ty} fill="white" fontSize={5.5} fontWeight="bold" fontFamily="sans-serif"
-        textAnchor="middle" dominantBaseline="central"
-        transform={`rotate(${rotation}, ${tx}, ${ty})`}>
-        {ch}
-      </text>
-    );
-  });
-
-  // 1960 text along bottom arc
-  const yearLetters = "1960".split("").map((ch, i) => {
-    const angle = -Math.PI / 2 + 0.2 - i * 0.14;
-    const tx = cx + textR * Math.cos(angle);
-    const ty = cy - textR * Math.sin(angle);
-    const rotation = -(angle * 180 / Math.PI + 90);
-    return (
-      <text key={`year-${i}`} x={tx} y={ty} fill="white" fontSize={4.5} fontWeight="bold" fontFamily="sans-serif"
-        textAnchor="middle" dominantBaseline="central"
-        transform={`rotate(${rotation}, ${tx}, ${ty})`}>
-        {ch}
-      </text>
-    );
-  });
-
-  return (
-    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
-      {/* Outer ring */}
-      <circle cx={cx} cy={cy} r={size / 2 - 1} fill="white" stroke={COLORS.darkNavy} strokeWidth={2.2} />
-      {/* Gold ring */}
-      <circle cx={cx} cy={cy} r={size / 2 - 4} fill="none" stroke={COLORS.gcekGold} strokeWidth={1.2} />
-      {/* Inner dark circle */}
-      <circle cx={cx} cy={cy} r={innerR} fill={COLORS.darkNavy} />
-      {/* Gear teeth */}
-      {teeth}
-      {/* Spokes */}
-      {spokes}
-      {/* Center dot */}
-      <circle cx={cx} cy={cy} r={3} fill={COLORS.gcekGold} />
-      {/* Spoke tip dots */}
-      {spokeDots}
-      {/* GCEK text */}
-      {gcekLetters}
-      {/* 1960 text */}
-      {yearLetters}
-    </svg>
-  );
-}
 
 // ─── Section Header with blue + gold dividers ───────────────────
 function SectionHeader({ children }: { children: React.ReactNode }) {
@@ -185,7 +97,7 @@ export default function TemplateGCEK({ profile, cgpa }: TemplateProps) {
         <div style={{ display: "flex", alignItems: "center", padding: "10px 0 8px 0", position: "relative" }}>
           {/* Emblem */}
           <div style={{ marginRight: 12, flexShrink: 0 }}>
-            <GCEKEmblem size={50} />
+            <img src="/GCEK Logo.jpg" alt="GCEK" style={{ width: 50, height: 50, borderRadius: "50%", objectFit: "cover" }} />
           </div>
 
           {/* Name & Contact */}
@@ -204,22 +116,10 @@ export default function TemplateGCEK({ profile, cgpa }: TemplateProps) {
             </p>
           </div>
 
-          {/* College tagline + Photo (right) */}
-          <div style={{ display: "flex", alignItems: "center", gap: 10, flexShrink: 0 }}>
-            <div style={{ textAlign: "right", fontSize: 7, color: "#4A5568", lineHeight: 1.6 }}>
-              Government College of<br />Engineering, Karad<br />
-              <span style={{ fontStyle: "italic", fontSize: 6 }}>An Autonomous Institute</span>
-            </div>
-            {/* Student Photo */}
-            {profile.photo && (
-              <div style={{
-                width: 50, height: 50, borderRadius: 4, overflow: "hidden", flexShrink: 0,
-                border: `1.5px solid ${COLORS.gcekGold}`,
-                boxShadow: "0 1px 4px rgba(0,0,0,0.15)",
-              }}>
-                <img src={profile.photo} alt={profile.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-              </div>
-            )}
+          {/* College tagline (right) */}
+          <div style={{ textAlign: "right", fontSize: 7, color: "#4A5568", lineHeight: 1.6, flexShrink: 0 }}>
+            Government College of<br />Engineering, Karad<br />
+            <span style={{ fontStyle: "italic", fontSize: 6 }}>An Autonomous Institute</span>
           </div>
         </div>
 

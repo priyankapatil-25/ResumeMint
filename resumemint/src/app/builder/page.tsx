@@ -6,6 +6,7 @@ import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "@/components/Navbar";
+import SearchableSelect from "@/components/SearchableSelect";
 import toast from "react-hot-toast";
 import {
   FiUser,
@@ -710,27 +711,19 @@ export default function BuilderPage() {
                         </div>
                         <div style={{ marginBottom: 16 }}>
                           <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>Branch</label>
-                          <select className="input-field" value={formData.branch} onChange={(e) => updateField("branch", e.target.value)} style={{ width: "100%" }}>
-                            <option value="">Select Branch</option>
-                            <option value="Computer Science & Engineering">Computer Science & Engineering</option>
-                            <option value="Information Technology">Information Technology</option>
-                            <option value="Artificial Intelligence & Data Science">Artificial Intelligence & Data Science</option>
-                            <option value="Electronics & Telecommunication">Electronics & Telecommunication</option>
-                            <option value="Electrical Engineering">Electrical Engineering</option>
-                            <option value="Mechanical Engineering">Mechanical Engineering</option>
-                            <option value="Civil Engineering">Civil Engineering</option>
-                            <option value="Chemical Engineering">Chemical Engineering</option>
-                            <option value="Instrumentation Engineering">Instrumentation Engineering</option>
-                            <option value="Production Engineering">Production Engineering</option>
-                            <option value="Automobile Engineering">Automobile Engineering</option>
-                            <option value="Biomedical Engineering">Biomedical Engineering</option>
-                            <option value="Environmental Engineering">Environmental Engineering</option>
-                            <option value="Textile Engineering">Textile Engineering</option>
-                            <option value="Mining Engineering">Mining Engineering</option>
-                            <option value="Aeronautical Engineering">Aeronautical Engineering</option>
-                            <option value="Metallurgy Engineering">Metallurgy Engineering</option>
-                            <option value="Other">Other</option>
-                          </select>
+                          <SearchableSelect
+                            value={formData.branch}
+                            onChange={(val) => updateField("branch", val)}
+                            placeholder="Select Branch"
+                            options={[
+                              "Computer Science & Engineering", "Information Technology", "Artificial Intelligence & Data Science",
+                              "Electronics & Telecommunication", "Electrical Engineering", "Mechanical Engineering",
+                              "Civil Engineering", "Chemical Engineering", "Instrumentation Engineering",
+                              "Production Engineering", "Automobile Engineering", "Biomedical Engineering",
+                              "Environmental Engineering", "Textile Engineering", "Mining Engineering",
+                              "Aeronautical Engineering", "Metallurgy Engineering", "Other",
+                            ]}
+                          />
                         </div>
                         <div style={{ marginBottom: 16 }}>
                           <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>Enrollment Year</label>
@@ -755,27 +748,19 @@ export default function BuilderPage() {
                         </div>
                         <div style={{ marginBottom: 16 }}>
                           <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>Branch</label>
-                          <select className="input-field" value={formData.diplomaBranch} onChange={(e) => updateField("diplomaBranch", e.target.value)} style={{ width: "100%" }}>
-                            <option value="">Select Branch</option>
-                            <option value="Computer Science & Engineering">Computer Science & Engineering</option>
-                            <option value="Information Technology">Information Technology</option>
-                            <option value="Artificial Intelligence & Data Science">Artificial Intelligence & Data Science</option>
-                            <option value="Electronics & Telecommunication">Electronics & Telecommunication</option>
-                            <option value="Electrical Engineering">Electrical Engineering</option>
-                            <option value="Mechanical Engineering">Mechanical Engineering</option>
-                            <option value="Civil Engineering">Civil Engineering</option>
-                            <option value="Chemical Engineering">Chemical Engineering</option>
-                            <option value="Instrumentation Engineering">Instrumentation Engineering</option>
-                            <option value="Production Engineering">Production Engineering</option>
-                            <option value="Automobile Engineering">Automobile Engineering</option>
-                            <option value="Biomedical Engineering">Biomedical Engineering</option>
-                            <option value="Environmental Engineering">Environmental Engineering</option>
-                            <option value="Textile Engineering">Textile Engineering</option>
-                            <option value="Mining Engineering">Mining Engineering</option>
-                            <option value="Aeronautical Engineering">Aeronautical Engineering</option>
-                            <option value="Metallurgy Engineering">Metallurgy Engineering</option>
-                            <option value="Other">Other</option>
-                          </select>
+                          <SearchableSelect
+                            value={formData.diplomaBranch}
+                            onChange={(val) => updateField("diplomaBranch", val)}
+                            placeholder="Select Branch"
+                            options={[
+                              "Computer Science & Engineering", "Information Technology", "Artificial Intelligence & Data Science",
+                              "Electronics & Telecommunication", "Electrical Engineering", "Mechanical Engineering",
+                              "Civil Engineering", "Chemical Engineering", "Instrumentation Engineering",
+                              "Production Engineering", "Automobile Engineering", "Biomedical Engineering",
+                              "Environmental Engineering", "Textile Engineering", "Mining Engineering",
+                              "Aeronautical Engineering", "Metallurgy Engineering", "Other",
+                            ]}
+                          />
                         </div>
                         <div style={{ marginBottom: 16 }}>
                           <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>Percentage / CGPA</label>
