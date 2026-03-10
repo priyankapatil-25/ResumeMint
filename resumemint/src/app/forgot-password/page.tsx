@@ -95,10 +95,10 @@ function ForgotPasswordContent() {
       className="aurora-bg flex items-center justify-center px-4 py-12"
     >
       <div style={cardStyle}>
-        {/* Logo */}
-        <div className="flex items-center gap-3 mb-8 justify-center">
-          <img src="/GCEK Logo.jpg" alt="GCEK" className="w-10 h-10 rounded-full object-cover" />
-          <span className="text-lg font-bold" style={{ fontFamily: "var(--font-space)", color: "#0A1628" }}>
+        {/* College Logo & Name */}
+        <div className="flex flex-col items-center gap-2" style={{ marginBottom: 24 }}>
+          <img src="/GCEK Logo.jpg" alt="GCEK" className="w-14 h-14 rounded-full object-cover" />
+          <span className="text-sm font-semibold" style={{ fontFamily: "var(--font-space)", color: "#0A1628" }}>
             Government College Of Engineering, Karad
           </span>
         </div>
@@ -172,7 +172,7 @@ function ForgotPasswordContent() {
             <div style={{ width: 56, height: 56, borderRadius: "50%", background: "#2E7D4A", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 16px" }}>
               <FiMail size={28} color="white" />
             </div>
-            <h2 className="text-xl font-bold mb-2" style={{ fontFamily: "var(--font-space)", color: "#0F2133" }}>
+            <h2 className="text-xl font-bold" style={{ fontFamily: "var(--font-space)", color: "#0F2133", marginBottom: 20 }}>
               Check Your Email
             </h2>
             <p style={{ color: "#6B7E91", fontSize: 14, marginBottom: 24 }}>

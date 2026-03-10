@@ -42,10 +42,13 @@ export async function POST(req: Request) {
       },
     });
 
-    // Send email in background
-    sendPasswordResetEmail(email, token).catch((err) => {
+    // Send email and await result
+    try {
+      await sendPasswordResetEmail(email, token);
+    } catch (err) {
       console.error("[EMAIL] Failed to send reset link:", err);
-    });
+      return NextResponse.json({ error: "Failed to send reset email. Please try again later." }, { status: 500 });
+    }
 
     return NextResponse.json({ message: "If this email is registered, you will receive a reset link." });
   } catch (error) {
