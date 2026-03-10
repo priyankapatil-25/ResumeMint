@@ -403,7 +403,7 @@ export default function PreviewPage() {
             const titleW = pdf.getTextWidth(titleText + " ");
             pdf.setFontSize(7);
             pdf.setFont("helvetica", "normal");
-            pdf.setTextColor(99, 102, 241);
+            pdf.setTextColor(26, 58, 92);
             pdf.text("| " + p.techStack.join(", "), margin + titleW, y);
           }
           y += 4;
@@ -560,7 +560,7 @@ export default function PreviewPage() {
                   onClick={() => setMobileView(false)}
                   style={{
                     flex: 1, padding: 8, fontSize: 12, fontWeight: 600, border: "none", cursor: "pointer",
-                    background: !mobileView ? "var(--primary, #6366F1)" : "#fff",
+                    background: !mobileView ? "var(--primary, #1A3A5C)" : "#fff",
                     color: !mobileView ? "#fff" : "var(--text-muted)",
                     fontFamily: "'Inter', sans-serif",
                   }}
@@ -572,7 +572,7 @@ export default function PreviewPage() {
                   onClick={() => setMobileView(true)}
                   style={{
                     flex: 1, padding: 8, fontSize: 12, fontWeight: 600, border: "none", cursor: "pointer",
-                    background: mobileView ? "var(--primary, #6366F1)" : "#fff",
+                    background: mobileView ? "var(--primary, #1A3A5C)" : "#fff",
                     color: mobileView ? "#fff" : "var(--text-muted)",
                     fontFamily: "'Inter', sans-serif",
                   }}
@@ -589,9 +589,9 @@ export default function PreviewPage() {
                 style={{
                   display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8,
                   width: "100%", padding: "12px 24px", borderRadius: 14, border: "none",
-                  background: "linear-gradient(135deg, #6366F1, #8B5CF6)", color: "#fff",
+                  background: "#1A3A5C", color: "#fff",
                   fontWeight: 700, fontSize: 14, cursor: downloading ? "not-allowed" : "pointer",
-                  boxShadow: "0 4px 12px rgba(99,102,241,0.25)", marginBottom: 10,
+                  boxShadow: "0 4px 12px rgba(26,58,92,0.25)", marginBottom: 10,
                   opacity: downloading ? 0.6 : 1,
                 }}
               >

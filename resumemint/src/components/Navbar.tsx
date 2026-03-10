@@ -18,13 +18,13 @@ export default function Navbar({ size = "default" }: { size?: "default" | "large
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
       className="fixed top-0 left-0 right-0 z-50"
-      style={{ background: "rgba(238, 242, 255, 0.8)", backdropFilter: "blur(16px)", borderBottom: "1px solid #DDD6FE", boxShadow: "0 2px 12px rgba(99,102,241,0.04)" }}
+      style={{ background: "rgba(232, 238, 245, 0.8)", backdropFilter: "blur(16px)", borderBottom: "1px solid #C8D8E8", boxShadow: "0 2px 12px rgba(26,58,92,0.04)" }}
     >
       <div className="flex items-center justify-between" style={{ maxWidth: size === "large" ? "none" : 1200, margin: "0 auto", padding: size === "large" ? "20px 40px" : "16px 24px" }}>
         {/* Left: GCEK logo + college name attached */}
         <Link href="/" className="flex items-center gap-3" style={{ maxWidth: 480, marginLeft: size === "large" ? 0 : 60 }}>
           <img src="/GCEK Logo.jpg" alt="GCEK" className="w-10 h-10 rounded-full object-cover shrink-0" />
-          <span className="text-[16px] font-bold text-gradient leading-tight" style={{ fontFamily: "var(--font-space)" }}>
+          <span className="text-[16px] font-bold leading-tight" style={{ fontFamily: "var(--font-space)", color: "#0A1628" }}>
             Government College Of Engineering, Karad
           </span>
         </Link>
@@ -40,7 +40,7 @@ export default function Navbar({ size = "default" }: { size?: "default" | "large
                 <NavLink href="/admin" icon={<FiShield size={16} />} label="Admin" />
               )}
               <div className="ml-4 flex items-center gap-3">
-                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-indigo-500 to-teal-400 flex items-center justify-center text-sm font-bold text-white">
+                <div className="w-9 h-9 rounded-full bg-[#1A3A5C] flex items-center justify-center text-sm font-bold text-white">
                   {session.user?.name?.charAt(0).toUpperCase()}
                 </div>
                 <button

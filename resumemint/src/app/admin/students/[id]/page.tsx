@@ -343,7 +343,7 @@ export default function AdminStudentDetailPage() {
           <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="bento-card" style={{ marginBottom: 24 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap" as const }}>
               {/* Avatar — 72px circle matching HTML .detail-avatar */}
-              <div style={{ width: 72, height: 72, borderRadius: "50%", background: "linear-gradient(135deg,#6366F1,#14B8A6)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 28, fontWeight: 700, color: "#fff", flexShrink: 0 }}>
+              <div style={{ width: 72, height: 72, borderRadius: "50%", background: "#1A3A5C", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 28, fontWeight: 700, color: "#fff", flexShrink: 0 }}>
                 {profile.name?.charAt(0)?.toUpperCase()}
               </div>
               <div style={{ flex: 1 }}>
@@ -385,9 +385,9 @@ export default function AdminStudentDetailPage() {
                 {profile.phone && <div><span style={{ color: "var(--text-muted)" }}>Phone:</span><br /><strong>{profile.phone}</strong></div>}
                 {profile.address && <div><span style={{ color: "var(--text-muted)" }}>Address:</span><br /><strong>{profile.address}</strong></div>}
                 {profile.dob && <div><span style={{ color: "var(--text-muted)" }}>Date of Birth:</span><br /><strong>{profile.dob}</strong></div>}
-                {profile.linkedin && <div><span style={{ color: "var(--text-muted)" }}>LinkedIn:</span><br /><strong style={{ color: "#6366F1" }}>{profile.linkedin}</strong></div>}
-                {profile.github && <div><span style={{ color: "var(--text-muted)" }}>GitHub:</span><br /><strong style={{ color: "#6366F1" }}>{profile.github}</strong></div>}
-                {profile.portfolio && <div><span style={{ color: "var(--text-muted)" }}>Portfolio:</span><br /><strong style={{ color: "#6366F1" }}>{profile.portfolio}</strong></div>}
+                {profile.linkedin && <div><span style={{ color: "var(--text-muted)" }}>LinkedIn:</span><br /><strong style={{ color: "#1A3A5C" }}>{profile.linkedin}</strong></div>}
+                {profile.github && <div><span style={{ color: "var(--text-muted)" }}>GitHub:</span><br /><strong style={{ color: "#1A3A5C" }}>{profile.github}</strong></div>}
+                {profile.portfolio && <div><span style={{ color: "var(--text-muted)" }}>Portfolio:</span><br /><strong style={{ color: "#1A3A5C" }}>{profile.portfolio}</strong></div>}
               </div>
             </motion.div>
 
@@ -401,7 +401,7 @@ export default function AdminStudentDetailPage() {
                     <div style={{ color: "var(--text-muted)", fontSize: 12 }}>{profile.college}</div>
                     {cgpa !== "N/A" && (
                       <div style={{ marginTop: 4 }}>
-                        <span style={{ display: "inline-flex", alignItems: "center", padding: "3px 10px", borderRadius: 99, fontSize: 11, fontWeight: 600, background: "#E0E7FF", color: "#4338CA" }}>CGPA: {cgpa}</span>
+                        <span style={{ display: "inline-flex", alignItems: "center", padding: "3px 10px", borderRadius: 99, fontSize: 11, fontWeight: 600, background: "#D6E2ED", color: "#1A3A5C" }}>CGPA: {cgpa}</span>
                       </div>
                     )}
                   </div>
@@ -410,7 +410,7 @@ export default function AdminStudentDetailPage() {
                   <div style={{ padding: 10, background: "var(--surface-light)", borderRadius: 10 }}>
                     <div style={{ fontWeight: 700 }}>Diploma — {profile.diplomaBranch || "Engineering"}</div>
                     <div style={{ color: "var(--text-muted)", fontSize: 12 }}>{profile.diplomaCollege}</div>
-                    {profile.diplomaPercentage && <div style={{ marginTop: 4, fontSize: 12, fontWeight: 600, color: "#14B8A6" }}>{profile.diplomaPercentage}%</div>}
+                    {profile.diplomaPercentage && <div style={{ marginTop: 4, fontSize: 12, fontWeight: 600, color: "#D4A017" }}>{profile.diplomaPercentage}%</div>}
                   </div>
                 )}
                 {profile.school12th && (
@@ -441,7 +441,7 @@ export default function AdminStudentDetailPage() {
               <h4 style={{ fontSize: 15, fontWeight: 700, marginBottom: 14, color: "var(--text-primary)" }}>&#9881; Skills</h4>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
                 {(profile.skills || []).map((s: any, i: number) => (
-                  <span key={i} style={{ display: "inline-block", padding: "4px 12px", borderRadius: 99, fontSize: 11, fontWeight: 600, background: "#EEF2FF", color: "#6366F1" }}>
+                  <span key={i} style={{ display: "inline-block", padding: "4px 12px", borderRadius: 99, fontSize: 11, fontWeight: 600, background: "#E8EEF5", color: "#1A3A5C" }}>
                     {s.name}
                   </span>
                 ))}
@@ -460,7 +460,7 @@ export default function AdminStudentDetailPage() {
                   {p.techStack?.length > 0 && (
                     <div style={{ display: "flex", flexWrap: "wrap", gap: 4, margin: "6px 0" }}>
                       {p.techStack.map((t: string, j: number) => (
-                        <span key={j} style={{ display: "inline-block", padding: "2px 8px", borderRadius: 99, fontSize: 10, fontWeight: 600, background: "#EEF2FF", color: "#6366F1" }}>{t}</span>
+                        <span key={j} style={{ display: "inline-block", padding: "2px 8px", borderRadius: 99, fontSize: 10, fontWeight: 600, background: "#E8EEF5", color: "#1A3A5C" }}>{t}</span>
                       ))}
                     </div>
                   )}
@@ -504,10 +504,10 @@ export default function AdminStudentDetailPage() {
                     return (
                       <div key={num} style={{ padding: 12, background: "var(--surface-light)", borderRadius: 12, textAlign: "center", opacity: sem ? 1 : 0.4 }}>
                         <div style={{ fontSize: 11, color: "var(--text-muted)", marginBottom: 4 }}>Sem {num}</div>
-                        <div style={{ fontSize: 22, fontWeight: 700, background: sem ? "linear-gradient(135deg,#6366F1,#14B8A6)" : "none", WebkitBackgroundClip: sem ? "text" : undefined, WebkitTextFillColor: sem ? "transparent" : "var(--text-muted)", color: sem ? undefined : "var(--text-muted)" }}>
+                        <div style={{ fontSize: 22, fontWeight: 700, background: sem ? "#1A3A5C" : "none", WebkitBackgroundClip: sem ? "text" : undefined, WebkitTextFillColor: sem ? "transparent" : "var(--text-muted)", color: sem ? undefined : "var(--text-muted)" }}>
                           {sem ? sem.sgpa.toFixed(1) : "--"}
                         </div>
-                        {sem && sem.backlog > 0 && <div style={{ fontSize: 10, color: "#EF4444", marginTop: 2 }}>{sem.backlog} backlog(s)</div>}
+                        {sem && sem.backlog > 0 && <div style={{ fontSize: 10, color: "#C62828", marginTop: 2 }}>{sem.backlog} backlog(s)</div>}
                       </div>
                     );
                   })}

@@ -179,15 +179,9 @@ export default function DashboardPage() {
                     transition={{ duration: 1.2, ease: "easeOut", delay: 0.3 }}
                   />
                   <defs>
-                    <linearGradient
-                      id="scoreGrad"
-                      x1="0%"
-                      y1="0%"
-                      x2="100%"
-                      y2="100%"
-                    >
-                      <stop offset="0%" stopColor="#6366F1" />
-                      <stop offset="100%" stopColor="#14B8A6" />
+                    <linearGradient id="scoreGrad">
+                      <stop offset="0%" stopColor="#1A3A5C" />
+                      <stop offset="100%" stopColor="#1A3A5C" />
                     </linearGradient>
                   </defs>
                 </svg>
@@ -263,8 +257,8 @@ export default function DashboardPage() {
                 Quick Stats
               </h3>
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0" style={{ background: "#E0E7FF" }}>
-                  <FiCode className="text-[#6366F1]" size={16} />
+                <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0" style={{ background: "#D6E2ED" }}>
+                  <FiCode className="text-[#1A3A5C]" size={16} />
                 </div>
                 <div className="flex-1">
                   <div className="font-bold text-lg" style={{ fontFamily: "var(--font-jetbrains)", color: "var(--text-primary)" }}>{skillsCount}</div>
@@ -273,7 +267,7 @@ export default function DashboardPage() {
               </div>
               <div className="flex items-center gap-3">
                 <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0" style={{ background: "#D1FAE5" }}>
-                  <FiFolder className="text-[#14B8A6]" size={16} />
+                  <FiFolder className="text-[#D4A017]" size={16} />
                 </div>
                 <div className="flex-1">
                   <div className="font-bold text-lg" style={{ fontFamily: "var(--font-jetbrains)", color: "var(--text-primary)" }}>{projectsCount}</div>
@@ -412,7 +406,7 @@ export default function DashboardPage() {
                             className="h-full rounded-full"
                             style={{
                               background:
-                                "linear-gradient(90deg, #6366F1, #14B8A6)",
+                                "#1A3A5C",
                             }}
                             initial={{ width: 0 }}
                             animate={{ width: `${pct}%` }}

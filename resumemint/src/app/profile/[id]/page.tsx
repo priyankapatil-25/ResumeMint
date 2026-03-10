@@ -69,7 +69,7 @@ export default function PublicProfilePage({
     if (typeof window !== "undefined" && profile) {
       QRCode.toDataURL(window.location.href, {
         width: 200,
-        color: { dark: "#6366F1", light: "#FFFFFF" },
+        color: { dark: "#1A3A5C", light: "#FFFFFF" },
       }).then((url: string) => setQrCode(url));
     }
   }, [profile]);
@@ -78,7 +78,7 @@ export default function PublicProfilePage({
     return (
       <div className="aurora-bg min-h-screen flex items-center justify-center">
         <div className="relative z-10 flex flex-col items-center gap-4">
-          <div className="w-12 h-12 rounded-full border-2 border-[#6366F1] border-t-transparent animate-spin" />
+          <div className="w-12 h-12 rounded-full border-2 border-[#1A3A5C] border-t-transparent animate-spin" />
           <p
             className="text-[var(--text-muted)] text-sm"
             style={{ fontFamily: "var(--font-jetbrains)" }}
@@ -168,7 +168,7 @@ export default function PublicProfilePage({
                       className="w-24 h-24 rounded-2xl object-cover border-2 border-[var(--border)]"
                     />
                   ) : (
-                    <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-indigo-500 to-teal-400 flex items-center justify-center">
+                    <div className="w-24 h-24 rounded-2xl bg-[#1A3A5C] flex items-center justify-center">
                       <span
                         className="text-2xl font-bold text-white"
                         style={{ fontFamily: "var(--font-space)" }}
@@ -200,7 +200,7 @@ export default function PublicProfilePage({
                     {profile.email && (
                       <a
                         href={`mailto:${profile.email}`}
-                        className="flex items-center gap-1.5 text-xs text-[var(--text-muted)] hover:text-[#6366F1] transition-colors"
+                        className="flex items-center gap-1.5 text-xs text-[var(--text-muted)] hover:text-[#1A3A5C] transition-colors"
                       >
                         <FiMail size={13} />
                         {profile.email}
@@ -209,7 +209,7 @@ export default function PublicProfilePage({
                     {profile.phone && (
                       <a
                         href={`tel:${profile.phone}`}
-                        className="flex items-center gap-1.5 text-xs text-[var(--text-muted)] hover:text-[#6366F1] transition-colors"
+                        className="flex items-center gap-1.5 text-xs text-[var(--text-muted)] hover:text-[#1A3A5C] transition-colors"
                       >
                         <FiPhone size={13} />
                         {profile.phone}
@@ -226,7 +226,7 @@ export default function PublicProfilePage({
                         href={profile.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 text-xs text-[var(--text-muted)] hover:text-[#6366F1] transition-colors"
+                        className="flex items-center gap-1.5 text-xs text-[var(--text-muted)] hover:text-[#1A3A5C] transition-colors"
                       >
                         <FiGithub size={13} />
                         GitHub
@@ -237,7 +237,7 @@ export default function PublicProfilePage({
                         href={profile.linkedin}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 text-xs text-[var(--text-muted)] hover:text-[#6366F1] transition-colors"
+                        className="flex items-center gap-1.5 text-xs text-[var(--text-muted)] hover:text-[#1A3A5C] transition-colors"
                       >
                         <FiLinkedin size={13} />
                         LinkedIn
@@ -248,7 +248,7 @@ export default function PublicProfilePage({
                         href={profile.portfolio}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 text-xs text-[var(--text-muted)] hover:text-[#6366F1] transition-colors"
+                        className="flex items-center gap-1.5 text-xs text-[var(--text-muted)] hover:text-[#1A3A5C] transition-colors"
                       >
                         <FiGlobe size={13} />
                         Portfolio
@@ -332,7 +332,7 @@ export default function PublicProfilePage({
                 className="text-lg font-semibold mb-3 flex items-center gap-2"
                 style={{ fontFamily: "var(--font-space)" }}
               >
-                <FiBookOpen className="text-[#6366F1]" size={18} />
+                <FiBookOpen className="text-[#1A3A5C]" size={18} />
                 About Me
               </h2>
               <p className="text-[var(--text-secondary)] text-sm leading-relaxed">
@@ -348,7 +348,7 @@ export default function PublicProfilePage({
                 className="text-lg font-semibold mb-5 flex items-center gap-2"
                 style={{ fontFamily: "var(--font-space)" }}
               >
-                <FiBookOpen className="text-[#14B8A6]" size={18} />
+                <FiBookOpen className="text-[#D4A017]" size={18} />
                 Semester Journey
               </h2>
               <div className="flex flex-col gap-3">
@@ -369,8 +369,7 @@ export default function PublicProfilePage({
                         <motion.div
                           className="h-full rounded-full"
                           style={{
-                            background:
-                              "linear-gradient(90deg, #6366F1, #14B8A6)",
+                            background: "#1A3A5C",
                           }}
                           initial={{ width: 0 }}
                           animate={{ width: `${pct}%` }}
@@ -401,7 +400,7 @@ export default function PublicProfilePage({
                 className="text-lg font-semibold mb-5 flex items-center gap-2"
                 style={{ fontFamily: "var(--font-space)" }}
               >
-                <FiCode className="text-[#6366F1]" size={18} />
+                <FiCode className="text-[#1A3A5C]" size={18} />
                 Skills
               </h2>
               <div className="flex flex-col gap-5">
@@ -427,7 +426,7 @@ export default function PublicProfilePage({
                           {skill.name}
                           {/* Proficiency tooltip */}
                           {skill.proficiency && (
-                            <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 rounded-lg text-[10px] font-bold bg-[#6366F1] text-white opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
+                            <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 rounded-lg text-[10px] font-bold bg-[#1A3A5C] text-white opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
                               {skill.proficiency}%
                             </span>
                           )}
@@ -447,7 +446,7 @@ export default function PublicProfilePage({
                 className="text-lg font-semibold mb-5 flex items-center gap-2"
                 style={{ fontFamily: "var(--font-space)" }}
               >
-                <FiFolder className="text-[#F59E0B]" size={18} />
+                <FiFolder className="text-[#B8860B]" size={18} />
                 Projects
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -478,8 +477,8 @@ export default function PublicProfilePage({
                             key={i}
                             className="px-2 py-0.5 rounded-md text-[10px] font-medium"
                             style={{
-                              background: "rgba(99, 102, 241, 0.1)",
-                              color: "#818CF8",
+                              background: "rgba(26, 58, 92, 0.1)",
+                              color: "#2D5F8A",
                             }}
                           >
                             {tech}
@@ -493,7 +492,7 @@ export default function PublicProfilePage({
                           href={project.github}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-1 text-xs text-[var(--text-muted)] hover:text-[#6366F1] transition-colors"
+                          className="flex items-center gap-1 text-xs text-[var(--text-muted)] hover:text-[#1A3A5C] transition-colors"
                         >
                           <FiGithub size={12} />
                           Code
@@ -504,7 +503,7 @@ export default function PublicProfilePage({
                           href={project.liveDemo}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-1 text-xs text-[var(--text-muted)] hover:text-[#14B8A6] transition-colors"
+                          className="flex items-center gap-1 text-xs text-[var(--text-muted)] hover:text-[#D4A017] transition-colors"
                         >
                           <FiExternalLink size={12} />
                           Demo
@@ -524,7 +523,7 @@ export default function PublicProfilePage({
                 className="text-lg font-semibold mb-5 flex items-center gap-2"
                 style={{ fontFamily: "var(--font-space)" }}
               >
-                <FiAward className="text-[#F59E0B]" size={18} />
+                <FiAward className="text-[#B8860B]" size={18} />
                 Certifications
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -537,7 +536,7 @@ export default function PublicProfilePage({
                       border: "1px solid var(--border)",
                     }}
                   >
-                    <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center shrink-0">
+                    <div className="w-9 h-9 rounded-lg bg-amber-500 flex items-center justify-center shrink-0">
                       <FiAward className="text-white" size={16} />
                     </div>
                     <div>
@@ -566,7 +565,7 @@ export default function PublicProfilePage({
                 className="text-lg font-semibold mb-5 flex items-center gap-2"
                 style={{ fontFamily: "var(--font-space)" }}
               >
-                <FiBriefcase className="text-[#14B8A6]" size={18} />
+                <FiBriefcase className="text-[#D4A017]" size={18} />
                 Internships
               </h2>
               <div className="flex flex-col gap-4">
@@ -596,7 +595,7 @@ export default function PublicProfilePage({
                       )}
                     </div>
                     {intern.role && (
-                      <p className="text-xs text-[#818CF8] font-medium mb-1">
+                      <p className="text-xs text-[#2D5F8A] font-medium mb-1">
                         {intern.role}
                       </p>
                     )}

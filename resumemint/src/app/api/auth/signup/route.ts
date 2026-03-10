@@ -32,7 +32,7 @@ export async function POST(req: Request) {
     }
 
     const hashed = await bcrypt.hash(password, 12);
-    const user = await prisma.user.create({ data: { name, email, password: hashed } });
+    const user = await prisma.user.create({ data: { name, email, password: hashed, emailVerified: true } });
 
     // Cleanup verification codes for this email
     await prisma.verificationCode.deleteMany({ where: { email } });

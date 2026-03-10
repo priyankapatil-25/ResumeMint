@@ -116,7 +116,7 @@ export default function SearchableSelect({ value, onChange, options, placeholder
                     border: "none",
                     cursor: "pointer",
                     background: opt === value ? "var(--surface-light)" : "transparent",
-                    color: opt === value ? "#6366F1" : "var(--text-primary)",
+                    color: opt === value ? "#1A3A5C" : "var(--text-primary)",
                     fontWeight: opt === value ? 600 : 400,
                   }}
                   onMouseEnter={(e) => { e.currentTarget.style.background = "var(--surface-light)"; }}

@@ -252,7 +252,7 @@ export default function TemplateGCEK({ profile, cgpa }: TemplateProps) {
                 <div>
                   <strong>{project.title}</strong>
                   {project.techStack?.length > 0 && (
-                    <span style={{ fontSize: 7, color: "#6366F1" }}> | {project.techStack.join(", ")}</span>
+                    <span style={{ fontSize: 7, color: "#1A3A5C" }}> | {project.techStack.join(", ")}</span>
                   )}
                 </div>
                 {project.description && <p style={{ fontSize: 8, marginTop: 2 }}>{project.description}</p>}

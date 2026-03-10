@@ -91,13 +91,13 @@ export default function AdminPage() {
 
           {/* Header */}
           <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 28, flexWrap: "wrap" as const }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: "linear-gradient(135deg,#EF4444,#F97316)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 24, color: "#fff" }}>
+            <div style={{ width: 52, height: 52, borderRadius: 14, background: "#C62828", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 24, color: "#fff" }}>
               ★
             </div>
             <div>
               <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                 <h2 style={{ fontSize: 26, fontWeight: 700, fontFamily: "var(--font-space)", color: "var(--text-primary)", margin: 0 }}>Admin Panel</h2>
-                <span style={{ display: "inline-flex", alignItems: "center", padding: "3px 10px", borderRadius: 99, fontSize: 11, fontWeight: 600, background: "#FEE2E2", color: "#DC2626" }}>
+                <span style={{ display: "inline-flex", alignItems: "center", padding: "3px 10px", borderRadius: 99, fontSize: 11, fontWeight: 600, background: "#FECACA", color: "#C62828" }}>
                   Logged in as Admin
                 </span>
               </div>
@@ -108,10 +108,10 @@ export default function AdminPage() {
           {/* Stats */}
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 16, marginBottom: 24 }}>
             {[
-              { icon: "👥", value: total, label: "Total Students", bg: "linear-gradient(135deg,#E0E7FF,#C7D2FE)", color: "#6366F1" },
-              { icon: "⚙", value: totalSkills, label: "Total Skills", bg: "linear-gradient(135deg,#D1FAE5,#A7F3D0)", color: "#14B8A6" },
-              { icon: "★", value: totalProjects, label: "Total Projects", bg: "linear-gradient(135deg,#F3E8FF,#DDD6FE)", color: "#8B5CF6" },
-              { icon: "💼", value: totalInternships, label: "Total Internships", bg: "linear-gradient(135deg,#FEF3C7,#FDE68A)", color: "#D97706" },
+              { icon: "👥", value: total, label: "Total Students", bg: "#D6E2ED", color: "#1A3A5C" },
+              { icon: "⚙", value: totalSkills, label: "Total Skills", bg: "#D1FAE5", color: "#D4A017" },
+              { icon: "★", value: totalProjects, label: "Total Projects", bg: "#E8EEF5", color: "#2D5F8A" },
+              { icon: "💼", value: totalInternships, label: "Total Internships", bg: "#FEF3C7", color: "#B8860B" },
             ].map((stat) => (
               <div key={stat.label} className="bento-card" style={{ textAlign: "center" }}>
                 <div style={{ width: 44, height: 44, borderRadius: 12, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 10px", fontSize: 20, background: stat.bg, color: stat.color }}>
@@ -130,7 +130,7 @@ export default function AdminPage() {
                 onClick={() => setActiveBranch(null)}
                 style={{
                   display: "inline-flex", alignItems: "center", gap: 6, padding: "8px 16px", borderRadius: 99, border: "1px solid var(--border)",
-                  background: activeBranch === null ? "linear-gradient(135deg,#6366F1,#8B5CF6)" : "var(--surface-light)",
+                  background: activeBranch === null ? "#1A3A5C" : "var(--surface-light)",
                   color: activeBranch === null ? "#fff" : "var(--text-secondary)",
                   fontWeight: 600, fontSize: 13, cursor: "pointer", fontFamily: "'Inter',sans-serif",
                 }}
@@ -139,8 +139,8 @@ export default function AdminPage() {
                 <span style={{
                   display: "inline-flex", alignItems: "center", justifyContent: "center",
                   padding: "1px 8px", borderRadius: 99, fontSize: 11, fontWeight: 700,
-                  background: activeBranch === null ? "rgba(255,255,255,0.25)" : "#E0E7FF",
-                  color: activeBranch === null ? "#fff" : "#4338CA",
+                  background: activeBranch === null ? "rgba(255,255,255,0.25)" : "#D6E2ED",
+                  color: activeBranch === null ? "#fff" : "#1A3A5C",
                 }}>
                   {students.length}
                 </span>
@@ -151,7 +151,7 @@ export default function AdminPage() {
                   onClick={() => setActiveBranch(activeBranch === branch ? null : branch)}
                   style={{
                     display: "inline-flex", alignItems: "center", gap: 6, padding: "8px 16px", borderRadius: 99, border: "1px solid var(--border)",
-                    background: activeBranch === branch ? "linear-gradient(135deg,#6366F1,#8B5CF6)" : "var(--surface-light)",
+                    background: activeBranch === branch ? "#1A3A5C" : "var(--surface-light)",
                     color: activeBranch === branch ? "#fff" : "var(--text-secondary)",
                     fontWeight: 600, fontSize: 13, cursor: "pointer", fontFamily: "'Inter',sans-serif",
                   }}
@@ -161,7 +161,7 @@ export default function AdminPage() {
                     display: "inline-flex", alignItems: "center", justifyContent: "center",
                     padding: "1px 8px", borderRadius: 99, fontSize: 11, fontWeight: 700,
                     background: activeBranch === branch ? "rgba(255,255,255,0.25)" : "#D1FAE5",
-                    color: activeBranch === branch ? "#fff" : "#059669",
+                    color: activeBranch === branch ? "#fff" : "#2E7D4A",
                   }}>
                     {branchGroups[branch].length}
                   </span>
@@ -182,7 +182,7 @@ export default function AdminPage() {
                 onChange={(e) => { setSearch(e.target.value); setPage(1); fetchStudents(e.target.value, 1); }}
                 placeholder="Search students by name, email, or branch..."
                 className="form-input"
-                style={{ paddingLeft: 40, width: "100%", background: "#FAFAFF", border: "1px solid var(--border)", borderRadius: 12, padding: "12px 16px 12px 40px", fontSize: 14, fontFamily: "'Inter',sans-serif", color: "var(--text-primary)", outline: "none" }}
+                style={{ paddingLeft: 40, width: "100%", background: "#F8FAFB", border: "1px solid var(--border)", borderRadius: 12, padding: "12px 16px 12px 40px", fontSize: 14, fontFamily: "'Inter',sans-serif", color: "var(--text-primary)", outline: "none" }}
               />
             </div>
           </motion.div>
@@ -211,11 +211,11 @@ export default function AdminPage() {
                       </tr>
                     ) : (
                       displayStudents.map((s, i) => (
-                        <tr key={s.id} style={{ borderBottom: "1px solid #F3F0FF" }}>
+                        <tr key={s.id} style={{ borderBottom: "1px solid #EBF1F7" }}>
                           <td style={{ padding: "12px 14px", fontSize: 13 }}>{i + 1}</td>
                           <td style={{ padding: "12px 14px", fontSize: 13 }}>
                             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                              <div style={{ width: 32, height: 32, borderRadius: "50%", background: "linear-gradient(135deg,#6366F1,#14B8A6)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, color: "#fff" }}>
+                              <div style={{ width: 32, height: 32, borderRadius: "50%", background: "#1A3A5C", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, color: "#fff" }}>
                                 {s.name?.charAt(0)?.toUpperCase()}
                               </div>
                               <span style={{ fontWeight: 600 }}>{s.name}</span>
@@ -225,25 +225,25 @@ export default function AdminPage() {
                           <td style={{ padding: "12px 14px", fontSize: 13 }}>{s.phone || "—"}</td>
                           <td style={{ padding: "12px 14px" }}>
                             {s.branch ? (
-                              <span style={{ display: "inline-flex", alignItems: "center", padding: "3px 10px", borderRadius: 99, fontSize: 11, fontWeight: 600, background: "#D1FAE5", color: "#059669" }}>{s.branch}</span>
+                              <span style={{ display: "inline-flex", alignItems: "center", padding: "3px 10px", borderRadius: 99, fontSize: 11, fontWeight: 600, background: "#D1FAE5", color: "#2E7D4A" }}>{s.branch}</span>
                             ) : <span style={{ color: "var(--text-muted)" }}>—</span>}
                           </td>
                           <td style={{ padding: "12px 14px", fontSize: 13 }}>{s.graduationYear || "—"}</td>
                           <td style={{ padding: "12px 14px", textAlign: "center" }}>
-                            <span style={{ display: "inline-flex", alignItems: "center", padding: "3px 10px", borderRadius: 99, fontSize: 11, fontWeight: 600, background: "#E0E7FF", color: "#4338CA" }}>{s._count?.skills || 0}</span>
+                            <span style={{ display: "inline-flex", alignItems: "center", padding: "3px 10px", borderRadius: 99, fontSize: 11, fontWeight: 600, background: "#D6E2ED", color: "#1A3A5C" }}>{s._count?.skills || 0}</span>
                           </td>
                           <td style={{ padding: "12px 14px", textAlign: "center" }}>
-                            <span style={{ display: "inline-flex", alignItems: "center", padding: "3px 10px", borderRadius: 99, fontSize: 11, fontWeight: 600, background: "#F3E8FF", color: "#7C3AED" }}>{s._count?.projects || 0}</span>
+                            <span style={{ display: "inline-flex", alignItems: "center", padding: "3px 10px", borderRadius: 99, fontSize: 11, fontWeight: 600, background: "#E8EEF5", color: "#2D5F8A" }}>{s._count?.projects || 0}</span>
                           </td>
                           <td style={{ padding: "12px 14px", textAlign: "center" }}>
-                            <span style={{ display: "inline-flex", alignItems: "center", padding: "3px 10px", borderRadius: 99, fontSize: 11, fontWeight: 600, background: "#FEF3C7", color: "#B45309" }}>{s._count?.certifications || 0}</span>
+                            <span style={{ display: "inline-flex", alignItems: "center", padding: "3px 10px", borderRadius: 99, fontSize: 11, fontWeight: 600, background: "#FEF3C7", color: "#996515" }}>{s._count?.certifications || 0}</span>
                           </td>
                           <td style={{ padding: "12px 14px", textAlign: "center" }}>
                             <div style={{ display: "flex", gap: 6, justifyContent: "center" }}>
-                              <Link href={`/admin/students/${s.id}`} style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 6, padding: "6px 12px", borderRadius: 10, border: "none", background: "linear-gradient(135deg,#6366F1,#8B5CF6)", color: "#fff", fontWeight: 700, fontSize: 11, textDecoration: "none", fontFamily: "'Inter',sans-serif" }}>
+                              <Link href={`/admin/students/${s.id}`} style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 6, padding: "6px 12px", borderRadius: 10, border: "none", background: "#1A3A5C", color: "#fff", fontWeight: 700, fontSize: 11, textDecoration: "none", fontFamily: "'Inter',sans-serif" }}>
                                 View Details
                               </Link>
-                              <Link href={`/admin/students/${s.id}?download=true`} style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 4, padding: "6px 10px", borderRadius: 10, border: "1px solid #E0E7FF", background: "#EEF2FF", color: "#6366F1", fontWeight: 700, fontSize: 11, textDecoration: "none", fontFamily: "'Inter',sans-serif" }}>
+                              <Link href={`/admin/students/${s.id}?download=true`} style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 4, padding: "6px 10px", borderRadius: 10, border: "1px solid #D6E2ED", background: "#E8EEF5", color: "#1A3A5C", fontWeight: 700, fontSize: 11, textDecoration: "none", fontFamily: "'Inter',sans-serif" }}>
                                 <FiDownload size={12} /> PDF
                               </Link>
                             </div>

@@ -161,11 +161,11 @@ export default function SignupPage() {
   const cardStyle = {
     background: "rgba(255, 255, 255, 0.9)",
     backdropFilter: "blur(12px)",
-    border: "1px solid #DDD6FE",
+    border: "1px solid #C8D8E8",
     borderRadius: 20,
     padding: 36,
     width: "100%",
-    boxShadow: "0 8px 40px rgba(99, 102, 241, 0.08)",
+    boxShadow: "0 8px 40px rgba(26, 58, 92, 0.08)",
   };
 
   return (
@@ -173,55 +173,55 @@ export default function SignupPage() {
       className="aurora-bg flex items-center justify-center px-4 py-12"
     >
       <div style={{ width: "100%", maxWidth: 430 }}>
-        {/* Auth Logo — vertical, above card */}
-        <div className="flex flex-col items-center gap-2 mb-7">
-          <img src="/GCEK Logo.jpg" alt="GCEK" className="w-14 h-14 rounded-full object-cover" />
-          <span className="text-sm font-semibold text-gradient" style={{ fontFamily: "var(--font-space)" }}>
-            Government College Of Engineering, Karad
-          </span>
-        </div>
-
       <div style={cardStyle}>
 
         {step === "form" ? (
           <>
+            {/* College Logo & Name */}
+            <div className="flex flex-col items-center gap-2" style={{ marginBottom: 24 }}>
+              <img src="/GCEK Logo.jpg" alt="GCEK" className="w-14 h-14 rounded-full object-cover" />
+              <span className="text-sm font-semibold" style={{ fontFamily: "var(--font-space)", color: "#0A1628" }}>
+                Government College Of Engineering, Karad
+              </span>
+            </div>
+
             {/* Heading */}
             <div className="text-center mb-8">
-              <h1 className="text-3xl font-bold mb-2" style={{ fontFamily: "var(--font-space)", color: "#1E1B4B" }}>
+              <h1 className="text-3xl font-bold" style={{ fontFamily: "var(--font-space)", color: "#0F2133", marginBottom: 20 }}>
                 Create Account
               </h1>
-              <p style={{ color: "#7C7C9A" }}>Start crafting your professional resume today</p>
+              <p style={{ color: "#6B7E91", marginBottom: 30 }}>Start crafting your professional resume today</p>
             </div>
 
             {/* Error */}
             {error && (
-              <div style={{ background: "rgba(239, 68, 68, 0.06)", border: "1px solid rgba(239, 68, 68, 0.15)", borderRadius: 12, padding: 12, marginBottom: 20 }}>
-                <p style={{ color: "#DC2626", fontSize: 14, textAlign: "center" }}>{error}</p>
+              <div style={{ background: "rgba(220, 53, 53, 0.06)", border: "1px solid rgba(220, 53, 53, 0.15)", borderRadius: 12, padding: 12, marginBottom: 20 }}>
+                <p style={{ color: "#C62828", fontSize: 14, textAlign: "center" }}>{error}</p>
               </div>
             )}
 
             {/* Form */}
             <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
               <div style={{ position: "relative" }}>
-                <FiUser style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "#A5B4FC" }} size={18} />
+                <FiUser style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "#7FA3C2" }} size={18} />
                 <input type="text" placeholder="Full Name" value={name} onChange={(e) => setName(e.target.value)} required className="input-field" style={{ width: "100%", paddingLeft: 42 }} />
               </div>
 
               <div style={{ position: "relative" }}>
-                <FiMail style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "#A5B4FC" }} size={18} />
+                <FiMail style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "#7FA3C2" }} size={18} />
                 <input type="email" placeholder="Email address" value={email} onChange={(e) => setEmail(e.target.value)} required className="input-field" style={{ width: "100%", paddingLeft: 42 }} />
               </div>
 
               <div style={{ position: "relative" }}>
-                <FiLock style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "#A5B4FC" }} size={18} />
+                <FiLock style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "#7FA3C2" }} size={18} />
                 <input type={showPassword ? "text" : "password"} placeholder="Password (min 6 characters)" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6} className="input-field" style={{ width: "100%", paddingLeft: 42, paddingRight: 42 }} />
-                <button type="button" onClick={() => setShowPassword(!showPassword)} style={{ position: "absolute", right: 14, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", color: "#A5B4FC", cursor: "pointer" }}>
+                <button type="button" onClick={() => setShowPassword(!showPassword)} style={{ position: "absolute", right: 14, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", color: "#7FA3C2", cursor: "pointer" }}>
                   {showPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
                 </button>
               </div>
 
               <div style={{ position: "relative" }}>
-                <FiLock style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "#A5B4FC" }} size={18} />
+                <FiLock style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "#7FA3C2" }} size={18} />
                 <input type={showPassword ? "text" : "password"} placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required className="input-field" style={{ width: "100%", paddingLeft: 42 }} />
               </div>
 
@@ -229,7 +229,7 @@ export default function SignupPage() {
                 onClick={handleSendCode}
                 disabled={loading}
                 style={{
-                  background: "linear-gradient(135deg, #6366F1, #8B5CF6)",
+                  background: "#1A3A5C",
                   color: "white",
                   padding: "14px 28px",
                   borderRadius: 14,
@@ -243,7 +243,7 @@ export default function SignupPage() {
                   justifyContent: "center",
                   gap: 8,
                   width: "100%",
-                  boxShadow: "0 4px 16px rgba(99, 102, 241, 0.25)",
+                  boxShadow: "0 4px 16px rgba(26, 58, 92, 0.25)",
                 }}
               >
                 {loading ? "Sending Code..." : (<>Verify Email <FiArrowRight size={18} /></>)}
@@ -254,22 +254,22 @@ export default function SignupPage() {
           <>
             {/* OTP Step */}
             <div className="text-center mb-8">
-              <div style={{ width: 56, height: 56, borderRadius: 16, background: "linear-gradient(135deg, #6366F1, #14B8A6)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 16px" }}>
+              <div style={{ width: 56, height: 56, borderRadius: 16, background: "#1A3A5C", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 16px" }}>
                 <FiShield size={28} color="white" />
               </div>
-              <h1 className="text-2xl font-bold mb-2" style={{ fontFamily: "var(--font-space)", color: "#1E1B4B" }}>
+              <h1 className="text-2xl font-bold mb-2" style={{ fontFamily: "var(--font-space)", color: "#0F2133" }}>
                 Verify Your Email
               </h1>
-              <p style={{ color: "#7C7C9A", fontSize: 14 }}>
+              <p style={{ color: "#6B7E91", fontSize: 14 }}>
                 We sent a 6-digit code to<br />
-                <span style={{ color: "#6366F1", fontWeight: 600 }}>{email}</span>
+                <span style={{ color: "#1A3A5C", fontWeight: 600 }}>{email}</span>
               </p>
             </div>
 
             {/* Error */}
             {error && (
-              <div style={{ background: "rgba(239, 68, 68, 0.06)", border: "1px solid rgba(239, 68, 68, 0.15)", borderRadius: 12, padding: 12, marginBottom: 20 }}>
-                <p style={{ color: "#DC2626", fontSize: 14, textAlign: "center" }}>{error}</p>
+              <div style={{ background: "rgba(220, 53, 53, 0.06)", border: "1px solid rgba(220, 53, 53, 0.15)", borderRadius: 12, padding: 12, marginBottom: 20 }}>
+                <p style={{ color: "#C62828", fontSize: 14, textAlign: "center" }}>{error}</p>
               </div>
             )}
 
@@ -292,15 +292,15 @@ export default function SignupPage() {
                     fontSize: 22,
                     fontWeight: 700,
                     fontFamily: "var(--font-jetbrains, monospace)",
-                    color: "#1E1B4B",
-                    background: digit ? "#EDE9FE" : "#FAFAFF",
-                    border: digit ? "2px solid #6366F1" : "1px solid #DDD6FE",
+                    color: "#0F2133",
+                    background: digit ? "#E0E8F0" : "#F8FAFB",
+                    border: digit ? "2px solid #1A3A5C" : "1px solid #C8D8E8",
                     borderRadius: 12,
                     outline: "none",
                     transition: "all 0.2s",
                   }}
-                  onFocus={(e) => { e.target.style.borderColor = "#6366F1"; e.target.style.boxShadow = "0 0 0 3px rgba(99,102,241,0.12)"; }}
-                  onBlur={(e) => { if (!digit) { e.target.style.borderColor = "#DDD6FE"; e.target.style.boxShadow = "none"; } }}
+                  onFocus={(e) => { e.target.style.borderColor = "#1A3A5C"; e.target.style.boxShadow = "0 0 0 3px rgba(26,58,92,0.12)"; }}
+                  onBlur={(e) => { if (!digit) { e.target.style.borderColor = "#C8D8E8"; e.target.style.boxShadow = "none"; } }}
                 />
               ))}
             </div>
@@ -310,7 +310,7 @@ export default function SignupPage() {
               onClick={handleVerifyAndSignup}
               disabled={loading}
               style={{
-                background: "linear-gradient(135deg, #6366F1, #8B5CF6)",
+                background: "#1A3A5C",
                 color: "white",
                 padding: "14px 28px",
                 borderRadius: 14,
@@ -324,7 +324,7 @@ export default function SignupPage() {
                 justifyContent: "center",
                 gap: 8,
                 width: "100%",
-                boxShadow: "0 4px 16px rgba(99, 102, 241, 0.25)",
+                boxShadow: "0 4px 16px rgba(26, 58, 92, 0.25)",
                 marginBottom: 16,
               }}
             >
@@ -335,7 +335,7 @@ export default function SignupPage() {
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <button
                 onClick={() => { setStep("form"); setError(""); setOtp(["", "", "", "", "", ""]); }}
-                style={{ background: "none", border: "none", color: "#6366F1", fontWeight: 600, fontSize: 14, cursor: "pointer", display: "flex", alignItems: "center", gap: 4 }}
+                style={{ background: "none", border: "none", color: "#1A3A5C", fontWeight: 600, fontSize: 14, cursor: "pointer", display: "flex", alignItems: "center", gap: 4 }}
               >
                 <FiArrowLeft size={14} /> Back
               </button>
@@ -345,7 +345,7 @@ export default function SignupPage() {
                 style={{
                   background: "none",
                   border: "none",
-                  color: resendTimer > 0 ? "#A5B4FC" : "#6366F1",
+                  color: resendTimer > 0 ? "#7FA3C2" : "#1A3A5C",
                   fontWeight: 600,
                   fontSize: 14,
                   cursor: resendTimer > 0 ? "not-allowed" : "pointer",
@@ -359,9 +359,9 @@ export default function SignupPage() {
 
         {/* Login link */}
         {step === "form" && (
-          <p style={{ textAlign: "center", marginTop: 24, color: "#7C7C9A", fontSize: 14 }}>
+          <p style={{ textAlign: "center", marginTop: 24, color: "#6B7E91", fontSize: 14 }}>
             Already have an account?{" "}
-            <Link href="/login" style={{ color: "#6366F1", fontWeight: 600 }}>
+            <Link href="/login" style={{ color: "#1A3A5C", fontWeight: 600 }}>
               Sign in
             </Link>
           </p>

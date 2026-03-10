@@ -512,9 +512,9 @@ export default function BuilderPage() {
                   <div
                     className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-300 ${
                       idx === currentStep
-                        ? "bg-[#6366F1] text-white shadow-lg shadow-indigo-500/30"
+                        ? "bg-[#1A3A5C] text-white shadow-lg shadow-indigo-500/30"
                         : isStepCompleted(idx)
-                        ? "bg-[#14B8A6] text-white"
+                        ? "bg-[#D4A017] text-white"
                         : "border-2 border-slate-600 text-slate-500"
                     }`}
                   >
@@ -527,7 +527,7 @@ export default function BuilderPage() {
                   <span
                     className={`text-xs hidden md:block transition-colors ${
                       idx === currentStep
-                        ? "text-[#6366F1] font-semibold"
+                        ? "text-[#1A3A5C] font-semibold"
                         : "text-slate-500"
                     }`}
                   >
@@ -540,7 +540,7 @@ export default function BuilderPage() {
                     <div
                       className={`h-0.5 rounded-full transition-colors duration-300 ${
                         isStepCompleted(idx)
-                          ? "bg-[#14B8A6]"
+                          ? "bg-[#D4A017]"
                           : "bg-indigo-100"
                       }`}
                     />
@@ -569,7 +569,7 @@ export default function BuilderPage() {
                       <h3 style={{ fontSize: 18, fontWeight: 700, fontFamily: "var(--font-space)" }}>
                         Personal Information
                       </h3>
-                      <span style={{ fontSize: 13, fontWeight: 600, background: "linear-gradient(135deg, #6366F1, #14B8A6)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+                      <span style={{ fontSize: 13, fontWeight: 600, color: "#0A1628" }}>
                         Government College Of Engineering, Karad
                       </span>
                     </div>
@@ -700,8 +700,8 @@ export default function BuilderPage() {
                     </h3>
 
                     {/* Engineering (B.E.) */}
-                    <div style={{ border: "1px solid var(--border)", borderRadius: 16, padding: 20, marginBottom: 20, borderLeft: "3px solid #6366F1" }}>
-                      <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 14, display: "flex", alignItems: "center", gap: 8, color: "#6366F1" }}>
+                    <div style={{ border: "1px solid var(--border)", borderRadius: 16, padding: 20, marginBottom: 20, borderLeft: "3px solid #1A3A5C" }}>
+                      <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 14, display: "flex", alignItems: "center", gap: 8, color: "#1A3A5C" }}>
                         🏫 Engineering (B.E.)
                       </div>
                       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
@@ -774,8 +774,8 @@ export default function BuilderPage() {
                     </div>
 
                     {/* 12th Standard (HSC) */}
-                    <div style={{ border: "1px solid var(--border)", borderRadius: 16, padding: 20, marginBottom: 20, borderLeft: "3px solid #14B8A6" }}>
-                      <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 14, display: "flex", alignItems: "center", gap: 8, color: "#14B8A6" }}>
+                    <div style={{ border: "1px solid var(--border)", borderRadius: 16, padding: 20, marginBottom: 20, borderLeft: "3px solid #D4A017" }}>
+                      <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 14, display: "flex", alignItems: "center", gap: 8, color: "#D4A017" }}>
                         📖 12th Standard (HSC)
                       </div>
                       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
@@ -799,8 +799,8 @@ export default function BuilderPage() {
                     </div>
 
                     {/* 10th Standard (SSC) */}
-                    <div style={{ border: "1px solid var(--border)", borderRadius: 16, padding: 20, borderLeft: "3px solid #8B5CF6" }}>
-                      <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 14, display: "flex", alignItems: "center", gap: 8, color: "#8B5CF6" }}>
+                    <div style={{ border: "1px solid var(--border)", borderRadius: 16, padding: 20, borderLeft: "3px solid #2D5F8A" }}>
+                      <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 14, display: "flex", alignItems: "center", gap: 8, color: "#2D5F8A" }}>
                         📕 10th Standard (SSC)
                       </div>
                       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
@@ -834,7 +834,7 @@ export default function BuilderPage() {
 
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
                       {formData.semesters.map((sem, idx) => {
-                        const color = idx % 2 === 0 ? "#6366F1" : "#14B8A6";
+                        const color = idx % 2 === 0 ? "#1A3A5C" : "#D4A017";
                         return (
                           <div key={idx} style={{ border: "1px solid var(--border)", borderRadius: 16, padding: 20, borderLeft: `3px solid ${color}` }}>
                             <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 14, color }}>
@@ -885,8 +885,8 @@ export default function BuilderPage() {
                         onClick={addSkill}
                         style={{
                           padding: "8px 18px", fontSize: 13, borderRadius: 14, border: "none",
-                          background: "linear-gradient(135deg, #6366F1, #8B5CF6)", color: "#fff",
-                          fontWeight: 700, cursor: "pointer", boxShadow: "0 4px 12px rgba(99,102,241,0.25)",
+                          background: "#1A3A5C", color: "#fff",
+                          fontWeight: 700, cursor: "pointer", boxShadow: "0 4px 12px rgba(26,58,92,0.25)",
                         }}
                       >
                         + Add Skill
@@ -900,7 +900,7 @@ export default function BuilderPage() {
                     )}
 
                     {formData.skills.map((skill, idx) => {
-                      const colors = ["#6366F1", "#14B8A6", "#8B5CF6", "#D97706", "#EC4899"];
+                      const colors = ["#1A3A5C", "#D4A017", "#2D5F8A", "#D97706", "#EC4899"];
                       const color = colors[idx % colors.length];
                       return (
                         <div key={idx} style={{ border: "1px solid var(--border)", borderRadius: 16, padding: 20, marginBottom: 20, borderLeft: `3px solid ${color}` }}>
@@ -921,7 +921,7 @@ export default function BuilderPage() {
                             </div>
                             <button
                               onClick={() => removeSkill(idx)}
-                              style={{ background: "#FEE2E2", color: "#DC2626", border: "none", borderRadius: 10, padding: "10px 14px", cursor: "pointer", fontSize: 14 }}
+                              style={{ background: "#FEE2E2", color: "#C62828", border: "none", borderRadius: 10, padding: "10px 14px", cursor: "pointer", fontSize: 14 }}
                             >
                               🗑
                             </button>
@@ -951,15 +951,15 @@ export default function BuilderPage() {
                   <div>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
                       <h3 style={{ fontSize: 18, fontWeight: 700, fontFamily: "var(--font-space)" }}>
-                        <FiBriefcase className="text-[#6366F1]" style={{ display: "inline", marginRight: 8, verticalAlign: "middle" }} />
+                        <FiBriefcase className="text-[#1A3A5C]" style={{ display: "inline", marginRight: 8, verticalAlign: "middle" }} />
                         Projects
                       </h3>
                       <button
                         onClick={addProject}
                         style={{
                           padding: "8px 18px", fontSize: 13, borderRadius: 14, border: "none",
-                          background: "linear-gradient(135deg, #6366F1, #8B5CF6)", color: "#fff",
-                          fontWeight: 700, cursor: "pointer", boxShadow: "0 4px 12px rgba(99,102,241,0.25)",
+                          background: "#1A3A5C", color: "#fff",
+                          fontWeight: 700, cursor: "pointer", boxShadow: "0 4px 12px rgba(26,58,92,0.25)",
                         }}
                       >
                         + Add Project
@@ -973,7 +973,7 @@ export default function BuilderPage() {
                     )}
 
                     {formData.projects.map((proj, idx) => (
-                      <div key={idx} style={{ border: "1px solid var(--border)", borderRadius: 16, padding: 20, marginBottom: 20, borderLeft: "3px solid #6366F1" }}>
+                      <div key={idx} style={{ border: "1px solid var(--border)", borderRadius: 16, padding: 20, marginBottom: 20, borderLeft: "3px solid #1A3A5C" }}>
                         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
                           <div style={{ marginBottom: 16 }}>
                             <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>Project Title</label>
@@ -999,7 +999,7 @@ export default function BuilderPage() {
                         <div style={{ textAlign: "right" }}>
                           <button
                             onClick={() => removeProject(idx)}
-                            style={{ background: "#FEE2E2", color: "#DC2626", border: "none", borderRadius: 10, padding: "8px 16px", cursor: "pointer", fontSize: 12, fontWeight: 600 }}
+                            style={{ background: "#FEE2E2", color: "#C62828", border: "none", borderRadius: 10, padding: "8px 16px", cursor: "pointer", fontSize: 12, fontWeight: 600 }}
                           >
                             🗑 Delete Project
                           </button>
@@ -1023,8 +1023,8 @@ export default function BuilderPage() {
                         onClick={addInternship}
                         style={{
                           padding: "6px 14px", fontSize: 12, borderRadius: 14, border: "none",
-                          background: "linear-gradient(135deg, #6366F1, #8B5CF6)", color: "#fff",
-                          fontWeight: 700, cursor: "pointer", boxShadow: "0 4px 12px rgba(99,102,241,0.25)",
+                          background: "#1A3A5C", color: "#fff",
+                          fontWeight: 700, cursor: "pointer", boxShadow: "0 4px 12px rgba(26,58,92,0.25)",
                         }}
                       >
                         + Add Internship
@@ -1038,7 +1038,7 @@ export default function BuilderPage() {
                     )}
 
                     {formData.internships.map((intern, idx) => (
-                      <div key={idx} style={{ border: "1px solid var(--border)", borderRadius: 16, padding: 20, marginBottom: 20, borderLeft: "3px solid #6366F1" }}>
+                      <div key={idx} style={{ border: "1px solid var(--border)", borderRadius: 16, padding: 20, marginBottom: 20, borderLeft: "3px solid #1A3A5C" }}>
                         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
                           <div style={{ marginBottom: 16 }}>
                             <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>Company</label>
@@ -1060,7 +1060,7 @@ export default function BuilderPage() {
                         <div style={{ textAlign: "right", marginTop: 8 }}>
                           <button
                             onClick={() => removeInternship(idx)}
-                            style={{ background: "#FEE2E2", color: "#DC2626", border: "none", borderRadius: 10, padding: "6px 14px", cursor: "pointer", fontSize: 12, fontWeight: 600 }}
+                            style={{ background: "#FEE2E2", color: "#C62828", border: "none", borderRadius: 10, padding: "6px 14px", cursor: "pointer", fontSize: 12, fontWeight: 600 }}
                           >
                             🗑 Delete
                           </button>
@@ -1075,8 +1075,8 @@ export default function BuilderPage() {
                         onClick={addCertification}
                         style={{
                           padding: "6px 14px", fontSize: 12, borderRadius: 14, border: "none",
-                          background: "linear-gradient(135deg, #6366F1, #8B5CF6)", color: "#fff",
-                          fontWeight: 700, cursor: "pointer", boxShadow: "0 4px 12px rgba(99,102,241,0.25)",
+                          background: "#1A3A5C", color: "#fff",
+                          fontWeight: 700, cursor: "pointer", boxShadow: "0 4px 12px rgba(26,58,92,0.25)",
                         }}
                       >
                         + Add Certification
@@ -1090,7 +1090,7 @@ export default function BuilderPage() {
                     )}
 
                     {formData.certifications.map((cert, idx) => (
-                      <div key={idx} style={{ border: "1px solid var(--border)", borderRadius: 16, padding: 20, marginBottom: 20, borderLeft: "3px solid #14B8A6" }}>
+                      <div key={idx} style={{ border: "1px solid var(--border)", borderRadius: 16, padding: 20, marginBottom: 20, borderLeft: "3px solid #D4A017" }}>
                         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
                           <div style={{ marginBottom: 16 }}>
                             <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>Title</label>
@@ -1117,7 +1117,7 @@ export default function BuilderPage() {
                               <img src={cert.image} alt="Certificate" style={{ maxHeight: 160, borderRadius: 8, border: "1px solid var(--border)" }} />
                               <button
                                 onClick={() => updateCertification(idx, "image", "")}
-                                style={{ position: "absolute", top: 4, right: 4, background: "#DC2626", color: "#fff", border: "none", borderRadius: "50%", width: 24, height: 24, fontSize: 12, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}
+                                style={{ position: "absolute", top: 4, right: 4, background: "#C62828", color: "#fff", border: "none", borderRadius: "50%", width: 24, height: 24, fontSize: 12, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}
                               >
                                 ✕
                               </button>
@@ -1146,7 +1146,7 @@ export default function BuilderPage() {
                         <div style={{ textAlign: "right", marginTop: 8 }}>
                           <button
                             onClick={() => removeCertification(idx)}
-                            style={{ background: "#FEE2E2", color: "#DC2626", border: "none", borderRadius: 10, padding: "6px 14px", cursor: "pointer", fontSize: 12, fontWeight: 600 }}
+                            style={{ background: "#FEE2E2", color: "#C62828", border: "none", borderRadius: 10, padding: "6px 14px", cursor: "pointer", fontSize: 12, fontWeight: 600 }}
                           >
                             🗑 Delete
                           </button>
@@ -1187,9 +1187,9 @@ export default function BuilderPage() {
               style={{
                 display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8,
                 padding: "10px 20px", borderRadius: 14, border: "none",
-                background: "linear-gradient(135deg, #6366F1, #8B5CF6)", color: "#fff",
+                background: "#1A3A5C", color: "#fff",
                 fontWeight: 700, fontSize: 13, cursor: saving ? "not-allowed" : "pointer",
-                boxShadow: "0 4px 12px rgba(99,102,241,0.25)", fontFamily: "'Inter', sans-serif",
+                boxShadow: "0 4px 12px rgba(26,58,92,0.25)", fontFamily: "'Inter', sans-serif",
                 transition: "all 0.2s", opacity: saving ? 0.6 : 1,
               }}
             >
@@ -1202,9 +1202,9 @@ export default function BuilderPage() {
                 style={{
                   display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8,
                   padding: "12px 24px", borderRadius: 14, border: "none",
-                  background: "linear-gradient(135deg, #6366F1, #8B5CF6)", color: "#fff",
+                  background: "#1A3A5C", color: "#fff",
                   fontWeight: 700, fontSize: 14, cursor: "pointer",
-                  boxShadow: "0 4px 12px rgba(99,102,241,0.25)", fontFamily: "'Inter', sans-serif",
+                  boxShadow: "0 4px 12px rgba(26,58,92,0.25)", fontFamily: "'Inter', sans-serif",
                   transition: "all 0.2s",
                 }}
               >
@@ -1216,9 +1216,9 @@ export default function BuilderPage() {
                 style={{
                   display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8,
                   padding: "12px 24px", borderRadius: 14, border: "none",
-                  background: "linear-gradient(135deg, #6366F1, #8B5CF6)", color: "#fff",
+                  background: "#1A3A5C", color: "#fff",
                   fontWeight: 700, fontSize: 14, cursor: "pointer",
-                  boxShadow: "0 4px 12px rgba(99,102,241,0.25)", fontFamily: "'Inter', sans-serif",
+                  boxShadow: "0 4px 12px rgba(26,58,92,0.25)", fontFamily: "'Inter', sans-serif",
                   transition: "all 0.2s", textDecoration: "none",
                 }}
               >
